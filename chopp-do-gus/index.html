@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0a0908">
+<meta name="description" content="Prévia do site do Chopp do Gus, choperia com reservas pelo WhatsApp.">
+<title>Chopp do Gus</title>
+
+<link rel="preload" href="assets/seq/desktop/001.webp" as="image" media="(prefers-reduced-motion: no-preference) and (min-width: 1024px)">
+<link rel="preload" href="assets/seq/mobile/001.webp" as="image" media="(prefers-reduced-motion: no-preference) and (max-width: 1023px)">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/instrument-serif-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.classList.add('js')</script>
+<style>html, body { background: #0a0908; color: #efe6d6; color-scheme: dark; }</style>
+
+<link rel="stylesheet" href="css/editorial.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+
+<style type="text/tailwindcss">
+@theme static {
+  --color-ink: #0a0908;
+  --color-coal-900: #12100e;
+  --color-coal-800: #1a1714;
+  --color-coal-700: #26221d;
+  --color-bone: #efe6d6;
+  --color-fog: #a8a095;
+  --color-smoke: #8c8478;
+  --color-amber-glow: #f0a21a;
+  --color-gold-old: #c9a24a;
+  --color-copper: #b8683a;
+  --color-wine: #7d1517;
+  --color-wine-deep: #3f0a0c;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Instrument Serif", "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+</style>
+</head>
+
+<body class="bg-ink text-bone antialiased">
+<a href="#reservar" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-amber-glow focus:px-5 focus:py-3 focus:text-ink">Ir para a reserva</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header id="nav" class="nav">
+  <nav class="nav-pill" aria-label="Principal">
+    <a href="#inicio" class="flex items-center gap-3" aria-label="Chopp do Gus, início">
+      <span class="brand">Chopp<i>do</i>Gus</span>
+    </a>
+    <ul class="mono hidden items-center gap-9 lg:flex">
+      <li><a class="nav-link" href="#casa">A casa</a></li>
+      <li><a class="nav-link" href="#espaco">Ambientes</a></li>
+      <li><a class="nav-link" href="#torneiras">Torneiras</a></li>
+      <li><a class="nav-link" href="#reservar">Reservar</a></li>
+    </ul>
+    <div class="flex items-center gap-2">
+      <a href="#reservar" data-magnetic class="btn-solid mono hidden !px-6 !py-3 sm:inline-flex"><span class="lbl">Reservar mesa</span></a>
+      <button id="menuBtn" type="button" class="menu-btn mono lg:hidden" aria-expanded="false" aria-controls="menuPanel"><span>Menu</span></button>
+    </div>
+  </nav>
+</header>
+
+<div id="menuPanel" class="menu-panel lg:hidden" aria-hidden="true">
+  <nav aria-label="Menu móvel">
+    <a class="big" href="#casa"><span class="mono">01</span>A casa</a>
+    <a class="big" href="#espaco"><span class="mono">02</span>Ambientes</a>
+    <a class="big" href="#torneiras"><span class="mono">03</span>Torneiras</a>
+    <a class="big" href="#reservar"><span class="mono">04</span>Reservar</a>
+  </nav>
+  <div class="mono flex flex-col gap-3 text-fog">
+    <a class="link-line w-fit" href="https://wa.me/5548988242896" target="_blank" rel="noopener">WhatsApp · 48 98824-2896 ↗</a>
+    <a class="link-line w-fit" href="https://www.instagram.com/choppdogus/" target="_blank" rel="noopener">@choppdogus ↗</a>
+  </div>
+</div>
+
+<main>
+
+<div class="hero-track">
+<section id="inicio" class="hero" aria-label="Início">
+    <div class="hero-product" aria-hidden="true">
+    <div class="hp-glass">
+      <img class="hp-img" src="assets/img/provisorio/produto.webp" srcset="assets/img/provisorio/produto-m.webp 820w, assets/img/provisorio/produto.webp 1320w" sizes="(max-width: 1023px) 80vw, 42vw" width="1320" height="1764" alt="" fetchpriority="high" decoding="async">
+    </div>
+    <span class="ai-tag mono">Imagem ilustrativa</span>
+  </div>
+  <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="hero-inner mx-auto w-full max-w-[1600px] px-[var(--gutter)]">
+    <p class="kicker mono hero-kicker">Choperia · Reservas pelo WhatsApp</p>
+    <h1 class="hero-title" aria-label="Chopp bem tirado, mesa garantida.">
+      <span class="ln" aria-hidden="true"><span class="in" style="--i:0">Chopp</span></span>
+      <span class="ln ln-2" aria-hidden="true"><span class="in amb" style="--i:1">bem tirado,</span></span>
+      <span class="ln ln-3" aria-hidden="true"><span class="in sm" style="--i:2">mesa garantida.</span></span>
+    </h1>
+    <div class="hero-foot">
+      <p class="hero-lead">Escolha o dia, quantas pessoas e o ambiente. A mensagem de reserva chega pronta no WhatsApp da casa.</p>
+      <div class="hero-ctas">
+        <a href="#reservar" data-magnetic class="btn-solid mono"><span class="lbl">Reservar mesa</span><span class="arr" aria-hidden="true">→</span></a>
+        <a href="#espaco" class="link-line mono">Ver os ambientes <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue mono" aria-hidden="true"><i></i>Role</div>
+</section>
+</div>
+
+<div class="band" aria-hidden="true">
+  <div class="band-row"><span class="f">Chopp</span><span class="s">espuma cremosa</span><span>Salão da banda</span><span class="s">entrada</span><span class="f">Deck</span><span class="s">mesa reservada</span><span class="f">Chopp</span><span class="s">espuma cremosa</span><span>Salão da banda</span><span class="s">entrada</span><span class="f">Deck</span><span class="s">mesa reservada</span></div>
+</div>
+
+<section id="casa" class="mx-auto max-w-[1600px] px-[var(--gutter)] py-20 md:py-28">
+  <div class="casa-grid">
+    <div class="casa-copy">
+      <p class="kicker mono" data-reveal>01 · A casa</p>
+      <h2 class="statement mt-8" data-reveal style="--d:.08s">Um bar para quem leva o <span class="serif">chopp</span> a sério.</h2>
+      <p class="mt-10 max-w-md text-lg leading-relaxed text-fog" data-reveal style="--d:.16s">Três ambientes para escolher na hora de reservar: Salão da banda, Entrada e Deck. A reserva é feita pelo WhatsApp, com tudo já preenchido.</p>
+      <p class="pending mono mt-8" data-reveal style="--d:.2s">História e apresentação da casa: aguardando texto do dono</p>
+      <a href="#reservar" data-magnetic class="btn-fluid mono mt-12" data-reveal style="--d:.24s"><span class="lbl">Escolher meu lugar</span><span class="arr" aria-hidden="true">→</span></a>
+    </div>
+    <figure class="photo casa-photo" data-photo="espuma" data-reveal data-parallax="0.05" style="--ar: 4 / 5">
+      <div class="photo-ph"></div>
+      <span class="photo-frame"></span>
+    </figure>
+  </div>
+</section>
+
+<section id="espaco" class="py-16 md:py-24">
+  <div class="mx-auto flex max-w-[1600px] flex-wrap items-end justify-between gap-6 px-[var(--gutter)]">
+    <div>
+      <p class="kicker mono" data-reveal>02 · Ambientes</p>
+      <h2 class="statement mt-8" data-reveal style="--d:.08s">Três <span class="serif">climas</span><br>na mesma casa</h2>
+    </div>
+    <p class="mono text-smoke md:hidden" aria-hidden="true">Deslize →</p>
+  </div>
+  <ul class="rail mt-14" aria-label="Ambientes">
+    <li class="space" data-reveal>
+      <div class="space-card" style="--ar: 3 / 2"><span class="mono">Foto do ambiente em breve</span></div>
+      <p class="space-cap"><span class="mono">01</span><strong>Salão da banda</strong></p>
+    </li>
+    <li class="space" data-reveal style="--d:.08s">
+      <div class="space-card" style="--ar: 3 / 2"><span class="mono">Foto do ambiente em breve</span></div>
+      <p class="space-cap"><span class="mono">02</span><strong>Entrada</strong></p>
+    </li>
+    <li class="space" data-reveal style="--d:.16s">
+      <div class="space-card" style="--ar: 3 / 2"><span class="mono">Foto do ambiente em breve</span></div>
+      <p class="space-cap"><span class="mono">03</span><strong>Deck</strong></p>
+    </li>
+  </ul>
+</section>
+
+<section id="torneiras" class="mx-auto max-w-[1600px] px-[var(--gutter)] py-20 md:py-28">
+  <div class="taps-layout">
+    <div class="taps-side">
+      <p class="kicker mono" data-reveal>03 · Na torneira</p>
+      <h2 class="statement mt-8" data-reveal style="--d:.08s">A <span class="serif">carta</span><br>de chopps</h2>
+      <p class="pending mono mt-8" data-reveal style="--d:.14s">Carta provisória · nomes, estilos e teores entram com o cardápio oficial</p>
+      <figure class="photo taps-photo mt-10 hidden lg:block" data-photo="torneiras" data-reveal style="--ar: 4 / 5"><div class="photo-ph"></div><span class="photo-frame"></span></figure>
+    </div>
+    <ol id="tapBoard" class="taps" data-reveal style="--d:.1s"></ol>
+  </div>
+</section>
+
+<section id="reservar" class="relative mx-auto max-w-[1600px] px-[var(--gutter)] pb-24 pt-8 md:pb-32">
+  <div class="reserve-glow" aria-hidden="true"></div>
+  <p class="kicker mono" data-reveal>04 · Reservar</p>
+  <h2 class="statement mt-8" data-reveal style="--d:.08s">Garanta<br><span class="serif">sua mesa</span></h2>
+  <p class="mt-8 max-w-md text-lg leading-relaxed text-fog" data-reveal style="--d:.14s">Preencha, confira a mensagem e abra o WhatsApp da casa com tudo pronto. Nada é enviado antes de você tocar em enviar lá.</p>
+
+  <div class="reserve-grid mt-16">
+    <form id="reserva" class="form-ed lg:col-span-7" novalidate data-reveal style="--d:.1s">
+      <div class="fld">
+        <label for="f-nome" class="mono">Nome e sobrenome</label>
+        <input id="f-nome" name="nome" type="text" autocomplete="name" required>
+        <p class="err" data-for="nome"></p>
+      </div>
+      <div class="grid gap-x-10 sm:grid-cols-3">
+        <div class="fld">
+          <label for="f-pessoas" class="mono">Pessoas</label>
+          <select id="f-pessoas" name="pessoas" required></select>
+          <p class="err" data-for="pessoas"></p>
+        </div>
+        <div class="fld">
+          <label for="f-dia" class="mono">Dia</label>
+          <input id="f-dia" name="dia" type="date" required>
+          <p class="err" data-for="dia"></p>
+        </div>
+        <div class="fld">
+          <label for="f-hora" class="mono">Horário</label>
+          <input id="f-hora" name="hora" type="time" step="900" required>
+          <p class="err" data-for="hora"></p>
+        </div>
+      </div>
+      <fieldset class="mt-6">
+        <legend class="mono mb-4 text-smoke">Preferência de lugar</legend>
+        <div class="places" id="f-lugar"></div>
+      </fieldset>
+      <div class="mt-10">
+        <button type="submit" data-magnetic class="btn-solid mono"><span class="lbl">Abrir WhatsApp com a reserva</span><span class="arr" aria-hidden="true">→</span></button>
+        <p class="pending mono mt-6 max-w-md">Dias de funcionamento e horário limite de chegada: a confirmar com a casa</p>
+      </div>
+    </form>
+
+    <aside class="lg:col-span-5" data-reveal style="--d:.2s">
+      <div class="ticket">
+        <p class="mono ticket-head"><span>Prévia da mensagem</span><span>WhatsApp</span></p>
+        <pre id="preview" class="ticket-body mono" aria-live="polite"></pre>
+        <p class="mono ticket-foot">Chopp do Gus · 48 98824-2896</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+</main>
+
+<footer class="relative overflow-hidden border-t border-white/10 pb-28 pt-20 md:pb-8">
+  <div class="mx-auto max-w-[1600px] px-[var(--gutter)]">
+    <div class="grid gap-10 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="statement !text-[clamp(1.8rem,3vw,2.6rem)]">Até a próxima <span class="serif">rodada.</span></p>
+      </div>
+      <dl class="mono grid gap-5 text-fog md:col-span-4">
+        <div><dt class="text-smoke">Reservas</dt><dd class="mt-1"><a class="link-line normal-case tracking-normal" href="https://wa.me/5548988242896" target="_blank" rel="noopener">WhatsApp · 48 98824-2896 ↗</a></dd></div>
+        <div><dt class="text-smoke">Endereço</dt><dd class="pending mt-1">A confirmar</dd></div>
+        <div><dt class="text-smoke">Horário</dt><dd class="pending mt-1">A confirmar</dd></div>
+      </dl>
+      <div class="mono flex flex-col gap-3 md:col-span-3">
+        <a class="link-line w-fit" href="https://www.instagram.com/choppdogus/" target="_blank" rel="noopener">@choppdogus ↗</a>
+      </div>
+    </div>
+    <p class="foot-word mt-16 select-none" aria-hidden="true">Chopp<i>do</i>Gus</p>
+    <div class="mono mt-8 flex flex-wrap items-center justify-between gap-4 text-smoke">
+      <span class="border border-dashed border-amber-glow/40 px-3 py-1.5 text-amber-glow">Prévia · imagens ilustrativas geradas por IA</span>
+      <span class="normal-case tracking-normal">Beba com moderação. Venda e consumo proibidos para menores de 18 anos.</span>
+    </div>
+  </div>
+</footer>
+
+<a id="dock" href="#reservar" class="dock btn-solid mono md:hidden"><span class="lbl">Reservar mesa</span><span class="arr" aria-hidden="true">→</span></a>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
