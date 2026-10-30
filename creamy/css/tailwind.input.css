@@ -1,0 +1,19 @@
+/* Fonte do css/tailwind.css (compilado uma vez, sem Tailwind no navegador).
+   O Tailwind de navegador recompilava o CSS da página quando o JS ligava classes no meio da rolagem.
+   Recompilar depois de mudar classes utilitárias no index.html:
+     npx @tailwindcss/cli@4.1.11 -i css/tailwind.input.css -o css/tailwind.css --minify   (dentro de sites/creamy) */
+@import "tailwindcss" source(none);
+@source "../index.html";
+
+@theme static {
+  --color-cream: #f7efe2;
+  --color-paper: #efe2cc;
+  --color-tomato: #d8402a;
+  --color-tomato-deep: #a92a19;
+  --color-olive: #56622a;
+  --color-olive-deep: #343c16;
+  --color-butter: #f6cf6a;
+  --color-cocoa: #2b1a12;
+  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Figtree", "Helvetica Neue", Arial, sans-serif;
+}

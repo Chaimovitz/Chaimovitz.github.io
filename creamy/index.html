@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#f7efe2">
+<meta name="description" content="Prévia do site da Creamy: pizzaria e choperia no Rio Tavares, Florianópolis.">
+<title>Creamy · Pizza &amp; Chope no Rio Tavares · Prévia</title>
+
+<link rel="preload" href="assets/fonts/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.classList.add('js')</script>
+<!-- base fora das camadas: vale mesmo se o Tailwind não carregar -->
+<style>html, body { background: #f7efe2; color: #2b1a12; color-scheme: light; }</style>
+
+<!-- 1) Tailwind compilado (sistema de cor e tipo + utilitárias usadas no HTML) -->
+<link rel="stylesheet" href="css/tailwind.css">
+<!-- 2) componentes da marca (camada "components": utilitárias do Tailwind sempre vencem) -->
+<link rel="stylesheet" href="css/creamy.css">
+
+</head>
+
+<body class="bg-cream text-cocoa antialiased">
+<a href="#onde" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-tomato focus:px-5 focus:py-3 focus:text-cream">Ir para endereço e pedido</a>
+<div class="paper" aria-hidden="true"></div>
+
+<!-- ================= NAV ================= -->
+<header id="nav" class="nav">
+  <nav class="nav-bar" aria-label="Principal">
+    <a href="#inicio" class="logo" aria-label="Creamy, início">Creamy</a>
+    <ul class="nav-links hidden lg:flex">
+      <li><a href="#montagem">Pizza</a></li>
+      <li><a href="#chope">Chope</a></li>
+      <li><a href="#cardapio">Cardápio</a></li>
+      <li><a href="#onde">Onde fica</a></li>
+    </ul>
+    <div class="flex items-center gap-4">
+      <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20o%20site%20e%20quero%20fazer%20um%20pedido." target="_blank" rel="noopener" class="btn btn-tomato btn-sm hidden sm:inline-flex"><span>Pedir no WhatsApp</span></a>
+      <button id="menuBtn" type="button" class="menu-btn lg:hidden" aria-expanded="false" aria-controls="menuPanel"><span>Menu</span></button>
+    </div>
+  </nav>
+</header>
+
+<div id="menuPanel" class="menu-panel lg:hidden" aria-hidden="true">
+  <nav aria-label="Menu móvel">
+    <a href="#montagem">Pizza</a>
+    <a href="#chope">Chope</a>
+    <a href="#cardapio">Cardápio</a>
+    <a href="#onde">Onde fica</a>
+  </nav>
+  <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20o%20site%20e%20quero%20fazer%20um%20pedido." target="_blank" rel="noopener" class="btn btn-cream w-full justify-center"><span>Pedir no WhatsApp</span></a>
+</div>
+
+<main>
+<!-- ================= HERO: título editorial + pizza e chope em escala ================= -->
+<section id="inicio" class="hero">
+  <div class="hero-copy">
+    <p class="hero-meta pop" style="--d:.05s"><span id="statusDot" class="dot"></span><span id="statusText">Pizzaria &amp; choperia · Rio Tavares</span><em class="warn">horário a confirmar</em></p>
+    <h1 class="hero-title" aria-label="A noite começa cedo.">
+      <span class="ln pop" style="--d:.12s">A noite</span>
+      <span class="ln pop" style="--d:.2s"><em>começa</em></span>
+      <span class="ln pop" style="--d:.28s">cedo.</span>
+    </h1>
+    <p class="hero-lede pop" style="--d:.4s">Pizza saindo do forno, chope gelado com colarinho e a turma chegando. No Rio Tavares, em Floripa.</p>
+    <div class="hero-cta pop" style="--d:.5s">
+      <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20o%20site%20e%20quero%20fazer%20um%20pedido." target="_blank" rel="noopener" data-magnetic class="btn btn-tomato btn-lg"><span>Pedir no WhatsApp</span><b aria-hidden="true">→</b></a>
+      <a href="#cardapio" class="link-arrow">Ver o cardápio <b aria-hidden="true">↓</b></a>
+    </div>
+  </div>
+
+  <div class="hero-photos">
+    <figure class="hp hp-pizza" data-photo="pizza" data-priority="1">
+      <figcaption class="hp-cap"><span>Pizza</span><i>do forno</i></figcaption>
+    </figure>
+    <figure class="hp hp-chope" data-photo="chope">
+      <figcaption class="hp-cap"><span>Chope</span><i>gelado</i></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= FAIXA ================= -->
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-track">
+    <span>Pizza</span><i>·</i><em>chope</em><i>·</i><span>Rio Tavares</span><i>·</i><em>terça a domingo</em><i>·</i>
+    <span>Pizza</span><i>·</i><em>chope</em><i>·</i><span>Rio Tavares</span><i>·</i><em>terça a domingo</em><i>·</i>
+  </div>
+</div>
+
+<!-- ================= MONTAGEM (pizza se montando com o scroll) ================= -->
+<section id="montagem" class="build" aria-label="Uma pizza se montando: as camadas descem, assentam e vão ao forno">
+  <div class="build-pin">
+    <div class="build-copy">
+      <p class="build-kicker">Do forno pra mesa</p>
+      <ol class="build-steps">
+        <li class="bstep is-on"><h2>Camadas.</h2><p>Molho, queijo, tomate e manjericão.</p></li>
+        <li class="bstep"><h2>Assenta.</h2><p>Uma camada de cada vez.</p></li>
+        <li class="bstep"><h2>Forno.</h2><p>O calor junta tudo e doura a borda.</p></li>
+        <li class="bstep"><h2>Pronta.</h2><p>Agora é só pedir a sua.</p></li>
+      </ol>
+      <p class="ai-note-m">imagem ilustrativa · gerada por IA</p>
+      <div class="build-index" aria-hidden="true"><span>Camadas</span><span>Assenta</span><span>Forno</span><span>Pronta</span><i id="buildBar"></i></div>
+      <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20a%20pizza%20no%20site%20e%20quero%20pedir%20uma." target="_blank" rel="noopener" class="btn btn-tomato btn-lg build-cta"><span>Pedir a minha no WhatsApp</span><b aria-hidden="true">→</b></a>
+    </div>
+
+    <figure class="build-stage">
+      <img class="bkey bkey-1" src="assets/img/ia/montagem-2-camadas.jpg" alt="" width="1080" height="1920" decoding="async">
+      <img class="bkey bkey-2" src="assets/img/ia/montagem-3-pronta.jpg" alt="Pizza assada com molho de tomate, muçarela, tomate-cereja e manjericão (imagem ilustrativa)" width="1080" height="1920" loading="lazy" decoding="async">
+      <canvas id="buildCanvas" aria-hidden="true"></canvas>
+      <div class="build-heat" aria-hidden="true"></div>
+      <figcaption class="ai-note">imagem ilustrativa · gerada por IA</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= CHOPE (copo enchendo com o scroll) ================= -->
+<section id="chope" class="pour" aria-label="Um copo de chope enchendo até formar o colarinho">
+  <div class="pour-pin">
+    <figure class="pour-stage">
+      <img class="pour-key pour-key-1" src="assets/img/ia/chope-1-vazio.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async">
+      <img class="pour-key pour-key-2" src="assets/img/ia/chope-2-cheio.jpg" alt="Copo alto de chope dourado com colarinho de espuma branca, numa bancada de mármore ao sol da tarde (imagem ilustrativa)" width="1080" height="1920" loading="lazy" decoding="async">
+      <canvas id="pourCanvas" aria-hidden="true"></canvas>
+      <figcaption class="ai-note">imagem ilustrativa · gerada por IA</figcaption>
+    </figure>
+    <div class="pour-copy">
+      <p class="build-kicker">O outro lado da mesa</p>
+      <ol class="pour-steps">
+        <li class="pstep is-on"><h2>Gelado.</h2><p>Copo limpo, chope dourado.</p></li>
+        <li class="pstep"><h2>Subindo.</h2><p>Bolha fina, sem pressa.</p></li>
+        <li class="pstep"><h2>Colarinho.</h2><p>Espuma branca no ponto. Saúde.</p></li>
+      </ol>
+      <p class="ai-note-m">imagem ilustrativa · gerada por IA</p>
+      <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Quais%20chopes%20voc%C3%AAs%20t%C3%AAm%20hoje%3F" target="_blank" rel="noopener" class="btn btn-tomato btn-lg pour-cta"><span>Perguntar do chope</span><b aria-hidden="true">→</b></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= A NOITE ================= -->
+<section id="noite" class="night">
+  <header class="sec-head" data-reveal>
+    <p class="kicker">Como é a noite</p>
+    <h2 class="h2">Chega cedo. <em>Sai tarde.</em></h2>
+  </header>
+  <ol class="night-list">
+    <li data-reveal><span class="t">18:01</span><div><h3>A porta abre.</h3><p>Um minuto depois das seis. Detalhe que já diz muito sobre a casa.</p></div></li>
+    <li data-reveal><span class="t"><em>depois</em></span><div><h3>A mesa enche.</h3><p>Pizza no meio, copos batendo, alguém pedindo mais uma rodada.</p></div></li>
+    <li data-reveal><span class="t">01:37</span><div><h3>Ainda dá tempo.</h3><p>A noite no Rio Tavares vai longe. Sem pressa pra ir embora.</p></div></li>
+  </ol>
+  <p class="fine" data-reveal>Horário tirado da bio do Instagram · a confirmar com a casa.</p>
+</section>
+
+<!-- ================= ATENDIMENTO ================= -->
+<section class="statement">
+  <p class="statement-text" data-reveal>Quem passa por aqui sempre fala <em>do atendimento.</em> A gente gosta de receber.</p>
+</section>
+
+<!-- ================= CARDÁPIO ================= -->
+<section id="cardapio" class="menu">
+  <header class="sec-head" data-reveal>
+    <p class="kicker">Cardápio</p>
+    <h2 class="h2">Escolhe <em>aí.</em></h2>
+    <p class="sample"><b>Exemplo ilustrativo</b> Sabores, chopes e preços de verdade entram com a casa.</p>
+  </header>
+  <div class="menu-cols">
+    <div class="menu-col" data-reveal>
+      <h3 class="menu-cat">Pizzas <span>exemplo</span></h3>
+      <ul>
+        <li><span class="n">Margherita</span><span class="lead"></span><span class="p">preço a confirmar</span></li>
+        <li><span class="n">Calabresa</span><span class="lead"></span><span class="p">preço a confirmar</span></li>
+        <li><span class="n">Quatro queijos</span><span class="lead"></span><span class="p">preço a confirmar</span></li>
+        <li><span class="n">Portuguesa</span><span class="lead"></span><span class="p">preço a confirmar</span></li>
+      </ul>
+    </div>
+    <div class="menu-col" data-reveal>
+      <h3 class="menu-cat">Chope <span>exemplo</span></h3>
+      <ul>
+        <li><span class="n">Chope claro</span><span class="lead"></span><span class="p">preço a confirmar</span></li>
+        <li><span class="n">Chope escuro</span><span class="lead"></span><span class="p">preço a confirmar</span></li>
+      </ul>
+      <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Pode%20me%20mandar%20o%20card%C3%A1pio%20de%20hoje%3F" target="_blank" rel="noopener" class="btn btn-olive btn-lg menu-cta"><span>Pedir o cardápio de hoje</span><b aria-hidden="true">→</b></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ONDE ================= -->
+<section id="onde" class="where">
+  <div class="where-grid">
+    <div data-reveal>
+      <p class="kicker kicker-butter">Onde fica</p>
+      <h2 class="where-title">Rio Tavares, <em>Floripa.</em></h2>
+      <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20o%20site%20e%20quero%20fazer%20um%20pedido." target="_blank" rel="noopener" data-magnetic class="btn btn-butter btn-lg"><span>Chamar no WhatsApp</span><b aria-hidden="true">→</b></a>
+    </div>
+    <div class="where-list">
+      <a class="row" data-reveal href="https://www.google.com/maps/search/?api=1&amp;query=Rod.%20Dr.%20Ant%C3%B4nio%20Luiz%20Moura%20Gonzaga%2C%202884%2C%20Rio%20Tavares%2C%20Florian%C3%B3polis" target="_blank" rel="noopener">
+        <span class="row-k">Endereço</span>
+        <strong>Rod. Dr. Antônio Luiz Moura Gonzaga, 2884</strong>
+        <span>Rio Tavares · Florianópolis</span>
+        <span class="row-go">Abrir no mapa →</span>
+      </a>
+      <div class="row" data-reveal>
+        <span class="row-k">Horário <em class="warn">a confirmar</em></span>
+        <strong>Terça a domingo, 18:01 às 01:37</strong>
+        <span class="row-go" id="visitStatus">&nbsp;</span>
+      </div>
+      <a class="row" data-reveal href="https://instagram.com/usecreamy" target="_blank" rel="noopener">
+        <span class="row-k">Instagram</span>
+        <strong>@usecreamy</strong>
+        <span class="row-go">Seguir →</span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p class="foot-mark" aria-hidden="true">Creamy</p>
+  <div class="foot-line">
+    <span>Pizzaria &amp; choperia · Rio Tavares, Florianópolis</span>
+    <span class="foot-note">Prévia de site · conteúdo a confirmar com a casa</span>
+  </div>
+</footer>
+
+<!-- botão fixo de pedido no celular -->
+<a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20o%20site%20e%20quero%20fazer%20um%20pedido." target="_blank" rel="noopener" id="dock" class="dock sm:hidden"><span>Pedir no WhatsApp</span><b aria-hidden="true">→</b></a>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
