@@ -184,7 +184,7 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
 .show-progress { display: none; }
 
 /* modo animado (JS ligado, sem movimento reduzido) */
-.motion .show { height: 560vh; }
+.motion .show { height: 800vh; }
 .motion .show .show-pin { position: sticky; top: 0; height: 100svh; padding: 0; display: block; }
 .motion .show .show-obj { position: absolute; margin: 0; }
 .motion .show .show-hero { position: absolute; will-change: opacity, transform; }
@@ -224,7 +224,7 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
   .show-progress i { position: absolute; inset: 0; background: var(--tomato); transform-origin: left; transform: scaleX(0); will-change: transform; }
 }
 @media (max-width: 1023px) {
-  .motion .show { height: 480vh; }
+  .motion .show { height: 680vh; }
   .motion .show .show-obj { left: 4%; width: 92%; bottom: 3.4rem; height: auto; }   /* tamanho final calculado em build.js */
   .motion .show .show-hero { left: var(--gutter); right: var(--gutter); top: calc(5.6rem + env(safe-area-inset-top, 0px)); }
   .motion .show .hero-title { font-size: clamp(3.3rem, 15vw, 4.6rem); margin-top: .8rem; }
@@ -232,17 +232,17 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
   .motion .show .hero-cta { margin-top: 1.1rem; }
   .motion .show .hero-cta .btn { padding: .85rem 1.3rem; font-size: .95rem; }
   .motion .show .show-scroll { display: none; }
+  .motion .show .show-notes { left: var(--gutter); right: var(--gutter); top: calc(5.8rem + env(safe-area-inset-top, 0px)); }
+  .motion .show .note h2 { font-size: clamp(2.3rem, 11vw, 3rem); }
+  .motion .show .note p { font-size: .98rem; margin-top: .35rem; }
+  .motion .show .note-final .btn { display: none; }      /* no celular, o pedido é o botão fixo do WhatsApp */
+  .obj-note { right: 3%; font-size: .58rem; }
 }
 /* celulares baixos (iPhone SE etc.): topo mais compacto para a pizza continuar grande */
 @media (max-width: 1023px) and (max-height: 760px) {
   .motion .show .hero-lede { display: none; }
   .motion .show .hero-title { font-size: clamp(2.9rem, 13vw, 3.6rem); }
   .motion .show .show-hero { top: calc(4.9rem + env(safe-area-inset-top, 0px)); }
-  .motion .show .show-notes { left: var(--gutter); right: var(--gutter); top: calc(5.8rem + env(safe-area-inset-top, 0px)); }
-  .motion .show .note h2 { font-size: clamp(2.3rem, 11vw, 3rem); }
-  .motion .show .note p { font-size: .98rem; margin-top: .35rem; }
-  .motion .show .note-final .btn { display: none; }      /* no celular, o pedido é o botão fixo do WhatsApp */
-  .obj-note { right: 3%; font-size: .58rem; }
 }
 
 /* ============ CHOPE (ver pour.js) ============ */
@@ -267,7 +267,7 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
 .pstep p { font-size: clamp(1rem, 1.25vw, 1.12rem); font-weight: 500; line-height: 1.45; margin-top: .5rem; color: #2b1a12cc; }
 .pour-cta { margin-top: 2rem; }
 
-.motion .pour { height: 380vh; }
+.motion .pour { height: 540vh; }
 .motion .pour .pour-pin { position: sticky; top: 0; height: 100svh; padding: 0; display: block; }
 .motion .pour .pour-obj { position: absolute; top: 0; height: var(--oh, 100svh); width: auto; aspect-ratio: 495 / 1713; margin: 0; left: var(--px, 38%); translate: -50% 0; }
 .motion .pour .pour-copy { position: absolute; left: calc(var(--px, 38%) + var(--gx, 12vw)); top: 0; height: 100svh; width: min(28rem, 40vw); max-width: none; }
@@ -293,7 +293,7 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
   :root:not(.motion) .pour .pour-obj { width: 260px; }
 }
 @media (max-width: 1023px) {
-  .motion .pour { height: 320vh; }
+  .motion .pour { height: 450vh; }
   .motion .pour .pour-copy { width: auto; right: var(--gutter); }
   .motion .pour .build-kicker { top: 5.2rem; font-size: .95rem; }
   .motion .pour .pour-steps { left: 1.2rem; }

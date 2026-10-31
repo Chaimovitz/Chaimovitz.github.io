@@ -8,7 +8,7 @@ import Lenis from '../../assets/vendor/lenis-1.3.26.mjs';
 export function initSmooth() {
   // toque (celular/tablet): rolagem nativa, sem Lenis (ele só suaviza a roda do mouse; no toque seria um laço a mais por quadro)
   if (reduceMotion || matchMedia('(pointer: coarse)').matches) return;
-  const lenis = new Lenis({ lerp: 0.2, smoothWheel: true, anchors: { offset: -72 } });
+  const lenis = new Lenis({ lerp: 0.16, wheelMultiplier: 0.8, smoothWheel: true, anchors: { offset: -72 } });
   window.__lenis = lenis;                       // usado pelos scripts de QA para saltar entre cenas
   const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
   requestAnimationFrame(raf);
