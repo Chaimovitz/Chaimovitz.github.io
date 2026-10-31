@@ -47,7 +47,7 @@ export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, f
   const pickDir = () => {
     const r = canvas.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
     // aberto como arquivo (pacote, sem servidor) cada quadro vira uma <img> inteira na memória: fica no SD
-    dir = !fileMode && Math.max(r.height, r.width) * dpr > (alpha ? 1000 : 1350) ? dirs.hd : dirs.sd;
+    dir = !fileMode && (dirs.sdW ? r.width * dpr > dirs.sdW : r.height * dpr > 1350) ? dirs.hd : dirs.sd;   // nunca amplia o SD
   };
   const measure = () => {
     top = sec.getBoundingClientRect().top + scrollY; len = Math.max(sec.offsetHeight - innerHeight, 1);

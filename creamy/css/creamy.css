@@ -184,15 +184,15 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
 .show-progress { display: none; }
 
 /* modo animado (JS ligado, sem movimento reduzido) */
-.show.is-live { height: 560vh; }
-.show.is-live .show-pin { position: sticky; top: 0; height: 100svh; padding: 0; display: block; }
-.show.is-live .show-obj { position: absolute; margin: 0; }
-.show.is-live .show-hero { position: absolute; will-change: opacity, transform; }
-.show.is-live .show-scroll { display: block; margin-top: 2.2rem; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #2b1a1280; }
-.show.is-live .show-notes { position: absolute; display: block; }
-.show.is-live .note { position: absolute; left: 0; right: 0; top: 0; opacity: 0; translate: 0 22px; pointer-events: none; transition: opacity .45s ease, translate .8s var(--ease); }
-.show.is-live .note.is-on { opacity: 1; translate: 0 0; pointer-events: auto; }
-.show.is-live .show-lines { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; overflow: visible; }
+.motion .show { height: 560vh; }
+.motion .show .show-pin { position: sticky; top: 0; height: 100svh; padding: 0; display: block; }
+.motion .show .show-obj { position: absolute; margin: 0; }
+.motion .show .show-hero { position: absolute; will-change: opacity, transform; }
+.motion .show .show-scroll { display: block; margin-top: 2.2rem; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #2b1a1280; }
+.motion .show .show-notes { position: absolute; display: block; }
+.motion .show .note { position: absolute; left: 0; right: 0; top: 0; opacity: 0; translate: 0 22px; pointer-events: none; transition: opacity .45s ease, translate .8s var(--ease); }
+.motion .show .note.is-on { opacity: 1; translate: 0 0; pointer-events: auto; }
+.motion .show .show-lines { display: block; position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; overflow: visible; }
 .ln-path { fill: none; stroke: #2b1a1299; stroke-width: 1.2; stroke-dasharray: var(--len, 1000); stroke-dashoffset: var(--len, 1000); transition: stroke-dashoffset .7s var(--ease) .1s; }
 .show-lines.is-on .ln-path { stroke-dashoffset: 0; }
 .ln-dot { fill: var(--tomato); opacity: 0; transition: opacity .3s ease .5s; }
@@ -202,39 +202,40 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
 @keyframes ring { 0% { transform: scale(.6); opacity: .6; } 100% { transform: scale(1.6); opacity: 0; } }
 .show.mode-seq .show-obj > canvas { display: block; }
 .show.mode-seq .bkey-2 { opacity: 0; }
-.show.mode-seq:not(.is-drawn) .bkey-1 { opacity: 1; }
+.motion .show:not(.is-drawn) .bkey-1 { opacity: 1; }
+.motion .show:not(.mode-keys) .bkey-2 { opacity: 0; }
 .show.mode-keys .bkey-1 { opacity: 1; }
 .show.mode-keys .bkey-2 { opacity: 0; transition: opacity .3s linear; }
 
 /* estático (sem JS ou movimento reduzido): título e pizza pronta lado a lado; as etapas em linha logo abaixo */
-.show:not(.is-live) .show-hero { order: -1; }
+:root:not(.motion) .show .show-hero { order: -1; }
 @media (min-width: 1024px) {
   .show-pin { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; min-height: 100svh; }
-  .show:not(.is-live) .show-hero { grid-column: 1; grid-row: 1; }
-  .show:not(.is-live) .show-obj { grid-column: 2; grid-row: 1; }
-  .show:not(.is-live) .show-notes { grid-column: 1 / -1; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2rem; }
-  .show:not(.is-live) .note h2 { font-size: clamp(2rem, 2.6vw, 2.6rem); }
-  .show.is-live .show-obj { right: 3vw; bottom: 1svh; height: 93svh; width: auto; }
-  .show.is-live .show-hero { left: max(var(--gutter), calc(50% - 680px)); top: 50%; translate: 0 -50%; }
-  .show.is-live .show-notes { left: max(var(--gutter), calc(50% - 680px)); top: 50%; width: min(28rem, 34vw); height: 0; }
-  .show.is-live .note { translate: 0 calc(-50% + 22px); }
-  .show.is-live .note.is-on { translate: 0 -50%; }
-  .show.is-live .show-progress { display: block; position: absolute; z-index: 4; left: max(var(--gutter), calc(50% - 680px)); bottom: 2.6rem; width: 12rem; height: 2px; background: var(--hair); }
+  :root:not(.motion) .show .show-hero { grid-column: 1; grid-row: 1; }
+  :root:not(.motion) .show .show-obj { grid-column: 2; grid-row: 1; }
+  :root:not(.motion) .show .show-notes { grid-column: 1 / -1; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2rem; }
+  :root:not(.motion) .show .note h2 { font-size: clamp(2rem, 2.6vw, 2.6rem); }
+  .motion .show .show-obj { right: 3vw; bottom: 1svh; height: 93svh; width: auto; }
+  .motion .show .show-hero { left: max(var(--gutter), calc(50% - 680px)); top: 50%; translate: 0 -50%; }
+  .motion .show .show-notes { left: max(var(--gutter), calc(50% - 680px)); top: 50%; width: min(28rem, 34vw); height: 0; }
+  .motion .show .note { translate: 0 calc(-50% + 22px); }
+  .motion .show .note.is-on { translate: 0 -50%; }
+  .motion .show .show-progress { display: block; position: absolute; z-index: 4; left: max(var(--gutter), calc(50% - 680px)); bottom: 2.6rem; width: 12rem; height: 2px; background: var(--hair); }
   .show-progress i { position: absolute; inset: 0; background: var(--tomato); transform-origin: left; transform: scaleX(0); will-change: transform; }
 }
 @media (max-width: 1023px) {
-  .show.is-live { height: 480vh; }
-  .show.is-live .show-obj { left: 0; right: 0; width: 100%; bottom: 4.4rem; height: auto; }
-  .show.is-live .show-hero { left: var(--gutter); right: var(--gutter); top: 4.9rem; }
-  .show.is-live .hero-title { font-size: clamp(3.3rem, 15vw, 4.6rem); margin-top: .8rem; }
-  .show.is-live .hero-lede { margin-top: .9rem; font-size: 1rem; }
-  .show.is-live .hero-cta { margin-top: 1.1rem; }
-  .show.is-live .hero-cta .btn { padding: .85rem 1.3rem; font-size: .95rem; }
-  .show.is-live .show-scroll { display: none; }
-  .show.is-live .show-notes { left: var(--gutter); right: var(--gutter); top: 5.4rem; }
-  .show.is-live .note h2 { font-size: clamp(2.3rem, 11vw, 3rem); }
-  .show.is-live .note p { font-size: .98rem; margin-top: .35rem; }
-  .show.is-live .note-final .btn { display: none; }      /* no celular, o pedido é o botão fixo do WhatsApp */
+  .motion .show { height: 480vh; }
+  .motion .show .show-obj { left: 0; right: 0; width: 100%; bottom: 4.4rem; height: auto; }
+  .motion .show .show-hero { left: var(--gutter); right: var(--gutter); top: calc(5.6rem + env(safe-area-inset-top, 0px)); }
+  .motion .show .hero-title { font-size: clamp(3.3rem, 15vw, 4.6rem); margin-top: .8rem; }
+  .motion .show .hero-lede { margin-top: .9rem; font-size: 1rem; }
+  .motion .show .hero-cta { margin-top: 1.1rem; }
+  .motion .show .hero-cta .btn { padding: .85rem 1.3rem; font-size: .95rem; }
+  .motion .show .show-scroll { display: none; }
+  .motion .show .show-notes { left: var(--gutter); right: var(--gutter); top: calc(5.8rem + env(safe-area-inset-top, 0px)); }
+  .motion .show .note h2 { font-size: clamp(2.3rem, 11vw, 3rem); }
+  .motion .show .note p { font-size: .98rem; margin-top: .35rem; }
+  .motion .show .note-final .btn { display: none; }      /* no celular, o pedido é o botão fixo do WhatsApp */
   .obj-note { right: 3%; font-size: .58rem; }
 }
 
@@ -260,39 +261,77 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
 .pstep p { font-size: clamp(1rem, 1.25vw, 1.12rem); font-weight: 500; line-height: 1.45; margin-top: .5rem; color: #2b1a12cc; }
 .pour-cta { margin-top: 2rem; }
 
-.pour.is-live { height: 380vh; }
-.pour.is-live .pour-pin { position: sticky; top: 0; height: 100svh; padding: 0; display: block; }
-.pour.is-live .pour-obj { position: absolute; top: 0; height: var(--oh, 100svh); width: auto; aspect-ratio: 495 / 1713; margin: 0; left: var(--px, 38%); translate: -50% 0; }
-.pour.is-live .pour-copy { position: absolute; left: calc(var(--px, 38%) + var(--gx, 12vw)); top: 0; height: 100svh; width: min(28rem, 40vw); max-width: none; }
-.pour.is-live .build-kicker { position: absolute; top: 12svh; left: 0; }
-.pour.is-live .pour-gauge { display: block; position: absolute; left: 0; top: var(--g-top, 30svh); height: var(--g-h, 50svh); width: 2px; }
+.motion .pour { height: 380vh; }
+.motion .pour .pour-pin { position: sticky; top: 0; height: 100svh; padding: 0; display: block; }
+.motion .pour .pour-obj { position: absolute; top: 0; height: var(--oh, 100svh); width: auto; aspect-ratio: 495 / 1713; margin: 0; left: var(--px, 38%); translate: -50% 0; }
+.motion .pour .pour-copy { position: absolute; left: calc(var(--px, 38%) + var(--gx, 12vw)); top: 0; height: 100svh; width: min(28rem, 40vw); max-width: none; }
+.motion .pour .build-kicker { position: absolute; top: 12svh; left: 0; }
+.motion .pour .pour-gauge { display: block; position: absolute; left: 0; top: var(--g-top, 30svh); height: var(--g-h, 50svh); width: 2px; }
 .pg-track { position: absolute; inset: 0; background: var(--hair); }
 .pg-fill { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; background: linear-gradient(0deg, #e9a52a, #f6cf6a); transform-origin: bottom; transform: scaleY(0); will-change: transform; }
 .pg-mark { position: absolute; left: -4.5px; top: -5.5px; width: 11px; height: 11px; border-radius: 50%; background: var(--tomato); box-shadow: 0 0 0 5px #d8402a22; will-change: transform; }
-.pour.is-live .pour-steps { position: absolute; left: 2rem; top: 0; right: 0; display: block; margin: 0; will-change: transform; }
-.pour.is-live .pstep { position: absolute; left: 0; right: 0; top: 0; translate: 0 -50%; opacity: 0; transition: opacity .45s ease; }
-.pour.is-live .pstep.is-on { opacity: 1; }
-.pour.is-live .pour-cta { position: absolute; left: 2rem; bottom: 9svh; margin: 0; opacity: 0; translate: 0 14px; pointer-events: none; transition: opacity .45s ease, translate .7s var(--ease); }
+.motion .pour .pour-steps { position: absolute; left: 2rem; top: 0; right: 0; display: block; margin: 0; will-change: transform; }
+.motion .pour .pstep { position: absolute; left: 0; right: 0; top: 0; translate: 0 -50%; opacity: 0; transition: opacity .45s ease; }
+.motion .pour .pstep.is-on { opacity: 1; }
+.motion .pour .pour-cta { position: absolute; left: 2rem; bottom: 9svh; margin: 0; opacity: 0; translate: 0 14px; pointer-events: none; transition: opacity .45s ease, translate .7s var(--ease); }
 .pour.is-done .pour-cta { opacity: 1; translate: 0 0; pointer-events: auto; }
 .pour.mode-seq .pour-obj > canvas { display: block; }
 .pour.mode-seq .pour-key-2, .pour.mode-seq.is-drawn .pour-key-1 { opacity: 0; }
-.pour.mode-seq:not(.is-drawn) .pour-key-1 { opacity: 1; }
+.motion .pour:not(.is-drawn) .pour-key-1 { opacity: 1; }
+.motion .pour:not(.mode-keys) .pour-key-2 { opacity: 0; }
 .pour.mode-keys .pour-key-1 { opacity: 1; }
 .pour.mode-keys .pour-key-2 { opacity: 0; }
 
 @media (min-width: 1024px) {
   .pour-pin { grid-template-columns: auto minmax(0, 26rem); justify-content: center; align-items: center; gap: 5rem; }
-  .pour:not(.is-live) .pour-obj { width: 260px; }
+  :root:not(.motion) .pour .pour-obj { width: 260px; }
 }
 @media (max-width: 1023px) {
-  .pour.is-live { height: 320vh; }
-  .pour.is-live .pour-copy { width: auto; right: var(--gutter); }
-  .pour.is-live .build-kicker { top: 5.2rem; font-size: .95rem; }
-  .pour.is-live .pour-steps { left: 1.2rem; }
-  .pour.is-live .pstep h2 { font-size: clamp(1.9rem, 8.6vw, 2.5rem); }
-  .pour.is-live .pstep p { font-size: .9rem; }
-  .pour.is-live .pour-cta { display: none; }
+  .motion .pour { height: 320vh; }
+  .motion .pour .pour-copy { width: auto; right: var(--gutter); }
+  .motion .pour .build-kicker { top: 5.2rem; font-size: .95rem; }
+  .motion .pour .pour-steps { left: 1.2rem; }
+  .motion .pour .pstep h2 { font-size: clamp(1.9rem, 8.6vw, 2.5rem); }
+  .motion .pour .pstep p { font-size: .9rem; }
+  .motion .pour .pour-cta { display: none; }
 }
+
+/* ============ TEMA "TOSTADO" (alternativa em revisão: ?tema=tostado) ============ */
+/* Só as duas cenas ganham fundo profundo (marrom tostado na pizza, oliva escuro no chope), com texto creme e acentos
+   tomate e manteiga. O resto da página continua creme. Nunca preto puro. */
+[data-tema=tostado] .show { --ink: #f7efe2; color: var(--ink);
+  background: radial-gradient(90% 70% at 66% 62%, #5a3522 0%, #3b2216 48%, #2a180f 100%); }
+[data-tema=tostado] .show-glow { background: radial-gradient(36% 42% at var(--gx, 70%) var(--gy, 66%), #ff9a3c55, #e0702a1f 50%, #2a180f00 76%); }
+[data-tema=tostado] .show-shadow { background: radial-gradient(closest-side, #0d0603b3, #0d06034d 60%, #0d060300); }
+[data-tema=tostado] .show .hero-lede, [data-tema=tostado] .show .note p { color: #f7efe2cc; }
+[data-tema=tostado] .show .hero-title em, [data-tema=tostado] .show .note-n { color: var(--butter); }
+[data-tema=tostado] .show .link-arrow { color: var(--cream); }
+[data-tema=tostado] .show .warn { background: var(--butter); color: var(--cocoa); }
+[data-tema=tostado] .show .show-scroll, [data-tema=tostado] .show .obj-note { color: #f7efe299; }
+[data-tema=tostado] .show .show-progress { background: #f7efe226; }
+[data-tema=tostado] .show .ln-path { stroke: #f7efe2b3; }
+[data-tema=tostado] .show .ln-dot, [data-tema=tostado] .show .ln-ring { fill: var(--butter); stroke: var(--butter); }
+[data-tema=tostado] .show .ln-ring { fill: none; }
+[data-tema=tostado] .pour { --ink: #f7efe2; color: var(--ink); margin-top: 0;
+  background: radial-gradient(80% 70% at 38% 60%, #4a5222 0%, #323a17 50%, #232910 100%); }
+[data-tema=tostado] .pour-glow { background: radial-gradient(24% 44% at var(--px, 38%) 58%, #f6b94a4d, #f6cf6a1a 50%, #23291000 75%); }
+[data-tema=tostado] .pour-shadow { background: radial-gradient(closest-side, #0a0c04b3, #0a0c0400); }
+[data-tema=tostado] .pour .pstep p { color: #f7efe2cc; }
+[data-tema=tostado] .pour .build-kicker { color: var(--butter); }
+[data-tema=tostado] .pour .pg-track { background: #f7efe22e; }
+[data-tema=tostado] .pour .obj-note { color: #f7efe299; }
+/* menu: sobre as cenas escuras, barra tostada com texto creme; sobre o creme, a barra clara de sempre */
+[data-tema=tostado] .nav.on-dark .logo { color: var(--butter); }
+[data-tema=tostado] .nav.on-dark .nav-links, [data-tema=tostado] .nav.on-dark .menu-btn { color: var(--cream); }
+[data-tema=tostado] .nav.on-dark.is-scrolled .nav-bar { background: #2e1b11e6; box-shadow: 0 1px 0 #f7efe21f; }
+/* transições: tostado -> faixa -> oliva -> creme, sem corte seco. A faixa é a ponte entre as duas cenas; o rodapé
+   oliva fecha a página na mesma família. */
+[data-tema=tostado] .ribbon { margin-top: 0; border: 0; color: var(--cream); background: linear-gradient(180deg, #2a180f, #232910); }
+[data-tema=tostado] .ribbon .ribbon-track em { color: var(--butter); }
+[data-tema=tostado] .ribbon .ribbon-track i { color: var(--tomato); }
+.tone-bridge { display: none; }
+[data-tema=tostado] .tone-bridge { display: block; height: clamp(7rem, 22vh, 14rem); background: linear-gradient(180deg, #232910 0%, #4a5530 30%, #c9c3a0 70%, var(--cream) 100%); }
+[data-tema=tostado] .show { background: radial-gradient(90% 60% at 66% 40%, #5a3522 0%, #3b2216 48%, #2a180f 100%); }
 
 /* ============ REVEAL ============ */
 .js [data-reveal] { opacity: 0; translate: 0 36px; transition: opacity .8s ease, translate 1.1s var(--ease); }

@@ -4,9 +4,14 @@ import { $, $$ } from './utils.js';
 export function initNav() {
   const nav = $('#nav'), btn = $('#menuBtn'), panel = $('#menuPanel');
   let last = scrollY, ticking = false;
+  // sobre as cenas de fundo tostado/oliva, a barra fica escura com texto creme (offsets medidos só quando o layout muda)
+  const darks = $$('.show, .pour'); let spans = [];
+  const measure = () => { spans = darks.map(el => { const r = el.getBoundingClientRect(); return [r.top + scrollY, r.bottom + scrollY]; }); };
   const update = () => {
     const y = scrollY, down = y > last + 4, up = y < last - 4;
     nav.classList.toggle('is-scrolled', y > 40);
+    const mid = y + 34;
+    nav.classList.toggle('on-dark', !!document.documentElement.dataset.tema && spans.some(([a, b]) => mid >= a && mid < b));
     if (!panel.classList.contains('is-open')) {
       if (down && y > 220) nav.classList.add('is-hidden');
       else if (up || y < 220) nav.classList.remove('is-hidden');
@@ -14,7 +19,8 @@ export function initNav() {
     last = y; ticking = false;
   };
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  update();
+  new ResizeObserver(() => { measure(); update(); }).observe(document.body);
+  measure(); update();
 
   const toggle = open => {
     panel.classList.toggle('is-open', open);

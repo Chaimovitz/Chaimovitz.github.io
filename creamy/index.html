@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="tostado">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -10,7 +10,7 @@
 
 <link rel="preload" href="assets/fonts/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(h){h.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)h.classList.add('motion');if(/[?&]tema=creme\b/.test(location.search))delete h.dataset.tema;})(document.documentElement)</script>
 <!-- base fora das camadas: vale mesmo se o Tailwind não carregar -->
 <style>html, body { background: #f7efe2; color: #2b1a12; color-scheme: light; }</style>
 
@@ -129,6 +129,8 @@
     </div>
   </div>
 </section>
+
+<div class="tone-bridge" aria-hidden="true"></div>
 
 <!-- ================= A NOITE ================= -->
 <section id="noite" class="night">
