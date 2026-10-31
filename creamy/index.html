@@ -52,30 +52,47 @@
   <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20o%20site%20e%20quero%20fazer%20um%20pedido." target="_blank" rel="noopener" class="btn btn-cream w-full justify-center"><span>Pedir no WhatsApp</span></a>
 </div>
 
-<main>
-<!-- ================= HERO: título editorial + pizza e chope em escala ================= -->
-<section id="inicio" class="hero">
-  <div class="hero-copy">
-    <p class="hero-meta pop" style="--d:.05s"><span id="statusDot" class="dot"></span><span id="statusText">Pizzaria &amp; choperia · Rio Tavares</span><em class="warn">horário a confirmar</em></p>
-    <h1 class="hero-title" aria-label="A noite começa cedo.">
-      <span class="ln pop" style="--d:.12s">A noite</span>
-      <span class="ln pop" style="--d:.2s"><em>começa</em></span>
-      <span class="ln pop" style="--d:.28s">cedo.</span>
-    </h1>
-    <p class="hero-lede pop" style="--d:.4s">Pizza saindo do forno, chope gelado com colarinho e a turma chegando. No Rio Tavares, em Floripa.</p>
-    <div class="hero-cta pop" style="--d:.5s">
-      <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20o%20site%20e%20quero%20fazer%20um%20pedido." target="_blank" rel="noopener" data-magnetic class="btn btn-tomato btn-lg"><span>Pedir no WhatsApp</span><b aria-hidden="true">→</b></a>
-      <a href="#cardapio" class="link-arrow">Ver o cardápio <b aria-hidden="true">↓</b></a>
+<main id="inicio">
+<!-- ================= TOPO + PIZZA: a pizza é o objeto da página desde o carregamento =================
+     A rolagem controla o estado da pizza (massa -> molho -> muçarela -> forno -> pronta), nos dois sentidos.
+     Os quadros são recortes (fundo removido) desenhados num canvas transparente sobre o creme da página; sombra de
+     contato e luz do forno são da própria página. Notas com linhas-guia apontam para partes reais da pizza. -->
+<section id="montagem" class="show" aria-label="Uma pizza sendo montada e assada: massa, molho, muçarela, forno e pronta">
+  <div class="show-pin">
+    <div class="show-glow" aria-hidden="true"></div>
+    <div class="show-obj">
+      <div class="show-shadow" aria-hidden="true"></div>
+      <img class="bkey bkey-1" src="assets/img/ia/montagem-crua.webp" alt="" width="1080" height="1260" decoding="async">
+      <img class="bkey bkey-2" src="assets/img/ia/montagem-pronta.webp" alt="Pizza margherita assada, com a borda alta e tostada e a muçarela derretida (imagem ilustrativa)" width="1080" height="1260" decoding="async">
+      <canvas id="buildCanvas" aria-hidden="true"></canvas>
+      <p class="obj-note">imagem ilustrativa · gerada por IA</p>
     </div>
-  </div>
+    <svg class="show-lines" aria-hidden="true"><path class="ln-path"/><circle class="ln-dot" r="4.5"/><circle class="ln-ring" r="11"/></svg>
 
-  <div class="hero-photos">
-    <figure class="hp hp-pizza" data-photo="pizza" data-priority="1">
-      <figcaption class="hp-cap"><span>Pizza</span><i>do forno</i></figcaption>
-    </figure>
-    <figure class="hp hp-chope" data-photo="chope">
-      <figcaption class="hp-cap"><span>Chope</span><i>gelado</i></figcaption>
-    </figure>
+    <div class="show-hero">
+      <p class="hero-meta pop" style="--d:.05s"><span id="statusDot" class="dot"></span><span id="statusText">Pizzaria &amp; choperia · Rio Tavares</span><em class="warn">horário a confirmar</em></p>
+      <h1 class="hero-title" aria-label="A noite começa cedo.">
+        <span class="ln pop" style="--d:.12s">A noite</span>
+        <span class="ln pop" style="--d:.2s"><em>começa</em></span>
+        <span class="ln pop" style="--d:.28s">cedo.</span>
+      </h1>
+      <p class="hero-lede pop" style="--d:.4s">Pizza saindo do forno, chope gelado com colarinho e a turma chegando. No Rio Tavares, em Floripa.</p>
+      <div class="hero-cta pop" style="--d:.5s">
+        <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20o%20site%20e%20quero%20fazer%20um%20pedido." target="_blank" rel="noopener" data-magnetic class="btn btn-tomato btn-lg"><span>Pedir no WhatsApp</span><b aria-hidden="true">→</b></a>
+        <a href="#cardapio" class="link-arrow">Ver o cardápio <b aria-hidden="true">↓</b></a>
+      </div>
+      <p class="show-scroll" aria-hidden="true">Role para montar a pizza</p>
+    </div>
+
+    <ol class="show-notes">
+      <li class="note" data-anchor="massa"><span class="note-n">01</span><h2>Massa.</h2><p>Fina no centro, borda alta.</p></li>
+      <li class="note" data-anchor="molho"><span class="note-n">02</span><h2>Molho.</h2><p>Em espiral, do centro pra borda.</p></li>
+      <li class="note" data-anchor="queijo"><span class="note-n">03</span><h2>Muçarela.</h2><p>Rasgada, com folhas de manjericão.</p></li>
+      <li class="note" data-anchor="borda"><span class="note-n">04</span><h2>Forno.</h2><p>A borda cresce, ganha pintas, e o queijo derrete.</p></li>
+      <li class="note note-final" data-anchor=""><h2>Pronta.</h2><p>Agora é só pedir a sua.</p>
+        <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20a%20pizza%20no%20site%20e%20quero%20pedir%20uma." target="_blank" rel="noopener" class="btn btn-tomato btn-lg build-cta"><span>Pedir a minha no WhatsApp</span><b aria-hidden="true">→</b></a></li>
+    </ol>
+    <div class="show-progress" aria-hidden="true"><i id="buildBar"></i></div>
   </div>
 </section>
 
@@ -87,41 +104,22 @@
   </div>
 </div>
 
-<!-- ================= MONTAGEM (pizza se montando com o scroll) ================= -->
-<section id="montagem" class="build" aria-label="Uma pizza sendo montada na bancada e assando no forno">
-  <div class="build-pin">
-    <div class="build-copy">
-      <p class="build-kicker">Do forno pra mesa</p>
-      <ol class="build-steps">
-        <li class="bstep is-on"><h2>Molho.</h2><p>Em espiral, do centro pra borda.</p></li>
-        <li class="bstep"><h2>Queijo.</h2><p>Muçarela rasgada e manjericão.</p></li>
-        <li class="bstep"><h2>Forno.</h2><p>A borda cresce e o queijo derrete.</p></li>
-        <li class="bstep"><h2>Pronta.</h2><p>Agora é só pedir a sua.</p></li>
-      </ol>
-      <div class="build-index" aria-hidden="true"><span>Molho</span><span>Queijo</span><span>Forno</span><span>Pronta</span><i id="buildBar"></i></div>
-      <a href="https://wa.me/5548988643364?text=Oi%2C%20Creamy!%20Vi%20a%20pizza%20no%20site%20e%20quero%20pedir%20uma." target="_blank" rel="noopener" class="btn btn-tomato btn-lg build-cta"><span>Pedir a minha no WhatsApp</span><b aria-hidden="true">→</b></a>
-    </div>
-
-    <figure class="build-stage">
-      <img class="bkey bkey-1" src="assets/img/ia/montagem-crua.jpg" alt="" width="1080" height="1920" decoding="async">
-      <img class="bkey bkey-2" src="assets/img/ia/montagem-pronta.jpg" alt="Pizza margherita assada, com a borda tostada e a muçarela derretida, dentro de um forno a lenha (imagem ilustrativa)" width="1080" height="1920" loading="lazy" decoding="async">
-      <canvas id="buildCanvas" aria-hidden="true"></canvas>
-      <figcaption class="ai-note">imagem ilustrativa · gerada por IA</figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- ================= CHOPE (copo enchendo com o scroll) ================= -->
+<!-- ================= CHOPE: o copo é um objeto da página; a torneira desce da borda da tela =================
+     A rolagem enche o copo (e esvazia ao subir). Uma régua ao lado acompanha o nível REAL do líquido em cada quadro, e
+     os textos sobem com ele até o colarinho. -->
 <section id="chope" class="pour" aria-label="Um copo de chope enchendo até formar o colarinho">
   <div class="pour-pin">
-    <figure class="pour-stage">
-      <img class="pour-key pour-key-1" src="assets/img/ia/chope-vazio.jpg" alt="" width="1080" height="1920" loading="lazy" decoding="async">
-      <img class="pour-key pour-key-2" src="assets/img/ia/chope-cheio.jpg" alt="Copo alto de chope dourado com colarinho de espuma branca, sob uma torneira cromada, num balcão de madeira (imagem ilustrativa)" width="1080" height="1920" loading="lazy" decoding="async">
+    <div class="pour-glow" aria-hidden="true"></div>
+    <div class="pour-obj">
+      <div class="pour-shadow" aria-hidden="true"></div>
+      <img class="pour-key pour-key-1" src="assets/img/ia/chope-vazio.webp" alt="" width="495" height="1713" loading="lazy" decoding="async">
+      <img class="pour-key pour-key-2" src="assets/img/ia/chope-cheio.webp" alt="Copo alto de chope dourado com colarinho de espuma branca, sob uma torneira cromada (imagem ilustrativa)" width="495" height="1713" loading="lazy" decoding="async">
       <canvas id="pourCanvas" aria-hidden="true"></canvas>
-      <figcaption class="ai-note">imagem ilustrativa · gerada por IA</figcaption>
-    </figure>
+      <p class="obj-note">imagem ilustrativa · gerada por IA</p>
+    </div>
     <div class="pour-copy">
       <p class="build-kicker">O outro lado da mesa</p>
+      <div class="pour-gauge" aria-hidden="true"><i class="pg-track"></i><i class="pg-fill"></i><i class="pg-mark"></i></div>
       <ol class="pour-steps">
         <li class="pstep is-on"><h2>Gelado.</h2><p>Copo limpo, chope dourado.</p></li>
         <li class="pstep"><h2>Subindo.</h2><p>Bolha fina, sem pressa.</p></li>

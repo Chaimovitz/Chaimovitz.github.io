@@ -1,41 +1,92 @@
 import { $, $$, clamp, reduceMotion } from './utils.js';
 import { sequence } from './seqscroll.js';
+import { PIZZA } from '../data/pizza.js';
 
-// "Do forno pra mesa": a pizza sendo montada na bancada e assando no forno, presa à rolagem.
-// 129 quadros de dois planos gerados no Higgsfield (Seedance 2.0, 1080p, quadros-chave em 4K nativo), unidos por uma
-// fusão curta: bancada (molho, muçarela, manjericão) -> forno (borda cresce, queijo derrete). Motor em seqscroll.js.
-// Modos: "seq" (canvas), "keys" (2 imagens em fusão: economia de dados/2G) e estático (movimento reduzido ou sem JS).
-const N = 129;
-// segura um instante no primeiro e no último quadro (a pizza pronta assenta antes de a seção soltar)
-const map = p => clamp((p - 0.03) / 0.9, 0, 1);
-const MARKS = [0, 0.27, 0.5, 0.9];            // molho, queijo, forno, pronta (posição da rolagem)
+// Topo + pizza: a pizza é o objeto da página desde o carregamento. A rolagem controla o estado (massa -> molho ->
+// muçarela -> forno -> pronta), nos dois sentidos. Quadros recortados (fundo removido) num canvas transparente sobre o
+// creme; o título sai (opacidade e deslocamento curto), entram notas com linhas-guia apontando para partes reais da pizza, a luz do forno
+// esquenta o fundo e a narrativa termina no pedido. Motor dos quadros: seqscroll.js.
+const { count: N, anchors: A, bands } = PIZZA;
+// posição da rolagem -> quadro (bancada 0..55, fusão 55..61, forno 61..116) e marcos das notas
+const map = p => {
+  const [h0, c1, x1, o1] = bands;                 // fim do topo, fim da bancada, fim da fusão, pizza pronta
+  const f = p < h0 ? 0 : p < c1 ? ((p - h0) / (c1 - h0)) * 55 : p < x1 ? 55 + ((p - c1) / (x1 - c1)) * 6 : p < o1 ? 61 + ((p - x1) / (o1 - x1)) * 55 : 116;
+  return f / (N - 1);
+};
+const MARKS = PIZZA.marks;                         // início de cada nota (massa, molho, muçarela, forno, pronta)
+const ease = t => t * t * (3 - 2 * t);
 
 export function initBuild() {
   const sec = $('#montagem'); if (!sec || reduceMotion) return;
-  const cv = $('#buildCanvas'), steps = $$('.bstep', sec), keys = $$('.bkey', sec), bar = $('#buildBar');
+  const pin = $('.show-pin', sec), cv = $('#buildCanvas'), obj = $('.show-obj', sec), hero = $('.show-hero', sec);
+  const notes = $$('.note', sec), keys = $$('.bkey', sec), bar = $('#buildBar'), glow = $('.show-glow', sec);
+  const svg = $('.show-lines', sec), path = $('.ln-path', svg), dot = $('.ln-dot', svg), ring = $('.ln-ring', svg);
   const conn = navigator.connection;
   const lite = !!conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''));
   const mode = !lite && cv.getContext && 'createImageBitmap' in window ? 'seq' : 'keys';
   sec.classList.add('is-live', `mode-${mode}`);
 
-  // só propriedades de compositor (transform/opacity) por quadro
-  let step = -1;
+  // geometria (medida só quando o layout muda): caixa da pizza e ponto de saída de cada nota, relativos ao pin
+  let box = null, outs = [], mobile = false;
+  const measure = () => {
+    mobile = matchMedia('(max-width: 1023px)').matches;
+    const pr = pin.getBoundingClientRect(), r = obj.getBoundingClientRect();
+    box = { x: r.left - pr.left, y: r.top - pr.top, w: r.width, h: r.height };
+    outs = notes.map(n => {
+      const h = n.querySelector('h2'); if (!h) return null;
+      // desktop: sai da direita do título da nota; celular: sai de baixo do texto, à esquerda
+      const nr = n.getBoundingClientRect(), hr = h.getBoundingClientRect();
+      const tY = n.classList.contains('is-on') ? 0 : 22;           // a nota apagada está 22 px abaixo (translate)
+      return mobile ? { x: nr.left - pr.left + 6, y: nr.bottom - pr.top - tY + 10 } : { x: hr.right - pr.left + 18, y: hr.top - pr.top - tY + hr.height * 0.55 };
+    });
+    glow.style.setProperty('--gx', `${((box.x + box.w * 0.5) / pr.width) * 100}%`);
+    glow.style.setProperty('--gy', `${((box.y + box.h * 0.66) / pr.height) * 100}%`);
+    lastStep = -2; ui(lastP);
+  };
+
+  let step = -1, lastStep = -2, lastP = 0;
+  const drawLine = s => {
+    const key = notes[s]?.dataset.anchor, a = key && A[key], o = outs[s];
+    if (!a || !o || !box) { svg.classList.remove('is-on'); return; }
+    const x2 = box.x + a[0] * box.w, y2 = box.y + a[1] * box.h;
+    // linha em cotovelo: sai da nota na horizontal (desktop) ou na vertical (celular) e desce/segue até o ponto
+    const d = mobile ? `M${o.x},${o.y} L${o.x},${(o.y + y2) / 2} L${x2},${y2}` : `M${o.x},${o.y} L${(o.x + x2) / 2},${o.y} L${x2},${y2}`;
+    path.setAttribute('d', d);
+    const len = Math.ceil(path.getTotalLength()); path.style.setProperty('--len', len);
+    dot.setAttribute('cx', x2); dot.setAttribute('cy', y2); ring.setAttribute('cx', x2); ring.setAttribute('cy', y2);
+    svg.classList.remove('is-on'); void svg.getBoundingClientRect(); svg.classList.add('is-on');
+  };
+
+  // só transform/opacity/filter por quadro (nada que recalcule layout)
   const ui = p => {
-    const s = MARKS.reduce((acc, m, i) => (p >= m ? i : acc), 0);
-    if (s !== step) { step = s; steps.forEach((el, i) => el.classList.toggle('is-on', i === s)); }
+    lastP = p;
+    const h = ease(clamp((p - 0.035) / 0.07, 0, 1));              // o título sai: opacidade e deslocamento curto
+    hero.style.opacity = (1 - h).toFixed(3);
+    hero.style.transform = `translate3d(0, ${(-h * 24).toFixed(1)}px, 0)`;
+    hero.style.visibility = h >= 0.999 ? 'hidden' : '';
+    const s = p < MARKS[0] ? -1 : MARKS.reduce((acc, m, i) => (p >= m ? i : acc), 0);
+    if (s !== step) { step = s; notes.forEach((el, i) => el.classList.toggle('is-on', i === s)); }
+    if (s !== lastStep) { lastStep = s; drawLine(s); }
+    const oven = clamp((p - bands[1]) / (bands[3] - bands[1]), 0, 1);   // a luz do forno esquenta o fundo
+    glow.style.opacity = (0.45 + 0.55 * Math.sin(Math.PI * Math.min(oven, 1) * 0.5 + (oven >= 1 ? 0 : 0))).toFixed(3);
     if (bar) bar.style.transform = `scaleX(${p.toFixed(4)})`;
-    sec.classList.toggle('is-done', p > 0.95);
+    sec.classList.toggle('is-done', p > bands[3]);
+    if (mode === 'keys') keys[1].style.opacity = clamp((p - bands[1]) / (bands[3] - bands[1]), 0, 1).toFixed(3);
   };
 
   if (mode === 'seq') {
-    sequence({ sec, canvas: cv, count: N, dirs: { hd: 'assets/seq/hd/', sd: 'assets/seq/sd/' }, map, onProgress: ui, fade: 1, focusY: 0.62 });
+    sequence({ sec, canvas: cv, count: N, dirs: PIZZA.dirs, map, onProgress: ui, fade: 1, focusY: 0.5, alpha: true });
   } else {
     let top = 0, len = 1, queued = false;
-    const measure = () => { top = sec.getBoundingClientRect().top + scrollY; len = Math.max(sec.offsetHeight - innerHeight, 1); };
-    const frame = () => { queued = false; const p = clamp((scrollY - top) / len, 0, 1); ui(p); keys[1].style.opacity = clamp((p - 0.45) / 0.35, 0, 1).toFixed(3); };
+    const m2 = () => { top = sec.getBoundingClientRect().top + scrollY; len = Math.max(sec.offsetHeight - innerHeight, 1); };
+    const frame = () => { queued = false; ui(clamp((scrollY - top) / len, 0, 1)); };
     addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(frame); } }, { passive: true });
-    addEventListener('resize', () => { measure(); frame(); });
-    new ResizeObserver(() => { measure(); frame(); }).observe(document.body);
-    measure(); frame();
+    addEventListener('resize', () => { m2(); frame(); });
+    new ResizeObserver(() => { m2(); frame(); }).observe(document.body);
+    m2(); frame();
   }
+  addEventListener('resize', measure);
+  new ResizeObserver(measure).observe(pin);
+  document.fonts?.ready.then(measure);
+  measure();
 }

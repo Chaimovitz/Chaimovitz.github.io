@@ -21,8 +21,10 @@ const setActive = (sec, on) => {
   else if (!on && active === sec) { active = null; waiting.forEach(f => f()); }
 };
 
-export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, fade = 1, focusY = 0.5 }) {
-  const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
+// alpha: quadros recortados (fundo transparente) desenhados sobre a própria página; o canvas tem a proporção do quadro
+// (sem recorte) e é limpo a cada desenho.
+export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, fade = 1, focusY = 0.5, alpha = false }) {
+  const ctx = canvas.getContext('2d', alpha ? { alpha: true } : { alpha: false, desynchronized: true });
   const fileMode = location.protocol === 'file:';
   const mobile = matchMedia('(max-width: 1023px)').matches;
   let dir = dirs.sd;
@@ -36,7 +38,7 @@ export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, f
   const geometry = () => {
     if (!nat) return null;
     const r = canvas.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
-    const ca = r.width / Math.max(r.height, 1), fa = nat.w / nat.h;
+    const ca = alpha ? nat.w / nat.h : r.width / Math.max(r.height, 1), fa = nat.w / nat.h;
     const sw = ca > fa ? nat.w : Math.round(nat.h * ca), sh = ca > fa ? Math.round(nat.w / ca) : nat.h;
     const k = Math.min(1, (r.width * dpr) / sw);
     return { sx: Math.round((nat.w - sw) / 2), sy: Math.round((nat.h - sh) * focusY), sw, sh, w: Math.round(sw * k), h: Math.round(sh * k) };
@@ -45,7 +47,7 @@ export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, f
   const pickDir = () => {
     const r = canvas.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
     // aberto como arquivo (pacote, sem servidor) cada quadro vira uma <img> inteira na memória: fica no SD
-    dir = !fileMode && r.height * dpr > 1350 ? dirs.hd : dirs.sd;
+    dir = !fileMode && Math.max(r.height, r.width) * dpr > (alpha ? 1000 : 1350) ? dirs.hd : dirs.sd;
   };
   const measure = () => {
     top = sec.getBoundingClientRect().top + scrollY; len = Math.max(sec.offsetHeight - innerHeight, 1);
@@ -136,6 +138,7 @@ export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, f
 
   // ---------- desenho ----------
   const blit = (bm, isLow) => {
+    if (alpha && ctx.globalAlpha === 1) ctx.clearRect(0, 0, geo.w, geo.h);
     if (bm instanceof HTMLImageElement) ctx.drawImage(bm, geo.sx, geo.sy, geo.sw, geo.sh, 0, 0, geo.w, geo.h);
     else if (isLow) ctx.drawImage(bm, 0, 0, geo.w, geo.h);
     else ctx.drawImage(bm, 0, 0);
