@@ -30,6 +30,15 @@ export function initBuild() {
   let box = null, outs = [], mobile = false;
   const measure = () => {
     mobile = matchMedia('(max-width: 1023px)').matches;
+    // celular: a pizza ocupa o espaço livre entre os botões do topo e o botão fixo do WhatsApp (o terço de cima da caixa
+    // é transparente, então ela pode subir até ali sem cobrir o texto). Nunca maior que a largura da tela.
+    if (mobile) {
+      const cta = hero.querySelector('.hero-cta').getBoundingClientRect(), pr0 = pin.getBoundingClientRect();
+      const free = pr0.height - (cta.bottom - pr0.top) - 54 - 14;                  // 54 px do botão fixo + folga
+      const h = Math.max(220, Math.min(pin.clientWidth * 0.92 * (1260 / 1080), free / 0.74));
+      obj.style.height = `${Math.round(h)}px`; obj.style.width = `${Math.round(h * 1080 / 1260)}px`;
+      obj.style.left = `${Math.round((pin.clientWidth - h * 1080 / 1260) / 2)}px`;
+    } else { obj.style.height = obj.style.width = obj.style.left = ''; }
     const pr = pin.getBoundingClientRect(), r = obj.getBoundingClientRect();
     box = { x: r.left - pr.left, y: r.top - pr.top, w: r.width, h: r.height };
     outs = notes.map(n => {
