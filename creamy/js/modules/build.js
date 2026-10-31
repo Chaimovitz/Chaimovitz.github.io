@@ -7,10 +7,10 @@ import { PIZZA } from '../data/pizza.js';
 // creme; o título sai (opacidade e deslocamento curto), entram notas com linhas-guia apontando para partes reais da pizza, a luz do forno
 // esquenta o fundo e a narrativa termina no pedido. Motor dos quadros: seqscroll.js.
 const { count: N, anchors: A, bands } = PIZZA;
-// posição da rolagem -> quadro (bancada 0..55, fusão 55..61, forno 61..116) e marcos das notas
+// posição da rolagem -> quadro (bancada 0..32, fusão 32..37, forno 37..93) e marcos das notas
 const map = p => {
   const [h0, c1, x1, o1] = bands;                 // fim do topo, fim da bancada, fim da fusão, pizza pronta
-  const f = p < h0 ? 0 : p < c1 ? ((p - h0) / (c1 - h0)) * 55 : p < x1 ? 55 + ((p - c1) / (x1 - c1)) * 6 : p < o1 ? 61 + ((p - x1) / (o1 - x1)) * 55 : 116;
+  const f = p < h0 ? 0 : p < c1 ? ((p - h0) / (c1 - h0)) * 32 : p < x1 ? 32 + ((p - c1) / (x1 - c1)) * 5 : p < o1 ? 37 + ((p - x1) / (o1 - x1)) * 56 : 93;
   return f / (N - 1);
 };
 const MARKS = PIZZA.marks;                         // início de cada nota (massa, molho, muçarela, forno, pronta)
@@ -69,7 +69,7 @@ export function initBuild() {
   // só transform/opacity/filter por quadro (nada que recalcule layout)
   const ui = p => {
     lastP = p;
-    const h = ease(clamp((p - 0.035) / 0.07, 0, 1));              // o título sai: opacidade e deslocamento curto
+    const h = ease(clamp((p - 0.015) / 0.05, 0, 1));              // o título sai: opacidade e deslocamento curto
     hero.style.opacity = (1 - h).toFixed(3);
     hero.style.transform = `translate3d(0, ${(-h * 24).toFixed(1)}px, 0)`;
     hero.style.visibility = h >= 0.999 ? 'hidden' : '';

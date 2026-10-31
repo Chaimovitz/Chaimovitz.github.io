@@ -5,12 +5,15 @@ import { clamp } from './utils.js';
 //  - progresso = posição do scroll, direto (sem lerp/scrub): a cena anda junto com a página, nos dois sentidos.
 //  - tudo é preparado ANTES de a cena aparecer (a 3 telas de distância):
 //      1) baixa todos os quadros (comprimidos, poucos MB);
-//      2) decodifica TODOS numa versão leve (1/3 do tamanho, fora da thread principal) -> rede de segurança: nunca há
+//      2) decodifica TODOS numa versão leve (metade do tamanho, fora da thread principal) -> rede de segurança: nunca há
 //         buraco, degrau nem quadro em branco, mesmo num arremesso de rolagem;
 //      3) decodifica em resolução total uma janela de quadros a partir da ponta por onde a cena vai entrar e, depois,
 //         sempre à frente da posição, no sentido da rolagem. A janela cabe num orçamento de memória (some ao sair).
 //  - cada quadro sai da decodificação já recortado e no tamanho do canvas: desenho 1:1, sem escala.
-//  - mistura contínua entre quadros vizinhos (fade = 1): o movimento é interpolado, não "fatiado".
+//  - mistura contínua entre quadros vizinhos (fade = 1): o movimento é interpolado, não "fatiado". Se um quadro ainda
+//    não chegou, mistura os dois mais próximos disponíveis (antes e depois): a cena nunca salta nem congela.
+//  - download do grosso para o fino (início, fim, meio, quartos...): logo após abrir, a sequência inteira já está
+//    coberta por quadros espaçados, e os intermediários vão preenchendo.
 //  - nenhuma leitura de layout por quadro (offsets medidos só quando a página muda de tamanho).
 // coordenação entre as cenas: enquanto uma está na tela, a outra só prepara um quadro por vez (sem disputa de CPU,
 // mas sem chegar despreparada)
@@ -68,7 +71,7 @@ export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, f
   const decodeLow = i => {
     if (fileMode) { low[i] = blobs[i]; return; }
     const mine = gen;
-    crop(blobs[i], Math.max(1, Math.round(geo.w / 3)), Math.max(1, Math.round(geo.h / 3)))
+    crop(blobs[i], Math.max(1, Math.round(geo.w / 2)), Math.max(1, Math.round(geo.h / 2)))
       .then(bm => { if (mine !== gen) return bm.close(); low[i] = bm; if (i === shown()) { lastKey = ''; schedule(); } });
   };
   let busy = 0;
@@ -130,8 +133,17 @@ export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, f
   const start = () => {
     pickDir();
     const fromEnd = sec.getBoundingClientRect().top < 0;          // vindo de baixo: a cena entra pelo último quadro
-    const idx = Array.from({ length: count }, (_, i) => (fromEnd ? count - 1 - i : i));
-    order = [idx[0], ...idx.slice(1)];
+    // grosso -> fino: as pontas, depois o meio de cada intervalo, recursivamente (a ponta de entrada primeiro)
+    const seen = new Uint8Array(count), out = [];
+    const add = i => { if (i >= 0 && i < count && !seen[i]) { seen[i] = 1; out.push(i); } };
+    add(fromEnd ? count - 1 : 0); add(fromEnd ? 0 : count - 1);
+    for (let step = count - 1; step >= 1; step = Math.floor(step / 2)) {
+      for (let i = 0; i < count; i += step) add(fromEnd ? count - 1 - i : i);
+      if (step === 1) break;
+    }
+    // os 6 primeiros quadros a partir da entrada vêm logo depois das pontas (a primeira rolagem é a mais comum)
+    for (let k = 1; k <= 6; k++) { const i = fromEnd ? count - 1 - k : k; const j = out.indexOf(i); if (j > 2) { out.splice(j, 1); out.splice(2, 0, i); } }
+    order = out;
     if (fromEnd) { p = 1; lastP = 1; dirSign = -1; }
     fetchNext();
   };
@@ -144,26 +156,24 @@ export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, f
     else ctx.drawImage(bm, 0, 0);
   };
   const pick = i => (hi[i] ? [hi[i], false] : low[i] ? [low[i], true] : null);
-  const nearest = i => { for (let d = 0; d < count; d++) { if (pick(i - d)) return i - d; if (pick(i + d)) return i + d; } return -1; };
+  const below = i => { for (let k = i; k >= 0; k--) if (pick(k)) return k; return -1; };
+  const above = i => { for (let k = i; k < count; k++) if (pick(k)) return k; return -1; };
   const draw = () => {
     if (!geo) return;
     const f = map(p) * (count - 1), a = Math.floor(f), b = Math.min(a + 1, count - 1), t = f - a;
-    let m = fade >= 1 ? t : clamp((t - (0.5 - fade / 2)) / Math.max(fade, 1e-3), 0, 1);
-    // parado: assenta no quadro mais próximo (a mistura vira desfoque de movimento enquanto rola, mas parada
-    // mostraria uma dupla exposição nas mãos e na concha)
-    if (idle) m = m < 0.5 ? 0 : 1;
-    const A = pick(a), B = pick(b);
-    const key = `${a}|${b}|${m.toFixed(3)}|${A?.[1]}|${B?.[1]}|${canvas.width}`;
+    // quadros que vão ser misturados: os vizinhos de f ou, se algum ainda não chegou, os mais próximos disponíveis
+    let ia = pick(a) ? a : below(a), ib = pick(b) ? b : above(b);
+    if (ia < 0 && ib < 0) return;
+    if (ia < 0) ia = ib; if (ib < 0) ib = ia;
+    if (ia !== a || ib !== b) sec.__miss = (sec.__miss || 0) + 1;              // QA: faltava quadro (misturou os vizinhos)
+    const m = ib === ia ? 0 : clamp((f - ia) / (ib - ia), 0, 1);
+    const mm = fade >= 1 || ia !== a || ib !== b ? m : clamp((t - (0.5 - fade / 2)) / Math.max(fade, 1e-3), 0, 1);
+    const A = pick(ia), B = pick(ib);
+    const key = `${ia}|${ib}|${mm.toFixed(3)}|${A[1]}|${B[1]}|${canvas.width}`;
     if (key === lastKey) return;
-    if (A && B) {
-      ctx.globalAlpha = 1; blit(A[0], A[1]);
-      if (m > 0.004 && b !== a) { ctx.globalAlpha = m; blit(B[0], B[1]); }
-      if (A[1] || (B[1] && m > 0.004)) sec.__soft = (sec.__soft || 0) + 1;   // QA: usou a versão leve
-    } else {
-      const k = nearest(Math.round(f)); if (k < 0) return;
-      sec.__miss = (sec.__miss || 0) + 1;                                    // QA: quadro ainda não existia
-      const K = pick(k); ctx.globalAlpha = 1; blit(K[0], K[1]);
-    }
+    ctx.globalAlpha = 1; blit(A[0], A[1]);
+    if (mm > 0.004 && ib !== ia) { ctx.globalAlpha = mm; blit(B[0], B[1]); }
+    if (A[1] || (B[1] && mm > 0.004)) sec.__soft = (sec.__soft || 0) + 1;      // QA: usou a versão leve
     ctx.globalAlpha = 1; lastKey = key; sec.__f = f; sec.classList.add('is-drawn');
   };
   const frame = () => {
@@ -178,12 +188,7 @@ export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, f
     draw();
   };
   const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
-  let idle = true, idleT = 0;
-  const onScroll = () => {
-    if (idle) { idle = false; lastKey = ''; }
-    clearTimeout(idleT); idleT = setTimeout(() => { idle = true; lastKey = ''; schedule(); }, 140);
-    schedule();
-  };
+  const onScroll = schedule;
 
   new IntersectionObserver(([e]) => {
     if (e.isIntersecting && !near) { near = true; if (!started) { started = true; start(); } plan(); schedule(); }
