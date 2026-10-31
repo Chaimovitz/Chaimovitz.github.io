@@ -1,42 +1,38 @@
 import { $, $$, clamp, reduceMotion } from './utils.js';
 import { sequence } from './seqscroll.js';
 
-// "Do forno pra mesa": a pizza se monta conforme a rolagem (96 quadros estabilizados de um vídeo gerado no Higgsfield).
-// Motor em seqscroll.js (o mesmo do chope). Modos: "seq" (canvas), "keys" (2 imagens-chave em fusão, economia de dados/2G)
-// e estático (movimento reduzido ou sem JS: só a pizza pronta e os passos em lista, pelo CSS).
-const N = 96;
-// tempo do vídeo × rolagem: os 32 primeiros quadros (camadas quase paradas) ocupam só o começo;
-// os últimos (pizza pronta, parada) seguram o quadro final estável
-const HOLD = 0.16;
-const map = p => (p < HOLD ? (p / HOLD) * (31 / 95) : 31 / 95 + ((p - HOLD) / (1 - HOLD)) * (64 / 95));
-const MARKS = [0, HOLD, 0.6, 0.82];          // camadas, assenta, forno, pronta
-const ease = t => t * t * (3 - 2 * t);
+// "Do forno pra mesa": a pizza sendo montada na bancada e assando no forno, presa à rolagem.
+// 129 quadros de dois planos gerados no Higgsfield (Seedance 2.0, 1080p, quadros-chave em 4K nativo), unidos por uma
+// fusão curta: bancada (molho, muçarela, manjericão) -> forno (borda cresce, queijo derrete). Motor em seqscroll.js.
+// Modos: "seq" (canvas), "keys" (2 imagens em fusão: economia de dados/2G) e estático (movimento reduzido ou sem JS).
+const N = 129;
+// segura um instante no primeiro e no último quadro (a pizza pronta assenta antes de a seção soltar)
+const map = p => clamp((p - 0.03) / 0.9, 0, 1);
+const MARKS = [0, 0.27, 0.5, 0.9];            // molho, queijo, forno, pronta (posição da rolagem)
 
 export function initBuild() {
   const sec = $('#montagem'); if (!sec || reduceMotion) return;
-  const cv = $('#buildCanvas'), steps = $$('.bstep', sec), keys = $$('.bkey', sec), bar = $('#buildBar'), heat = $('.build-heat', sec);
+  const cv = $('#buildCanvas'), steps = $$('.bstep', sec), keys = $$('.bkey', sec), bar = $('#buildBar');
   const conn = navigator.connection;
   const lite = !!conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''));
   const mode = !lite && cv.getContext && 'createImageBitmap' in window ? 'seq' : 'keys';
   sec.classList.add('is-live', `mode-${mode}`);
 
-  // só propriedades de compositor (transform/opacity) por quadro: nada de variáveis CSS que recalculam estilo
+  // só propriedades de compositor (transform/opacity) por quadro
   let step = -1;
   const ui = p => {
     const s = MARKS.reduce((acc, m, i) => (p >= m ? i : acc), 0);
     if (s !== step) { step = s; steps.forEach((el, i) => el.classList.toggle('is-on', i === s)); }
     if (bar) bar.style.transform = `scaleX(${p.toFixed(4)})`;
-    if (heat) heat.style.opacity = (clamp((p - 0.55) / 0.2, 0, 1) * (1 - clamp((p - 0.88) / 0.12, 0, 1) * 0.6)).toFixed(3);
-    sec.classList.toggle('is-done', p > 0.97);
+    sec.classList.toggle('is-done', p > 0.95);
   };
 
   if (mode === 'seq') {
-    const dir = matchMedia('(max-width: 1023px)').matches ? 'assets/seq/mobile/' : 'assets/seq/desktop/';
-    sequence({ sec, canvas: cv, count: N, dir, map, onProgress: ui, fade: 0.6, focusY: 0.66 });
+    sequence({ sec, canvas: cv, count: N, dirs: { hd: 'assets/seq/hd/', sd: 'assets/seq/sd/' }, map, onProgress: ui, fade: 1, focusY: 0.62 });
   } else {
     let top = 0, len = 1, queued = false;
     const measure = () => { top = sec.getBoundingClientRect().top + scrollY; len = Math.max(sec.offsetHeight - innerHeight, 1); };
-    const frame = () => { queued = false; const p = clamp((scrollY - top) / len, 0, 1); ui(p); keys[1].style.opacity = ease(clamp((p - 0.5) / 0.3, 0, 1)).toFixed(3); };
+    const frame = () => { queued = false; const p = clamp((scrollY - top) / len, 0, 1); ui(p); keys[1].style.opacity = clamp((p - 0.45) / 0.35, 0, 1).toFixed(3); };
     addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(frame); } }, { passive: true });
     addEventListener('resize', () => { measure(); frame(); });
     new ResizeObserver(() => { measure(); frame(); }).observe(document.body);

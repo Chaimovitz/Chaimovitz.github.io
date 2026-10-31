@@ -6,7 +6,6 @@ import { POUR } from '../data/pour.js';
 // Movimento reduzido: copo cheio parado (CSS). Economia de dados: 2 imagens-chave em fusão.
 export function initPour() {
   const sec = $('#chope'); if (!sec || reduceMotion) return;
-  const mobile = matchMedia('(max-width: 1023px)').matches, cfg = mobile ? POUR.mobile : POUR.desktop;
   const canvas = $('#pourCanvas'), steps = $$('.pstep', sec), keys = $$('.pour-key', sec);
   const conn = navigator.connection;
   const lite = !!conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || ''));
@@ -19,7 +18,7 @@ export function initPour() {
     if (s !== step) { step = s; steps.forEach((el, i) => el.classList.toggle('is-on', i === s)); }
   };
   if (mode === 'seq') {
-    sequence({ sec, canvas, count: cfg.count, dir: cfg.dir, onProgress: ui, fade: 1, focusY: 0.5 });
+    sequence({ sec, canvas, count: POUR.count, dirs: POUR.dirs, map: p => clamp((p - 0.03) / 0.9, 0, 1), onProgress: ui, fade: 1, focusY: 0.55 });
   } else {
     let top = 0, len = 1, queued = false;
     const measure = () => { top = sec.getBoundingClientRect().top + scrollY; len = Math.max(sec.offsetHeight - innerHeight, 1); };

@@ -189,12 +189,12 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
 .dock.is-on { transform: none; }
 
 /* ============ MONTAGEM: pizza se montando com o scroll (ver build.js) ============ */
-/* A cena não é um cartão: a imagem vertical se dissolve na página pelas bordas e a luz dela tinge o fundo.
+/* A cena é um painel de cinema: o filme (pizza na bancada e no forno) fica numa moldura arredondada sobre o creme,
+   sem dissolver nas bordas (imagens quentes e contrastadas sujariam um degradê para o creme).
    Sem JS ou com movimento reduzido: pizza pronta parada e os 4 passos em lista. */
 .build { position: relative; background: var(--cream); }
 .build-pin { position: relative; overflow: hidden; display: grid; gap: 2rem; padding: 4rem var(--gutter); }
 .build-pin { background: var(--cream); }
-.ai-note-m { display: none; }
 .build-pin::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
   background: linear-gradient(90deg, var(--cream) 0%, #fbf3e4ee 26%, #fbf3e400 50%); }
 .build-copy { position: relative; z-index: 2; max-width: 26rem; }
@@ -204,18 +204,18 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
 .bstep p { font-size: clamp(1rem, 1.3vw, 1.15rem); font-weight: 500; line-height: 1.45; margin-top: .5rem; color: #2b1a12cc; max-width: 22rem; }
 .build-index { display: none; }
 .build-cta { margin-top: 2rem; }
-.build-stage { position: relative; z-index: 2; margin: 0 auto; width: min(100%, 460px); aspect-ratio: 9 / 16; overflow: hidden; contain: layout paint; }
-.build-stage::after { content: ""; position: absolute; inset: -1px; z-index: 2; pointer-events: none;
-  background: linear-gradient(90deg, var(--cream), #f7efe200 14%, #f7efe200 86%, var(--cream)), linear-gradient(180deg, var(--cream), #f7efe200 7%, #f7efe200 93%, var(--cream)); }
+.build-stage, .pour-stage { position: relative; z-index: 2; margin: 0 auto; width: min(100%, 460px); aspect-ratio: 9 / 16; overflow: hidden; contain: layout paint;
+  border-radius: 22px; background: #2b1a12; box-shadow: 0 50px 90px -50px #2b1a1299, 0 18px 40px -24px #2b1a1259; }
+/* vinheta leve e fio interno: acabamento de lente, sem esconder o prato */
+.build-stage::after, .pour-stage::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: inherit;
+  box-shadow: inset 0 0 0 1px #fff2, inset 0 0 90px #1a0d0640; }
 .build-stage > img, .build-stage > canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .build-stage canvas { display: none; }
 .bkey-1 { opacity: 0; }
-.build-heat { position: absolute; inset: 0; pointer-events: none; opacity: 0; will-change: opacity;
-  background: radial-gradient(60% 34% at 50% 74%, #ff8a2a33, #ff9a3c14 50%, transparent 75%); }
-.ai-note { position: absolute; z-index: 3; right: 16%; bottom: 3.5%; font-size: .68rem; font-weight: 600; letter-spacing: .02em; color: var(--cocoa); background: #f7efe2cc; padding: .2rem .45rem; border-radius: 3px; }
+.ai-note { position: absolute; z-index: 3; right: 14px; bottom: 14px; font-size: .68rem; font-weight: 600; letter-spacing: .02em; color: var(--cocoa); background: #f7efe2cc; padding: .2rem .45rem; border-radius: 3px; }
 
 /* modo animado (JS ligado, sem movimento reduzido) */
-.build.is-live { height: 420vh; }
+.build.is-live { height: 480vh; }
 .build.is-live .build-pin { position: sticky; top: 0; height: 100svh; padding: 0; display: block; }
 .build.is-live .build-steps { position: relative; display: block; min-height: 12rem; }
 .build.is-live .bstep { position: absolute; inset: 0 0 auto; opacity: 0; translate: 0 18px; transition: opacity .5s ease, translate .8s var(--ease); }
@@ -236,21 +236,19 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
   .build-pin { grid-template-columns: minmax(0, 26rem) auto; justify-content: center; align-items: center; gap: 4rem; }
   .build:not(.is-live) .build-stage { width: 520px; }
   .build.is-live .build-copy { position: absolute; left: max(var(--gutter), calc(50% - 640px)); top: 50%; translate: 0 -50%; }
-  .build.is-live .build-stage { position: absolute; top: -4svh; height: 108svh; width: auto; left: 58%; translate: -50% 0; }
+  .build.is-live .build-stage { position: absolute; top: 5svh; height: 90svh; width: auto; left: 60%; translate: -50% 0; }
 }
 /* celular: imagem na largura da tela, ancorada embaixo; o texto ocupa só a faixa de cima */
 @media (max-width: 1023px) {
-  .build.is-live .build-stage::after, .pour.is-live .pour-stage::after { background: linear-gradient(180deg, var(--cream), #f7efe200 9%); }
-  .build.is-live { height: 340vh; }
+  .build.is-live { height: 400vh; }
   .build.is-live .build-pin::before { background: linear-gradient(180deg, #fbf3e4cc, #fbf3e400 28%); }
-  .build.is-live .build-stage { position: absolute; left: 50%; bottom: 0; translate: -50% 0; width: 100vw; max-width: none; height: auto; }
+  /* painel do texto até o botão fixo do WhatsApp: o prato ocupa a largura toda e fica grande */
+  .build.is-live .build-stage { position: absolute; left: 12px; right: 12px; top: 10.4rem; bottom: 5.4rem; width: auto; max-width: none; height: auto; aspect-ratio: auto; border-radius: 18px; }
   .build.is-live .build-copy { position: absolute; left: var(--gutter); right: var(--gutter); top: 4.4rem; max-width: none; z-index: 3; }   /* acima da imagem (vem depois no HTML): sem isso o texto e o aviso de IA ficavam cobertos */
   .build.is-live .build-steps { min-height: 5.4rem; margin-top: .5rem; }
   .build.is-live .bstep h2 { font-size: clamp(2.2rem, 10vw, 2.8rem); }
   .build.is-live .bstep p { font-size: .95rem; margin-top: .25rem; }
   .build.is-live .build-index, .build.is-live .build-cta { display: none; }
-  .build.is-live .ai-note { display: none; }
-  .build.is-live .ai-note-m { display: block; width: fit-content; margin-top: .35rem; padding: .15rem .45rem; border-radius: 3px; background: #f7efe2d9; font-size: .66rem; font-weight: 600; color: #2b1a12b3; }
   .build.is-live .build-kicker { font-size: .74rem; }
 }
 
@@ -266,9 +264,6 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
 .pstep h2 { font-family: var(--serif); font-weight: 600; font-variation-settings: 'SOFT' 100, 'opsz' 144; font-size: clamp(2.8rem, 5.2vw, 4.8rem); line-height: .9; letter-spacing: -.03em; }
 .pstep p { font-size: clamp(1rem, 1.3vw, 1.15rem); font-weight: 500; line-height: 1.45; margin-top: .5rem; color: #2b1a12cc; }
 .pour-cta { margin-top: 2rem; }
-.pour-stage { position: relative; z-index: 2; margin: 0 auto; width: min(100%, 460px); aspect-ratio: 9 / 16; overflow: hidden; contain: layout paint; }
-.pour-stage::after { content: ""; position: absolute; inset: -1px; z-index: 2; pointer-events: none;
-  background: linear-gradient(90deg, var(--cream), #f7efe200 14%, #f7efe200 86%, var(--cream)), linear-gradient(180deg, var(--cream), #f7efe200 7%, #f7efe200 93%, var(--cream)); }
 .pour-stage > img, .pour-stage > canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .pour-stage canvas { display: none; }
 .pour-key-1 { opacity: 0; }
@@ -288,17 +283,16 @@ a.row:hover .row-go { text-decoration: underline; text-underline-offset: 4px; }
   .pour-pin { grid-template-columns: auto minmax(0, 26rem); justify-content: center; align-items: center; gap: 4rem; }
   .pour:not(.is-live) .pour-stage { width: 520px; }
   .pour.is-live .pour-copy { position: absolute; left: 61%; top: 50%; translate: 0 -50%; }
-  .pour.is-live .pour-stage { position: absolute; top: -4svh; height: 108svh; width: auto; left: 40%; translate: -50% 0; }
+  .pour.is-live .pour-stage { position: absolute; top: 5svh; height: 90svh; width: auto; left: 40%; translate: -50% 0; }
 }
 @media (max-width: 1023px) {
   .pour.is-live { height: 300vh; }
-  .pour.is-live .pour-stage { position: absolute; left: 50%; bottom: 0; translate: -50% 0; width: 100vw; max-width: none; height: auto; }
+  .pour.is-live .pour-stage { position: absolute; left: 12px; right: 12px; top: 10.4rem; bottom: 5.4rem; width: auto; max-width: none; height: auto; aspect-ratio: auto; border-radius: 18px; }
   .pour.is-live .pour-copy { position: absolute; left: var(--gutter); right: var(--gutter); top: 4.4rem; max-width: none; }
   .pour.is-live .pour-steps { min-height: 5.2rem; margin-top: .5rem; }
   .pour.is-live .pstep h2 { font-size: clamp(2.2rem, 10vw, 2.8rem); }
   .pour.is-live .pstep p { font-size: .95rem; margin-top: .25rem; }
-  .pour.is-live .pour-cta, .pour.is-live .pour-stage .ai-note { display: none; }
-  .pour.is-live .ai-note-m { display: block; width: fit-content; margin-top: .35rem; padding: .15rem .45rem; border-radius: 3px; background: #f7efe2d9; font-size: .66rem; font-weight: 600; color: #2b1a12b3; }
+  .pour.is-live .pour-cta { display: none; }
 }
 
 /* ============ REVEAL ============ */

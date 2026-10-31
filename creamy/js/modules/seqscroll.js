@@ -1,27 +1,38 @@
 import { clamp } from './utils.js';
 
 // Motor único das duas cenas (pizza e chope): sequência de quadros presa ao scroll, sem perseguição.
-// Base: startFrames() de sites/chopp-do-gus-editorial/js/modules/sequence.js (trilho alto + canvas + quadro mais próximo).
-// O que mudou para acabar com a travada (medido; ver README):
-//  - progresso = posição do scroll, direto. Sem lerp nem scrub: a cena nunca "corre atrás" nem continua andando sozinha.
-//    A suavidade da roda vem do Lenis (main.js), que suaviza a PÁGINA; cena e página andam juntas.
-//  - quadros decodificados fora da thread principal (fetch -> createImageBitmap), nunca no quadro em que aparecem.
-//  - carga em 3 ondas: chave (1 a cada 8) antes de a seção entrar; janela de 10 quadros à frente da posição, no sentido
-//    da rolagem; o resto aos poucos (2 por vez). Nada de baixar tudo de uma vez nem esperar o quadro estar na tela.
-//  - quadros recortados e reduzidos ao tamanho do canvas na decodificação: desenho 1:1, sem escala por quadro.
-//  - mistura curta entre quadros vizinhos (só no meio da passagem) para não haver degrau.
-//  - offsets medidos só quando a página muda de tamanho (ResizeObserver): nenhuma leitura de layout por quadro.
-export function sequence({ sec, canvas, count, dir, map = p => p, onProgress, fade = 0.4, focusY = 0.5 }) {
-  // desynchronized: o canvas é apresentado sem esperar o resto da página (menos latência entre scroll e quadro)
-  const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
-  const src = i => `${dir}${String(i + 1).padStart(3, '0')}.webp`;
-  const blobs = new Array(count), frames = new Array(count), state = new Array(count);   // state: undefined | 'loading' | 'ok'
-  let geo = null, top = 0, len = 1, vh = innerHeight, p = 0, lastP = -1, lastKey = '', dirSign = 1, queued = false, near = false, gen = 0;
+// Base: startFrames() de sites/chopp-do-gus-editorial/js/modules/sequence.js (trilho alto + canvas + quadro da posição).
+//  - progresso = posição do scroll, direto (sem lerp/scrub): a cena anda junto com a página, nos dois sentidos.
+//  - tudo é preparado ANTES de a cena aparecer (a 3 telas de distância):
+//      1) baixa todos os quadros (comprimidos, poucos MB);
+//      2) decodifica TODOS numa versão leve (1/3 do tamanho, fora da thread principal) -> rede de segurança: nunca há
+//         buraco, degrau nem quadro em branco, mesmo num arremesso de rolagem;
+//      3) decodifica em resolução total uma janela de quadros a partir da ponta por onde a cena vai entrar e, depois,
+//         sempre à frente da posição, no sentido da rolagem. A janela cabe num orçamento de memória (some ao sair).
+//  - cada quadro sai da decodificação já recortado e no tamanho do canvas: desenho 1:1, sem escala.
+//  - mistura contínua entre quadros vizinhos (fade = 1): o movimento é interpolado, não "fatiado".
+//  - nenhuma leitura de layout por quadro (offsets medidos só quando a página muda de tamanho).
+// coordenação entre as cenas: enquanto uma está na tela, a outra só prepara um quadro por vez (sem disputa de CPU,
+// mas sem chegar despreparada)
+let active = null;
+const waiting = new Set();
+const setActive = (sec, on) => {
+  if (on && active !== sec) active = sec;
+  else if (!on && active === sec) { active = null; waiting.forEach(f => f()); }
+};
 
-  // Geometria: recorte "cover" do quadro (em px do arquivo) e tamanho final = pixels que a tela mostra, nunca mais que o
-  // arquivo. Cada quadro já sai da decodificação recortado e reduzido a esse tamanho (createImageBitmap, fora da thread
-  // principal), então o desenho por quadro é uma cópia 1:1, sem escala. Antes: 720×1280 escalado a cada quadro.
-  let nat = null;
+export function sequence({ sec, canvas, count, dirs, map = p => p, onProgress, fade = 1, focusY = 0.5 }) {
+  const ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
+  const fileMode = location.protocol === 'file:';
+  const mobile = matchMedia('(max-width: 1023px)').matches;
+  let dir = dirs.sd;
+  const src = i => `${dir}${String(i + 1).padStart(3, '0')}.webp`;
+
+  const blobs = new Array(count), low = new Array(count), hi = new Array(count), want = new Array(count);
+  let geo = null, nat = null, top = 0, len = 1, p = 0, lastP = -1, lastKey = '', dirSign = 1, queued = false, near = false, gen = 0;
+  let ring = 24;
+
+  // recorte "cover" (px do arquivo) e tamanho final = pixels que a tela mostra (DPR até 2, nunca mais que o arquivo)
   const geometry = () => {
     if (!nat) return null;
     const r = canvas.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
@@ -30,82 +41,155 @@ export function sequence({ sec, canvas, count, dir, map = p => p, onProgress, fa
     const k = Math.min(1, (r.width * dpr) / sw);
     return { sx: Math.round((nat.w - sw) / 2), sy: Math.round((nat.h - sh) * focusY), sw, sh, w: Math.round(sw * k), h: Math.round(sh * k) };
   };
+  // qual conjunto de arquivos: HD (1080×1920) só quando a tela realmente mostra mais que o SD (720×1280)
+  const pickDir = () => {
+    const r = canvas.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    // aberto como arquivo (pacote, sem servidor) cada quadro vira uma <img> inteira na memória: fica no SD
+    dir = !fileMode && r.height * dpr > 1350 ? dirs.hd : dirs.sd;
+  };
   const measure = () => {
-    vh = innerHeight;
-    top = sec.getBoundingClientRect().top + scrollY; len = Math.max(sec.offsetHeight - vh, 1);
+    top = sec.getBoundingClientRect().top + scrollY; len = Math.max(sec.offsetHeight - innerHeight, 1);
     const g = geometry();
-    if (g && (!geo || g.w !== geo.w || g.h !== geo.h || g.sw !== geo.sw)) {     // tamanho mudou: refaz os quadros já baixados
+    if (g && (!geo || g.w !== geo.w || g.h !== geo.h || g.sw !== geo.sw || g.sy !== geo.sy)) {
       geo = g; gen++; canvas.width = g.w; canvas.height = g.h; lastKey = '';
-      for (let i = 0; i < count; i++) if (blobs[i]) bake(i);       // (forEach pularia as posições vazias)
+      // orçamento da janela em resolução total: 200 MB no desktop (320 MB com 8 GB ou mais), 110 MB no celular
+      const mem = navigator.deviceMemory || 4, budget = mobile ? (mem >= 6 ? 160e6 : 110e6) : (mem >= 8 ? 320e6 : 200e6);
+      ring = clamp(Math.floor(budget / (g.w * g.h * 4)), 12, count);
+      for (let i = 0; i < count; i++) { low[i]?.close?.(); hi[i]?.close?.(); low[i] = hi[i] = undefined; want[i] = 0; }
+      for (let i = 0; i < count; i++) if (blobs[i]) decodeLow(i);
+      plan();
     }
-  };
-  const bake = i => {
-    if (blobs[i] instanceof HTMLImageElement) {                   // modo arquivo: a <img> já decodificada é o quadro
-      frames[i] = blobs[i]; state[i] = 'ok'; lastKey = ''; schedule(); return Promise.resolve();
-    }
-    const g = geo, mine = gen;
-    return createImageBitmap(blobs[i], g.sx, g.sy, g.sw, g.sh, { resizeWidth: g.w, resizeHeight: g.h, resizeQuality: 'high' })
-      .then(bm => { if (mine !== gen) { bm.close(); return; } frames[i]?.close?.(); frames[i] = bm; state[i] = 'ok'; lastKey = ''; schedule(); });
   };
 
-  let inflight = 0;
-  const load = (i, hi) => {
-    if (i < 0 || i >= count || state[i]) return;
-    state[i] = 'loading'; inflight++;
-    // aberto como arquivo (pacote de prévia, file://) o fetch é bloqueado: lê pela tag <img>, que o createImageBitmap aceita igual
-    const get = location.protocol === 'file:'
-      ? (() => { const im = new Image(); im.src = src(i); return im.decode().then(() => im); })()   // decode() é assíncrono: fora da thread principal
-      : fetch(src(i), { priority: hi ? 'high' : 'low' }).then(r => r.blob());
-    get.then(async b => {
-      blobs[i] = b;
-      if (!nat) { const t = b instanceof HTMLImageElement ? null : await createImageBitmap(b); nat = t ? { w: t.width, h: t.height } : { w: b.naturalWidth, h: b.naturalHeight }; t?.close(); measure(); }
-      else return bake(i);
-    }).catch(() => { state[i] = undefined; }).finally(() => { inflight--; pump(); });
+  // ---------- decodificação (fila com prioridade, 4 em paralelo no desktop e 3 no celular, fora da thread principal) ----------
+  const crop = (b, w, h) => createImageBitmap(b, geo.sx, geo.sy, geo.sw, geo.sh, { resizeWidth: w, resizeHeight: h, resizeQuality: w < geo.w ? 'medium' : 'high' });
+  const decodeLow = i => {
+    if (fileMode) { low[i] = blobs[i]; return; }
+    const mine = gen;
+    crop(blobs[i], Math.max(1, Math.round(geo.w / 3)), Math.max(1, Math.round(geo.h / 3)))
+      .then(bm => { if (mine !== gen) return bm.close(); low[i] = bm; if (i === shown()) { lastKey = ''; schedule(); } });
   };
-  const keys = Array.from({ length: count }, (_, i) => i).filter(i => i % 8 === 0).concat(count - 1);
-  let fill = 0;
+  let busy = 0;
+  const shown = () => Math.round(map(p) * (count - 1));
+  const plan = () => {                 // marca a janela desejada a partir da posição e do sentido
+    if (!near || !geo) return;
+    // cabe tudo no orçamento: decodifica todos uma vez e não descarta nada (inverter o sentido não custa nada)
+    const all = ring >= count, c = shown(), ahead = Math.ceil(ring * 0.6), behind = ring - ahead;
+    for (let i = 0; i < count; i++) {
+      const d = (i - c) * dirSign;
+      if (all || (d >= -behind && d <= ahead)) { if (!want[i]) want[i] = 1; continue; }   // 2 = decodificando: mantém
+      want[i] = 0;
+      if (hi[i] && hi[i] !== blobs[i]) { hi[i].close(); hi[i] = undefined; }
+    }
+    pump();
+  };
   const pump = () => {
-    if (!near) return;
-    const cur = Math.round(map(p) * (count - 1));
-    for (let k = 0; k <= 10 && inflight < 4; k++) load(cur + k * dirSign, true);   // janela à frente
-    for (let k = 1; k <= 3 && inflight < 4; k++) load(cur - k * dirSign, true);    // e um pouco atrás
-    while (inflight < 2 && fill < count) load(fill++, false);                      // resto, devagar
+    if (fileMode) return;
+    const other = active && active !== sec;
+    if (other) waiting.add(pump); else waiting.delete(pump);
+    while (busy < (other ? 1 : mobile ? 3 : 4)) {
+      const c = shown(); let best = -1, bd = 1e9;
+      for (let i = 0; i < count; i++) {
+        if (!want[i] || hi[i] || !blobs[i] || want[i] === 2) continue;
+        const d = Math.abs(i - c) + ((i - c) * dirSign < 0 ? 4 : 0);   // à frente primeiro
+        if (d < bd) { bd = d; best = i; }
+      }
+      if (best < 0) return;
+      want[best] = 2; busy++;
+      const i = best, mine = gen;
+      crop(blobs[i], geo.w, geo.h).then(bm => {
+        if (mine !== gen || !want[i]) { bm.close(); if (mine === gen) want[i] = 0; return; }
+        hi[i] = bm; want[i] = 1;
+        if (Math.abs(i - map(p) * (count - 1)) < 1.5) { lastKey = ''; schedule(); }
+      }).catch(() => { want[i] = 1; }).finally(() => { busy--; pump(); });
+    }
   };
 
-  const nearest = i => { for (let d = 0; d < count; d++) { if (frames[i - d]) return i - d; if (frames[i + d]) return i + d; } return -1; };
-  const blit = bm => bm instanceof HTMLImageElement
-    ? ctx.drawImage(bm, geo.sx, geo.sy, geo.sw, geo.sh, 0, 0, geo.w, geo.h)   // modo arquivo: recorta e escala no desenho
-    : ctx.drawImage(bm, 0, 0);                                    // 1:1: o quadro já tem o tamanho do canvas
+  // ---------- download: tudo, a partir da ponta por onde a cena vai entrar ----------
+  let fetching = 0, order = [], started = false;
+  const fetchNext = () => {
+    while (fetching < 6 && order.length) {
+      const i = order.shift(); if (blobs[i]) continue;
+      fetching++;
+      const get = fileMode
+        ? (() => { const im = new Image(); im.src = src(i); return im.decode().then(() => im); })()
+        : fetch(src(i), { priority: Math.abs(i - shown()) < ring ? 'high' : 'low' }).then(r => { if (!r.ok) throw 0; return r.blob(); });
+      get.then(async b => {
+        blobs[i] = b;
+        if (!nat) {
+          if (fileMode) nat = { w: b.naturalWidth, h: b.naturalHeight };
+          else { const t = await createImageBitmap(b); nat = { w: t.width, h: t.height }; t.close(); }
+          measure();
+        } else if (geo) { decodeLow(i); if (fileMode) hi[i] = b; else if (want[i] === 1 && !hi[i]) pump(); }
+        if (fileMode && geo) hi[i] = b;
+      }).catch(() => {}).finally(() => { fetching--; fetchNext(); });
+    }
+  };
+  const start = () => {
+    pickDir();
+    const fromEnd = sec.getBoundingClientRect().top < 0;          // vindo de baixo: a cena entra pelo último quadro
+    const idx = Array.from({ length: count }, (_, i) => (fromEnd ? count - 1 - i : i));
+    order = [idx[0], ...idx.slice(1)];
+    if (fromEnd) { p = 1; lastP = 1; dirSign = -1; }
+    fetchNext();
+  };
+
+  // ---------- desenho ----------
+  const blit = (bm, isLow) => {
+    if (bm instanceof HTMLImageElement) ctx.drawImage(bm, geo.sx, geo.sy, geo.sw, geo.sh, 0, 0, geo.w, geo.h);
+    else if (isLow) ctx.drawImage(bm, 0, 0, geo.w, geo.h);
+    else ctx.drawImage(bm, 0, 0);
+  };
+  const pick = i => (hi[i] ? [hi[i], false] : low[i] ? [low[i], true] : null);
+  const nearest = i => { for (let d = 0; d < count; d++) { if (pick(i - d)) return i - d; if (pick(i + d)) return i + d; } return -1; };
   const draw = () => {
+    if (!geo) return;
     const f = map(p) * (count - 1), a = Math.floor(f), b = Math.min(a + 1, count - 1), t = f - a;
-    const m = fade ? clamp((t - (0.5 - fade / 2)) / fade, 0, 1) : (t >= 0.5 ? 1 : 0);
-    const key = `${a}|${b}|${m.toFixed(2)}|${canvas.width}`;
+    let m = fade >= 1 ? t : clamp((t - (0.5 - fade / 2)) / Math.max(fade, 1e-3), 0, 1);
+    // parado: assenta no quadro mais próximo (a mistura vira desfoque de movimento enquanto rola, mas parada
+    // mostraria uma dupla exposição nas mãos e na concha)
+    if (idle) m = m < 0.5 ? 0 : 1;
+    const A = pick(a), B = pick(b);
+    const key = `${a}|${b}|${m.toFixed(3)}|${A?.[1]}|${B?.[1]}|${canvas.width}`;
     if (key === lastKey) return;
-    if (frames[a] && frames[b]) {
-      ctx.globalAlpha = 1; blit(frames[a]);
-      if (m > 0.01 && b !== a) { ctx.globalAlpha = m; blit(frames[b]); }
+    if (A && B) {
+      ctx.globalAlpha = 1; blit(A[0], A[1]);
+      if (m > 0.004 && b !== a) { ctx.globalAlpha = m; blit(B[0], B[1]); }
+      if (A[1] || (B[1] && m > 0.004)) sec.__soft = (sec.__soft || 0) + 1;   // QA: usou a versão leve
     } else {
       const k = nearest(Math.round(f)); if (k < 0) return;
-      sec.__miss = (sec.__miss || 0) + 1;                         // QA: quadro pedido ainda não estava pronto
-      ctx.globalAlpha = 1; blit(frames[k]);
+      sec.__miss = (sec.__miss || 0) + 1;                                    // QA: quadro ainda não existia
+      const K = pick(k); ctx.globalAlpha = 1; blit(K[0], K[1]);
     }
     ctx.globalAlpha = 1; lastKey = key; sec.__f = f; sec.classList.add('is-drawn');
   };
   const frame = () => {
     queued = false;
     const np = clamp((scrollY - top) / len, 0, 1);
-    if (np !== lastP) { dirSign = np >= lastP ? 1 : -1; p = np; lastP = np; sec.__p = p; onProgress?.(p); pump(); }
+    if (np !== lastP) {
+      const ns = np > lastP ? 1 : -1, moved = Math.abs(Math.round(map(np) * (count - 1)) - shown());
+      p = np; lastP = np; sec.__p = p; onProgress?.(p);
+      setActive(sec, np > 0 && np < 1);
+      if (ns !== dirSign || moved) { dirSign = ns; plan(); }
+    }
     draw();
   };
   const schedule = () => { if (!queued) { queued = true; requestAnimationFrame(frame); } };
+  let idle = true, idleT = 0;
+  const onScroll = () => {
+    if (idle) { idle = false; lastKey = ''; }
+    clearTimeout(idleT); idleT = setTimeout(() => { idle = true; lastKey = ''; schedule(); }, 140);
+    schedule();
+  };
 
-  // começa a preparar 2 telas antes: quadros-chave primeiro (alta prioridade), depois a janela
   new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting || near) return; near = true;
-    keys.forEach(i => load(i, true)); pump(); schedule();
-  }, { rootMargin: '200% 0px' }).observe(sec);
-  addEventListener('scroll', schedule, { passive: true });
-  // remede quando a página muda de altura (fontes, imagens): sem isso o início da cena ficava no lugar errado
+    if (e.isIntersecting && !near) { near = true; if (!started) { started = true; start(); } plan(); schedule(); }
+    else if (!e.isIntersecting && near) {                 // longe: devolve a memória da resolução total (a leve fica)
+      near = false;
+      for (let i = 0; i < count; i++) { if (hi[i] && hi[i] !== blobs[i]) hi[i].close(); if (!fileMode) hi[i] = undefined; want[i] = 0; }
+    }
+  }, { rootMargin: '300% 0px' }).observe(sec);
+  addEventListener('scroll', onScroll, { passive: true });
   new ResizeObserver(() => { measure(); lastP = -1; schedule(); }).observe(document.body);
   addEventListener('resize', () => { measure(); schedule(); });
   measure(); frame();
