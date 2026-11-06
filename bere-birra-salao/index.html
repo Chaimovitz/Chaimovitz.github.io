@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bere Birra Forneria · Florianópolis</title>
+<meta name="description" content="Bere Birra Forneria, em Florianópolis: pizza de longa fermentação no forno a lenha. Duas casas, Rio Vermelho e Santa Mônica. Veja a carta e converse com a casa pelo WhatsApp.">
+<meta name="theme-color" content="#FAF8F6">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preload" href="assets/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/amatic-sc-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/salao.webp" imagesrcset="assets/img/salao.webp 1280w, assets/img/salao-2400.webp 2400w" imagesizes="(max-width: 899px) 100vw, 55vw">
+<link rel="stylesheet" href="css/salao.css">
+</head>
+<body>
+<a class="pular" href="#carta">Pular para a carta</a>
+
+<header class="topo">
+  <a class="topo-logo" href="#inicio" aria-label="Bere Birra Forneria, início"><img class="logo-dia" src="assets/img/logo-tinta.png" alt="Bere Birra Forneria" width="621" height="340"><img class="logo-noite" src="assets/img/logo.png" alt="" width="621" height="340" loading="lazy"></a>
+  <nav class="topo-nav" aria-label="Principal">
+    <a href="#carta">Carta</a>
+    <a href="#casa">Dentro da casa</a>
+    <a href="#casas">As casas</a>
+  </nav>
+  <a class="botao botao-p topo-reserva" data-reservar href="https://wa.me/5548984061242" target="_blank" rel="noopener" aria-label="Reservar pelo WhatsApp"><span class="so-desk">Reservar pelo WhatsApp</span><span class="so-cel">Reservar</span></a>
+</header>
+
+<main>
+  <!-- primeira dobra: a casa escolhida -->
+  <section class="inicio" id="inicio" aria-labelledby="t-inicio">
+    <div class="inicio-txt">
+      <h1 class="t-grande" id="t-inicio">Ainda bem que a gente tá aqui.</h1>
+      <p class="mao neon">o neon do casarão, no Rio Vermelho</p>
+      <p class="lead">Forneria em Florianópolis. Pizza de longa fermentação, no forno a lenha, em duas casas.</p>
+
+      <div class="escolha" role="radiogroup" aria-label="Escolha a casa" data-escolha>
+        <button type="button" role="radio" aria-checked="true" data-casa="rv"><span class="esc-nome">Rio Vermelho</span><span class="esc-sub">o casarão</span></button>
+        <button type="button" role="radio" aria-checked="false" data-casa="sm"><span class="esc-nome">Santa Mônica</span><span class="esc-sub">a casa nova</span></button>
+      </div>
+      <p class="endereco" aria-live="polite"><span data-end>Rod. João Gualberto Soares, 6812 · Rio Vermelho</span> · <a class="link" data-rota href="#" target="_blank" rel="noopener">Rota</a> · <a class="link" data-waze href="#" target="_blank" rel="noopener">Waze</a></p>
+
+      <div class="acoes">
+        <a class="botao" data-reservar href="https://wa.me/5548984061242" target="_blank" rel="noopener"><span data-reservar-txt>Reservar no Rio Vermelho</span></a>
+        <a class="botao botao-linha" href="#carta">Ver a carta</a>
+      </div>
+      <p class="aviso">A reserva começa numa conversa pelo WhatsApp da casa. Nada fica confirmado pelo site.</p>
+    </div>
+
+    <figure class="inicio-foto" data-foto>
+      <img data-foto-img src="assets/img/salao.webp" srcset="assets/img/salao.webp 1280w, assets/img/salao-2400.webp 2400w" sizes="(max-width: 899px) 100vw, 55vw" alt="O salão do casarão da Bere Birra no Rio Vermelho, à noite: mesas de madeira, pendentes acesos, o neon escrito à mão e um coração em neon rosa" width="1280" height="853">
+      <figcaption><span data-foto-cap>O salão do casarão, no Rio Vermelho</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- dentro da casa: a fotografia conta o lugar -->
+  <section class="casa" id="casa" aria-labelledby="t-casa">
+    <div class="casa-cab">
+      <h2 class="t-secao" id="t-casa">Dentro da casa.</h2>
+      <p class="casa-txt">A massa leva farinha orgânica e descansa no mínimo 24 horas antes de ir ao forno a lenha. A casa nasceu em 2020, numa casinha açoriana no Rio Vermelho; hoje, o salão é um casarão.</p>
+    </div>
+    <div class="casa-grade">
+      <figure class="f-forno" data-revela><img src="assets/img/forno.webp" alt="O forno a lenha da Bere Birra aceso, com a chama alta" width="853" height="1280" loading="lazy"><figcaption>O forno a lenha, no casarão</figcaption></figure>
+      <figure class="f-pizza" data-revela><img src="assets/img/pizza.webp" alt="Uma pizza da Bere Birra, inteira, com tomate, muçarela e pesto" width="1600" height="1066" loading="lazy"><figcaption>Uma pizza da casa</figcaption></figure>
+      <figure class="f-banco" data-revela><img src="assets/img/banco.webp" alt="O banco comprido do casarão, iluminado por uma fita de luz quente, com as mesas postas" width="853" height="1280" loading="lazy"><figcaption>O banco iluminado, no casarão</figcaption></figure>
+      <p class="mao f-nota">Na carta da casa, a sobremesa vem antes da pizza. Ué!?</p>
+    </div>
+  </section>
+
+  <!-- a carta -->
+  <section class="carta" id="carta" aria-labelledby="t-carta">
+    <div class="carta-cab">
+      <h2 class="t-secao" id="t-carta">A carta.</h2>
+      <p class="mao">na ordem da casa</p>
+    </div>
+    <div class="abas" role="tablist" aria-label="Partes da carta" data-abas></div>
+    <div class="painel" role="tabpanel" id="painel" tabindex="-1" data-painel>
+      <div class="painel-lista">
+        <p class="painel-intro" data-intro></p>
+        <ul class="itens" data-itens></ul>
+      </div>
+      <figure class="painel-foto" data-pfoto><img data-pfoto-img alt="" width="810" height="810" loading="lazy"><figcaption data-pfoto-cap></figcaption></figure>
+    </div>
+    <div class="carta-pe">
+      <p>Carta da unidade Santa Mônica, abril de 2026. Sem preços. <a class="link" href="https://berebirra.com.br/cardapio/" target="_blank" rel="noopener">Carta completa no site da casa</a></p>
+      <a class="botao" data-reservar href="https://wa.me/5548984061242" target="_blank" rel="noopener"><span data-reservar-txt2>Reservar no Rio Vermelho</span></a>
+    </div>
+  </section>
+
+  <!-- as duas casas -->
+  <section class="casas" id="casas" aria-labelledby="t-casas">
+    <h2 class="t-secao" id="t-casas">As casas.</h2>
+    <div class="casas-grade">
+      <article class="unidade" data-unidade="rv">
+        <img src="assets/img/casa-rv.webp" alt="Fachada do casarão da Bere Birra no Rio Vermelho, à noite, com a varanda acesa" width="1400" height="1243" loading="lazy">
+        <h3>Rio Vermelho</h3>
+        <p class="mao">o casarão</p>
+        <p>Rod. João Gualberto Soares, 6812<br>Rio Vermelho, Florianópolis</p>
+        <p class="unidade-acoes"><a class="botao botao-p" data-wa="rv" href="https://wa.me/5548984061242" target="_blank" rel="noopener">Reservar pelo WhatsApp</a> <a class="link" data-rota-u="rv" href="#" target="_blank" rel="noopener">Rota</a> <a class="link" data-waze-u="rv" href="#" target="_blank" rel="noopener">Waze</a></p>
+      </article>
+      <article class="unidade" data-unidade="sm">
+        <img src="assets/img/casa-sm.webp" alt="Fachada da Bere Birra em Santa Mônica, à noite, com o letreiro da casa aceso" width="1400" height="1494" loading="lazy">
+        <h3>Santa Mônica</h3>
+        <p class="mao">a casa nova</p>
+        <p>R. Esaú Pereira da Silva, 160<br>Santa Mônica, Florianópolis</p>
+        <p class="unidade-acoes"><a class="botao botao-p" data-wa="sm" href="https://wa.me/5548984061242" target="_blank" rel="noopener">Reservar pelo WhatsApp</a> <a class="link" data-rota-u="sm" href="#" target="_blank" rel="noopener">Rota</a> <a class="link" data-waze-u="sm" href="#" target="_blank" rel="noopener">Waze</a></p>
+      </article>
+    </div>
+    <p class="aviso">Os botões abrem uma conversa no WhatsApp da casa. Reserva e disponibilidade são combinadas lá; nada fica confirmado pelo site.</p>
+  </section>
+  <!-- o encerramento: a página clara apaga e o letreiro do casarão acende -->
+  <section class="fim" id="fim" aria-labelledby="t-fim" data-fim>
+    <div class="fim-palco">
+      <div class="fim-noite" aria-hidden="true"></div>
+      <figure class="fim-foto">
+        <img class="fim-img" src="assets/img/neon-salao.webp" alt="O salão do casarão cheio, à noite, com o neon escrito à mão: Ainda bem que a gente tá aqui" width="1280" height="853" loading="lazy">
+        <img class="fim-brilho" src="assets/img/neon-salao.webp" alt="" aria-hidden="true" width="1280" height="853" loading="lazy">
+      </figure>
+      <div class="fim-txt">
+        <p class="mao fim-nota">o neon do casarão, no Rio Vermelho</p>
+        <h2 class="t-grande" id="t-fim">A gente se vê no salão.</h2>
+        <p class="fim-lead">Escolha a casa e chame no WhatsApp. A reserva é combinada na conversa; nada fica confirmado pelo site.</p>
+        <div class="fim-acoes">
+          <a class="botao botao-fim" data-reservar href="https://wa.me/5548984061242" target="_blank" rel="noopener"><span data-reservar-txt4>Reservar no Rio Vermelho</span></a>
+          <a class="link fim-link" href="#casas">Ver as duas casas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <img src="assets/img/logo.png" alt="" width="621" height="340" loading="lazy">
+  <p><a class="link" href="https://www.instagram.com/bere_birra_forneria/" target="_blank" rel="noopener">@bere_birra_forneria</a></p>
+  <p class="rodape-nota">Prévia de site para apresentação. Não é o site oficial da Bere Birra (<a class="link" href="https://berebirra.com.br/" target="_blank" rel="noopener">berebirra.com.br</a>). As fotos são da casa, tiradas do site oficial; a foto do salão, a do neon e as fachadas foram ampliadas para tela grande.</p>
+</footer>
+
+<!-- celular: a ação principal sempre à mão depois da primeira dobra -->
+<nav class="barra" aria-label="Atalhos" data-barra>
+  <a href="#carta">Carta</a>
+  <a class="botao botao-p" data-reservar href="https://wa.me/5548984061242" target="_blank" rel="noopener"><span data-reservar-txt3>Reservar no Rio Vermelho</span></a>
+</nav>
+
+<script type="module" src="js/salao.js"></script>
+<script type="module" src="js/carta.js"></script>
+<script type="module" src="js/neon3d.js"></script>
+</body>
+</html>
