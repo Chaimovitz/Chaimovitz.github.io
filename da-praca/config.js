@@ -56,8 +56,8 @@ window.SITE = {
    "id": "vitrine",
    "side": "right",
    "kicker": "A vitrine",
-   "title": "Doce, salgado e o mocha da casa.",
-   "text": "Bolo de brigadeiro, torta de frango, hambúrguer e café quente. Tem opção vegetariana no cardápio.",
+   "title": "Torta de frango, doces e o mocha da casa.",
+   "text": "Fatia generosa de torta de frango, bolo de brigadeiro, hambúrguer e café quente. Tem opção vegetariana no cardápio.",
    "state": {
     "d": [
      -20,
@@ -77,15 +77,7 @@ window.SITE = {
      1,
      1
     ]
-   },
-   "hotspots": [
-    {
-     "x": 50,
-     "y": 30,
-     "title": "Bolo de brigadeiro",
-     "text": "Um dos doces que mais aparecem no Instagram da casa."
-    }
-   ]
+   }
   },
   {
    "id": "dia",
@@ -231,9 +223,9 @@ window.SITE = {
  },
  "footer": "Prévia de site feita por Thomas · fotos da casa via Google Maps",
  "object": {
-  "src": "assets/bolo-real-v2.webp",
-  "alt": "Bolo de brigadeiro com granulado",
-  "width": 460,
-  "widthMobile": 290
+  "src": "assets/torta-real.webp",
+  "alt": "Fatia de torta de frango da casa",
+  "width": 540,
+  "widthMobile": 320
  }
 };
