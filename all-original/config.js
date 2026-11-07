@@ -3,33 +3,29 @@ window.SITE = {
   "name": "All Original",
   "tagline": "Brunch & Co. em Jurerê",
   "cta": {
-   "label": "Reservar no WhatsApp",
-   "href": "https://wa.me/5548991016628"
+   "label": "Reservar mesa",
+   "href": "#reserva"
   }
  },
  "theme": {
-  "bg": "#f3e9da",
-  "ink": "#1f2a24",
-  "muted": "#5f6a62",
-  "accent": "#d98c3a",
-  "accent2": "#f2c879",
+  "bg": "#f7f2ea",
+  "ink": "#24322b",
+  "muted": "#626c62",
+  "accent": "#b8603f",
+  "accent2": "#6f8b70",
+  "panel": "#ece5d7",
+  "onaccent": "#ffffff",
   "fontDisplay": "Fraunces",
-  "fontBody": "Hanken Grotesk",
+  "fontBody": "Manrope",
   "displayWeight": 500
- },
- "object": {
-  "src": "assets/hero.webp",
-  "alt": "Prato de brunch",
-  "width": 440,
-  "widthMobile": 270
  },
  "sections": [
   {
    "id": "inicio",
    "side": "left",
-   "kicker": "Jurerê",
-   "title": "Brunch sem pressa, de terça a domingo.",
-   "text": "Nota 5 no Google com mais de 200 avaliações. A partir das 7h30.",
+   "kicker": "Jurerê · Brunch & Co",
+   "title": "Brunch sem pressa, em Jurerê.",
+   "text": "Pratos feitos na hora, num salão de palhinha, verde e luz natural. Nota 5 no Google.",
    "state": {
     "d": [
      22,
@@ -51,16 +47,16 @@ window.SITE = {
     ]
    },
    "cta": {
-    "label": "Ver horários",
-    "href": "#horario"
+    "label": "Reservar mesa",
+    "href": "#reserva"
    }
   },
   {
-   "id": "brunch",
+   "id": "cozinha",
    "side": "right",
-   "kicker": "O prato",
-   "title": "Feito na hora, bonito de ver.",
-   "text": "Ovos, pães, frutas e café. As avaliações falam da qualidade dos pratos e da gentileza no atendimento.",
+   "kicker": "Da cozinha",
+   "title": "Panquecas, toasts e ovos do jeito certo.",
+   "text": "Avocado toast com salmão, ovos cremosos, panquecas com frutas e mel. Cada prato com um toque da casa.",
    "state": {
     "d": [
      -22,
@@ -84,18 +80,18 @@ window.SITE = {
    "hotspots": [
     {
      "x": 50,
-     "y": 45,
-     "title": "Brunch completo",
-     "text": "Opções doces e salgadas para dividir ou não."
+     "y": 35,
+     "title": "Panquecas",
+     "text": "Com morango, mirtilo e açúcar de confeiteiro."
     }
    ]
   },
   {
-   "id": "horario",
+   "id": "quando",
    "side": "left",
    "kicker": "Quando vir",
-   "title": "Ter a sáb 7h30–20h30 · dom 8h–19h.",
-   "text": "Segunda a casa descansa. Ambiente tranquilo, limpo e organizado.",
+   "title": "Terça a domingo, desde as 7h30.",
+   "text": "Ter a sáb 7h30–20h30 · domingo 8h–19h. Segunda a casa descansa.",
    "state": {
     "d": [
      24,
@@ -122,8 +118,8 @@ window.SITE = {
    "id": "final",
    "side": "center",
    "kicker": "R. das Baleias Franca, 14",
-   "title": "Guarda uma mesa pra você?",
-   "text": "Reservas e pedidos direto pelo WhatsApp.",
+   "title": "Sua mesa, no seu horário.",
+   "text": "Reserva rápida pelo WhatsApp, logo abaixo.",
    "state": {
     "d": [
      0,
@@ -145,10 +141,100 @@ window.SITE = {
     ]
    },
    "cta": {
-    "label": "(48) 99101-6628",
-    "href": "https://wa.me/5548991016628"
+    "label": "Reservar mesa",
+    "href": "#reserva"
    }
   }
  ],
- "footer": "Prévia ilustrativa · fotos serão substituídas pelas do All Original"
+ "galleryKicker": "A casa",
+ "galleryTitle": "Palhinha, verde e luz de manhã",
+ "gallery": [
+  {
+   "src": "assets/fotos/1.webp",
+   "alt": "Salão com cadeiras de palhinha e papel de parede tropical",
+   "credit": "Foto: Google Maps · All Original Brunch e Co"
+  },
+  {
+   "src": "assets/fotos/2.webp",
+   "alt": "Sanduíche servido na mesa",
+   "credit": "Foto: Google Maps · All Original Brunch e Co"
+  },
+  {
+   "src": "assets/fotos/3.webp",
+   "alt": "Salão com balcão e luminárias",
+   "credit": "Foto: Google Maps · Евгения Уэльская"
+  },
+  {
+   "src": "assets/fotos/4.webp",
+   "alt": "Panquecas com mirtilo",
+   "credit": "Foto: Google Maps · Taíse Duarte"
+  },
+  {
+   "src": "assets/fotos/5.webp",
+   "alt": "Avocado toast com salmão",
+   "credit": "Foto: Google Maps · Olivia"
+  },
+  {
+   "src": "assets/fotos/6.webp",
+   "alt": "Panqueca com morangos e mel",
+   "credit": "Foto: Google Maps · Fernanda López"
+  }
+ ],
+ "reviews": [
+  {
+   "text": "Lugar aprazível, com excelentes opções para um brunch. A qualidade dos pratos só é superada pela gentileza no atendimento. Nota 10!",
+   "author": "Gustavo S.",
+   "stars": 5
+  },
+  {
+   "text": "Lugar muito agradável, tranquilo, sofisticado e aconchegante ao mesmo tempo. Cada prato e as bebidas são feitos com um toque particular e especial.",
+   "author": "Noé B.",
+   "stars": 5
+  },
+  {
+   "text": "Tudo excelente! Ambiente gostoso, limpo e organizado. Atendimento impecável! E a comida maravilhosa!",
+   "author": "Fábio M.",
+   "stars": 5
+  }
+ ],
+ "reserve": {
+  "phone": "5548991016628",
+  "title": "Guarde uma mesa pro brunch",
+  "text": "Escolha o dia e o horário. A mensagem chega pronta no WhatsApp da casa.",
+  "times": [
+   "08:00",
+   "08:30",
+   "09:00",
+   "09:30",
+   "10:00",
+   "10:30",
+   "11:00",
+   "11:30",
+   "12:00",
+   "13:00",
+   "15:00",
+   "17:00",
+   "19:00"
+  ],
+  "closedDays": [
+   1
+  ]
+ },
+ "info": {
+  "address": "R. das Baleias Franca, 14 · Jurerê, Florianópolis",
+  "maps": "https://www.google.com/maps/search/?api=1&query=All+Original+Brunch+Jurer%C3%AA+Florian%C3%B3polis",
+  "hours": [
+   "Ter a sáb · 7h30 às 20h30",
+   "Domingo · 8h às 19h",
+   "Segunda · fechado"
+  ],
+  "phone": "(48) 99101-6628"
+ },
+ "footer": "Prévia de site feita por Thomas · fotos da casa via Google Maps",
+ "object": {
+  "src": "assets/hero.webp",
+  "alt": "Panquecas com frutas vermelhas",
+  "width": 460,
+  "widthMobile": 270
+ }
 };

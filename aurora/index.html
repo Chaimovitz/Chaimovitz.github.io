@@ -21,7 +21,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:clamp
 a{color:inherit}
 .nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,4vw,48px);background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4)}
 .brand{font-family:var(--fd);font-weight:600;letter-spacing:-.02em;font-size:1.15rem;text-decoration:none}
-.cta{display:inline-block;padding:11px 22px;border-radius:999px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#1a1a12;font-weight:600;font-size:.92rem;text-decoration:none;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
+.cta{display:inline-block;padding:11px 22px;border-radius:999px;background:var(--accent);color:var(--onaccent,#fff);border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:.92rem;text-decoration:none;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
 .cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px var(--accent)}
 #main,footer{position:relative;z-index:6}
 .sec{min-height:100vh;display:flex;align-items:center;padding:120px clamp(16px,6vw,96px)}
@@ -52,6 +52,36 @@ h1{font-size:clamp(2.6rem,6.6vw,7rem)}h2{font-size:clamp(2.2rem,4.8vw,4.8rem)}
 footer{padding:48px clamp(16px,6vw,96px);color:var(--muted);font-size:.88rem}
 .no-gsap .stage{position:absolute;height:100vh}
 @media(max-width:760px){.sec{align-items:flex-end;padding-bottom:10vh}.sec[data-side=right]{justify-content:flex-start}.copy{max-width:100%}.nav .cta{padding:9px 16px}}
+/* blocos de conteúdo real (galeria, avaliações, reserva, info) — cobrem o objeto 3D */
+.x{position:relative;z-index:7;background:var(--bg);padding:clamp(72px,10vw,140px) clamp(16px,6vw,96px)}
+.x.alt{background:var(--panel,var(--bg))}
+.x h2{font-size:clamp(2rem,4vw,3.6rem);max-width:18ch;text-wrap:balance}
+.x .lead{margin-top:16px;color:var(--muted);max-width:52ch}
+.gal{margin-top:40px;display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+.gal figure{position:relative;overflow:hidden;border-radius:14px;background:var(--panel,#0001);grid-column:span 4;aspect-ratio:4/3}
+.gal figure:nth-child(6n+1){grid-column:span 7;aspect-ratio:16/11}.gal figure:nth-child(6n+2){grid-column:span 5;aspect-ratio:auto}
+.gal figure:nth-child(6n){grid-column:span 12;aspect-ratio:21/8}
+.gal img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.gal figure:hover img{transform:scale(1.04)}
+.gal figcaption{position:absolute;left:10px;bottom:8px;font-size:.68rem;color:#fff;opacity:.85;text-shadow:0 1px 3px #0009}
+.revs{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px}
+.rev{padding:26px;border-radius:16px;background:var(--bg);border:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
+.rev .st{color:var(--accent);letter-spacing:.12em;font-size:.9rem}
+.rev q{display:block;margin-top:12px;font-family:var(--fd);font-size:1.15rem;line-height:1.35;quotes:none}
+.rev p{margin-top:14px;font-size:.85rem;color:var(--muted)}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:start}
+.res form{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:clamp(20px,3vw,36px);border-radius:20px;background:var(--bg);border:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
+.res label{display:grid;gap:6px;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.res label.full{grid-column:1/-1}
+.res input,.res select,.res textarea{font:inherit;font-size:1rem;color:var(--ink);background:transparent;border:1px solid color-mix(in srgb,var(--ink) 22%,transparent);border-radius:10px;padding:12px 14px;text-transform:none;letter-spacing:0}
+.res input:focus,.res select:focus,.res textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.res .cta{grid-column:1/-1;justify-self:start;margin-top:6px;padding:14px 26px;font-size:1rem}
+.res .note{grid-column:1/-1;font-size:.8rem;color:var(--muted);text-transform:none;letter-spacing:0}
+.info{margin-top:28px;display:grid;gap:22px}
+.info h3{font-size:.76rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:500;margin-bottom:6px}
+.info ul{list-style:none;display:grid;gap:4px;font-variant-numeric:tabular-nums}
+.info a{text-underline-offset:3px}
+@media(max-width:760px){.gal{grid-template-columns:1fr 1fr}.gal figure,.gal figure:nth-child(n){grid-column:span 1;aspect-ratio:4/5}.gal figure:nth-child(3n+1){grid-column:span 2;aspect-ratio:16/11}.res{grid-template-columns:1fr}.res form{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.copy{opacity:1;transform:none}}
 </style>
 </head>
@@ -60,6 +90,7 @@ footer{padding:48px clamp(16px,6vw,96px);color:var(--muted);font-size:.88rem}
 <div class="stage" aria-hidden="true"><div class="obj"><div class="tilt"><img alt=""></div></div></div>
 <div class="hs-layer"></div>
 <main id="main"></main>
+<div id="extras"></div>
 <footer></footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -71,6 +102,26 @@ var b=document.querySelector('.brand'),nc=document.querySelector('.nav .cta');b.
 function ow(){document.documentElement.style.setProperty('--ow',(M.matches?S.object.widthMobile||S.object.width*.6:S.object.width)+'px')}ow();M.addEventListener('change',ow);
 S.sections.forEach(function(s,i){var el=document.createElement('section'),H=i?'h2':'h1';el.className='sec';el.id=s.id;el.dataset.side=s.side||'left';el.dataset.i=i;
 el.innerHTML='<div class="copy">'+(s.kicker?'<p class="kicker">'+esc(s.kicker)+'</p>':'')+'<'+H+'>'+esc(s.title)+'</'+H+'>'+(s.text?'<p>'+esc(s.text)+'</p>':'')+(s.cta?'<a class="cta" href="'+esc(s.cta.href)+'">'+esc(s.cta.label)+'</a>':'')+'</div>';main.appendChild(el)});
+var X=document.getElementById('extras'),h='';
+if(S.gallery&&S.gallery.length){h+='<section class="x" id="fotos"><p class="kicker">'+esc(S.galleryKicker||'A casa')+'</p><h2>'+esc(S.galleryTitle||'Por dentro')+'</h2><div class="gal">'+S.gallery.map(function(g){return'<figure><img loading="lazy" src="'+esc(g.src)+'" alt="'+esc(g.alt)+'">'+(g.credit?'<figcaption>'+esc(g.credit)+'</figcaption>':'')+'</figure>'}).join('')+'</div></section>'}
+if(S.reviews&&S.reviews.length){h+='<section class="x alt" id="avaliacoes"><p class="kicker">'+esc(S.reviewsKicker||'Avaliações')+'</p><h2>'+esc(S.reviewsTitle||'Quem foi, conta')+'</h2><div class="revs">'+S.reviews.map(function(r){return'<figure class="rev"><span class="st" aria-label="'+r.stars+' estrelas">'+'★★★★★'.slice(0,r.stars||5)+'</span><q>'+esc(r.text)+'</q><p>'+esc(r.author)+' · Google</p></figure>'}).join('')+'</div></section>'}
+var R=S.reserve;if(R){var I=S.info||{};
+h+='<section class="x" id="reserva"><div class="res"><div><p class="kicker">'+esc(R.kicker||'Reservas')+'</p><h2>'+esc(R.title)+'</h2><p class="lead">'+esc(R.text||'')+'</p><div class="info">'+
+(I.address?'<div><h3>Endereço</h3><p>'+esc(I.address)+'</p>'+(I.maps?'<p><a href="'+esc(I.maps)+'" target="_blank" rel="noopener">Abrir no Google Maps</a></p>':'')+'</div>':'')+
+(I.hours?'<div><h3>Horário</h3><ul>'+I.hours.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul></div>':'')+
+(I.phone?'<div><h3>WhatsApp</h3><p>'+esc(I.phone)+'</p></div>':'')+(I.instagram?'<div><h3>Instagram</h3><p><a href="https://instagram.com/'+esc(I.instagram)+'" target="_blank" rel="noopener">@'+esc(I.instagram)+'</a></p></div>':'')+
+'</div></div><form id="rf" novalidate><label class="full" for="rf-n">Nome<input id="rf-n" name="n" required autocomplete="name"></label>'+
+'<label for="rf-d">Data<input id="rf-d" name="d" type="date" required></label><label for="rf-h">Horário<select id="rf-h" name="h" required>'+(R.times||[]).map(function(t){return'<option>'+esc(t)+'</option>'}).join('')+'</select></label>'+
+'<label for="rf-p">Pessoas<select id="rf-p" name="p">'+[1,2,3,4,5,6,7,8,'9 ou mais'].map(function(n){return'<option'+(n===2?' selected':'')+'>'+n+'</option>'}).join('')+'</select></label>'+
+'<label for="rf-o">Ocasião<select id="rf-o" name="o"><option>Sem ocasião especial</option><option>Aniversário</option><option>Encontro</option><option>Família</option><option>Trabalho</option></select></label>'+
+'<label class="full" for="rf-m">Observações<textarea id="rf-m" name="m" rows="2" placeholder="Ex.: mesa na varanda, cadeirinha de bebê"></textarea></label>'+
+'<button class="cta" type="submit">'+esc(R.button||'Enviar pedido de reserva')+'</button><p class="note">'+esc(R.note||'Abre o WhatsApp com a mensagem pronta. A reserva é confirmada pela casa.')+'</p></form></div></section>'}
+X.innerHTML=h;
+var rf=document.getElementById('rf');if(rf){var dd=rf.querySelector('#rf-d'),td=new Date();dd.min=td.toISOString().slice(0,10);
+var closed=(R.closedDays||[]);dd.addEventListener('change',function(){var d=new Date(dd.value+'T12:00');dd.setCustomValidity(closed.indexOf(d.getDay())>-1?'A casa não abre neste dia.':'')});
+rf.addEventListener('submit',function(e){e.preventDefault();if(!rf.reportValidity())return;var f=rf.elements,d=new Date(f.d.value+'T12:00');
+var msg='Olá! Gostaria de reservar uma mesa no '+S.brand.name+'.\n\nNome: '+f.n.value+'\nData: '+d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})+'\nHorário: '+f.h.value+'\nPessoas: '+f.p.value+(f.o.value!=='Sem ocasião especial'?'\nOcasião: '+f.o.value:'')+(f.m.value?'\nObs.: '+f.m.value:'');
+location.href='https://wa.me/'+R.phone+'?text='+encodeURIComponent(msg)})}
 document.querySelector('footer').textContent=S.footer||('© '+new Date().getFullYear()+' '+S.brand.name);
 var obj=document.querySelector('.obj'),tilt=obj.querySelector('.tilt'),img=tilt.querySelector('img');img.src=S.object.src;img.alt=S.object.alt||'';
 var layer=document.querySelector('.hs-layer'),hs=[];
