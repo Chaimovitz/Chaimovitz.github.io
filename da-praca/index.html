@@ -12,6 +12,7 @@ for(var k in t)if(typeof t[k]==='string'&&t[k][0]==='#')r.setProperty('--'+k,t[k
 r.setProperty('--fd',"'"+t.fontDisplay+"',system-ui,sans-serif");r.setProperty('--fb',"'"+t.fontBody+"',system-ui,sans-serif");r.setProperty('--dw',t.displayWeight||500);
 var f=[t.fontDisplay,t.fontBody].filter(function(v,i,a){return a.indexOf(v)===i}).map(function(x){return'family='+x.replace(/ /g,'+')+':wght@400;500;600;700'}).join('&');
 var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?'+f+'&display=swap';document.head.appendChild(l);
+if(t.scheme)document.documentElement.style.colorScheme=t.scheme;
 document.title=SITE.brand.name+' — '+SITE.brand.tagline;})();
 </script>
 <style>

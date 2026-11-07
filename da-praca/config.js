@@ -8,16 +8,17 @@ window.SITE = {
   }
  },
  "theme": {
-  "bg": "#f7f1e6",
-  "ink": "#22301f",
-  "muted": "#5e6650",
-  "accent": "#d9772b",
-  "accent2": "#4f7a3a",
-  "panel": "#efe5d3",
-  "onaccent": "#ffffff",
+  "bg": "#10231a",
+  "ink": "#f4ecdc",
+  "muted": "#b8b4a2",
+  "accent": "#ee8a2e",
+  "accent2": "#7aa356",
+  "panel": "#163024",
+  "onaccent": "#1b1206",
   "fontDisplay": "Playfair Display",
   "fontBody": "Work Sans",
-  "displayWeight": 600
+  "displayWeight": 600,
+  "scheme": "dark"
  },
  "sections": [
   {
@@ -62,9 +63,9 @@ window.SITE = {
      -20,
      2,
      0,
-     24,
-     -6,
-     0.95,
+     18,
+     -5,
+     1,
      1
     ],
     "m": [
@@ -232,8 +233,7 @@ window.SITE = {
  "object": {
   "src": "assets/hero.webp",
   "alt": "Bolo de brigadeiro com granulado",
-  "width": 460,
-  "widthMobile": 270,
-  "model": "assets/bolo.glb"
+  "width": 520,
+  "widthMobile": 300
  }
 };
