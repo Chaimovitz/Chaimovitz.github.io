@@ -231,7 +231,7 @@ window.SITE = {
  },
  "footer": "Prévia de site feita por Thomas · fotos da casa via Google Maps",
  "object": {
-  "src": "assets/hero.webp",
+  "src": "assets/bolo-real.webp",
   "alt": "Bolo de brigadeiro com granulado",
   "width": 520,
   "widthMobile": 300
