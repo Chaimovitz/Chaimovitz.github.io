@@ -2,174 +2,276 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Da Praça Prévia</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Da Praça · Café na Praça XV</title>
+<meta name="description" content="Café, almoço e jantar de frente pra Praça XV, no Centro de Florianópolis.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="config.js?v=20261107d"></script>
-<script>
-(function(){var t=SITE.theme,r=document.documentElement.style;
-for(var k in t)if(typeof t[k]==='string'&&t[k][0]==='#')r.setProperty('--'+k,t[k]);
-r.setProperty('--fd',"'"+t.fontDisplay+"',system-ui,sans-serif");r.setProperty('--fb',"'"+t.fontBody+"',system-ui,sans-serif");r.setProperty('--dw',t.displayWeight||500);
-var f=[t.fontDisplay,t.fontBody].filter(function(v,i,a){return a.indexOf(v)===i}).map(function(x){return'family='+x.replace(/ /g,'+')+':wght@400;500;600;700'}).join('&');
-var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?'+f+'&display=swap';document.head.appendChild(l);
-if(t.scheme)document.documentElement.style.colorScheme=t.scheme;
-document.title=SITE.brand.name+' — '+SITE.brand.tagline;})();
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Oswald:wght@500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:clamp(16px,1.15vw,19px);line-height:1.55;overflow-x:hidden}
+/* Da Praça · a casa em fotos. Verde da árvore do logo, laranja do "Da Praça", creme nas letras.
+   Fraunces nos títulos (o serifado quente do logo), Oswald nos rótulos (a letra dos posts), Work Sans no texto. */
+:root{
+  --mata:#0f2219; --mata-2:#15301f; --mata-3:#1d3d29; --creme:#f5ecdb; --creme-2:#c9c1ad; --linha:rgb(245 236 219 / .14);
+  --laranja:#ef8a2d; --laranja-2:#ffa24d; --folha:#86ad5d;
+  --titulo:"Fraunces",Georgia,serif; --rotulo:"Oswald","Arial Narrow",sans-serif; --texto:"Work Sans",system-ui,sans-serif;
+  --lado:max(16px,4.5vw); --sai:cubic-bezier(.16,1,.3,1);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--mata);color:var(--creme);font-family:var(--texto);font-size:1.0625rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
 a{color:inherit}
-.nav{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(16px,4vw,48px);background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4)}
-.brand{font-family:var(--fd);font-weight:600;letter-spacing:-.02em;font-size:1.15rem;text-decoration:none}
-.cta{display:inline-block;padding:11px 22px;border-radius:999px;background:var(--accent);color:var(--onaccent,#fff);border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:.92rem;text-decoration:none;transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s}
-.cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px var(--accent)}
-#main,footer{position:relative;z-index:6}
-.sec{min-height:100vh;display:flex;align-items:center;padding:120px clamp(16px,6vw,96px)}
-.sec[data-side=right]{justify-content:flex-end}
-.sec[data-side=center]{justify-content:center;text-align:center;align-items:flex-end;padding-bottom:14vh}
-.copy{max-width:min(36rem,42vw);opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
-.sec[data-side=center] .copy{max-width:40rem}
-.sec.in .copy{opacity:1;transform:none}
-.kicker{text-transform:uppercase;letter-spacing:.14em;font-size:.76rem;color:var(--muted);margin-bottom:18px}
-h1,h2{font-family:var(--fd);font-weight:var(--dw);letter-spacing:-.032em;line-height:1.03}
-h1{font-size:clamp(2.6rem,6.6vw,7rem)}h2{font-size:clamp(2.2rem,4.8vw,4.8rem)}
-.copy p:not(.kicker){margin-top:22px;color:var(--muted);max-width:42ch}
-.sec[data-side=center] .copy p{margin-inline:auto}
-.copy .cta{margin-top:30px}
-.stage{position:fixed;inset:0;pointer-events:none;z-index:5;perspective:1200px}
-.obj{position:absolute;left:50%;top:50%;width:var(--ow);transform:translate(-50%,-50%);transform-style:preserve-3d;will-change:transform,opacity}
-.tilt{position:relative;transform-style:preserve-3d;will-change:transform}
-.tilt img{display:block;width:100%;height:auto;filter:drop-shadow(0 40px 50px rgba(0,0,0,.18));transition:opacity .6s}
-.tilt canvas{position:absolute;inset:-25% -25%;width:150%!important;height:150%!important;opacity:0;transition:opacity .8s}
-.is3d .tilt canvas{opacity:1}.is3d .tilt img{opacity:0}
-.anchor{position:absolute;width:1px;height:1px}
-.hs-layer{position:fixed;inset:0;z-index:20;pointer-events:none}
-.hs{position:absolute;left:0;top:0;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
-.hs.on{opacity:1;visibility:visible;pointer-events:auto}
-.hs-dot{display:block;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;border:0;background:rgba(255,255,255,.92);cursor:pointer;animation:pulse 2.4s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}70%{box-shadow:0 0 0 14px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
-.hs-pop{position:absolute;left:20px;top:-14px;width:240px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.55);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(255,255,255,.6);font-size:.88rem;line-height:1.45;opacity:0;transform:translateY(6px) scale(.97);transition:all .4s cubic-bezier(.25,1,.5,1);pointer-events:none}
-.hs-pop strong{display:block;margin-bottom:4px}
-.hs.open .hs-pop{opacity:1;transform:none;pointer-events:auto}
-footer{padding:48px clamp(16px,6vw,96px);color:var(--muted);font-size:.88rem}
-.no-gsap .stage{position:absolute;height:100vh}
-@media(max-width:760px){.sec{align-items:flex-end;padding-bottom:10vh}.sec[data-side=right]{justify-content:flex-start}.copy{max-width:100%}.nav .cta{padding:9px 16px}}
-/* blocos de conteúdo real (galeria, avaliações, reserva, info) — cobrem o objeto 3D */
-.x{position:relative;z-index:7;background:var(--bg);padding:clamp(72px,10vw,140px) clamp(16px,6vw,96px)}
-.x.alt{background:var(--panel,var(--bg))}
-.x h2{font-size:clamp(2rem,4vw,3.6rem);max-width:18ch;text-wrap:balance}
-.x .lead{margin-top:16px;color:var(--muted);max-width:52ch}
-.gal{margin-top:40px;display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-.gal figure{position:relative;overflow:hidden;border-radius:14px;background:var(--panel,#0001);grid-column:span 4;aspect-ratio:4/3}
-.gal figure:nth-child(6n+1){grid-column:span 7;aspect-ratio:16/11}.gal figure:nth-child(6n+2){grid-column:span 5;aspect-ratio:auto}
-.gal figure:nth-child(6n){grid-column:span 12;aspect-ratio:21/8}
-.gal img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.22,1,.36,1)}
-.gal figure:hover img{transform:scale(1.04)}
-.gal figcaption{position:absolute;left:10px;bottom:8px;font-size:.68rem;color:#fff;opacity:.85;text-shadow:0 1px 3px #0009}
-.revs{margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px}
-.rev{padding:26px;border-radius:16px;background:var(--bg);border:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
-.rev .st{color:var(--accent);letter-spacing:.12em;font-size:.9rem}
-.rev q{display:block;margin-top:12px;font-family:var(--fd);font-size:1.15rem;line-height:1.35;quotes:none}
-.rev p{margin-top:14px;font-size:.85rem;color:var(--muted)}
-.res{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:start}
-.res form{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:clamp(20px,3vw,36px);border-radius:20px;background:var(--bg);border:1px solid color-mix(in srgb,var(--ink) 12%,transparent)}
-.res label{display:grid;gap:6px;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.res label.full{grid-column:1/-1}
-.res input,.res select,.res textarea{font:inherit;font-size:1rem;color:var(--ink);background:transparent;border:1px solid color-mix(in srgb,var(--ink) 22%,transparent);border-radius:10px;padding:12px 14px;text-transform:none;letter-spacing:0}
-.res input:focus,.res select:focus,.res textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
-.res .cta{grid-column:1/-1;justify-self:start;margin-top:6px;padding:14px 26px;font-size:1rem}
-.res .note{grid-column:1/-1;font-size:.8rem;color:var(--muted);text-transform:none;letter-spacing:0}
-.info{margin-top:28px;display:grid;gap:22px}
-.info h3{font-size:.76rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:500;margin-bottom:6px}
-.info ul{list-style:none;display:grid;gap:4px;font-variant-numeric:tabular-nums}
+h1,h2,h3,p,figure,blockquote{margin:0}
+:focus-visible{outline:2px solid var(--laranja);outline-offset:3px}
+.rot{font-family:var(--rotulo);font-weight:500;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--laranja)}
+.wrap{padding-inline:var(--lado);max-width:1360px;margin-inline:auto}
+.botao{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:3.1rem;padding:.75rem 1.5rem;border-radius:999px;background:var(--laranja);color:#1a1006;font-weight:600;text-decoration:none;border:0;cursor:pointer;font:inherit;font-weight:600;transition:transform .3s var(--sai),background .3s}
+.botao:hover{background:var(--laranja-2);transform:translateY(-1px)}
+.botao.linha{background:transparent;color:var(--creme);box-shadow:inset 0 0 0 1.5px rgb(245 236 219 / .55)}
+.botao.linha:hover{background:rgb(245 236 219 / .08)}
+
+/* topo */
+.topo{position:fixed;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:12px var(--lado);padding-top:max(12px,env(safe-area-inset-top));transition:background .4s}
+.topo.solido{background:rgb(15 34 25 / .88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.marca{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-family:var(--titulo);font-weight:600;font-size:1.25rem;letter-spacing:-.01em}
+.marca svg{width:28px;height:28px}
+.topo nav{display:flex;gap:1.6rem;font-size:.92rem}
+.topo nav a{text-decoration:none;opacity:.85}.topo nav a:hover{opacity:1}
+.topo .botao{min-height:2.6rem;padding:.5rem 1.1rem;font-size:.92rem}
+
+/* abertura: a fachada do casarão */
+.abre{position:relative;min-height:min(100svh,920px);display:flex;align-items:flex-end;overflow:hidden}
+.abre img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 78%}
+.abre::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgb(15 34 25 / .55) 0%,rgb(15 34 25 / 0) 26%,rgb(15 34 25 / .15) 50%,rgb(15 34 25 / .92) 86%,var(--mata) 100%)}
+.abre .wrap{position:relative;z-index:1;width:100%;padding-bottom:clamp(40px,7vw,88px)}
+.abre h1{font-family:var(--titulo);font-weight:600;font-size:clamp(3.4rem,10vw,9.5rem);line-height:.9;letter-spacing:-.035em}
+.abre h1 span{color:var(--laranja)}
+.abre .sub{margin-top:1.1rem;font-size:clamp(1.1rem,1.6vw,1.35rem);max-width:34ch;color:var(--creme)}
+.selos{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.selo{display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .8rem;border-radius:999px;background:rgb(15 34 25 / .55);border:1px solid var(--linha);font-size:.88rem;backdrop-filter:blur(6px)}
+.selo b{color:var(--laranja-2);font-weight:600}
+.acoes{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.8rem}
+.credito{position:absolute;right:var(--lado);bottom:12px;z-index:1;font-size:.7rem;opacity:.6}
+
+/* vitrine */
+.sec{padding-block:clamp(72px,10vw,140px)}
+.cab{display:grid;gap:.9rem;max-width:44rem;margin-bottom:clamp(32px,5vw,56px)}
+.cab h2{font-family:var(--titulo);font-weight:600;font-size:clamp(2.4rem,5vw,4.4rem);line-height:.98;letter-spacing:-.03em;text-wrap:balance}
+.cab p{color:var(--creme-2);max-width:48ch}
+.vitrine{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.prato{position:relative;overflow:hidden;border-radius:18px;background:var(--mata-2);min-width:0}
+.prato img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--sai)}
+.prato:hover img{transform:scale(1.035)}
+.prato figcaption{position:absolute;left:0;right:0;bottom:0;padding:48px 18px 16px;background:linear-gradient(180deg,transparent,rgb(10 22 16 / .88));display:grid;gap:.2rem}
+.prato figcaption strong{font-family:var(--titulo);font-weight:600;font-size:clamp(1.25rem,1.8vw,1.6rem);line-height:1.1}
+.prato figcaption em{font-style:normal;font-size:.9rem;color:var(--creme-2)}
+.prato .fonte{position:absolute;top:12px;right:12px;font-size:.68rem;padding:.2rem .55rem;border-radius:999px;background:rgb(10 22 16 / .6)}
+.p1{grid-column:span 7;aspect-ratio:1/1}.p2{grid-column:span 5;aspect-ratio:auto}.p3{grid-column:span 5;aspect-ratio:4/5}.p4{grid-column:span 7;aspect-ratio:auto}
+
+/* o dia inteiro */
+.dia{background:var(--mata-2)}
+.linha-dia{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--linha);margin-top:8px}
+.hora{padding:26px 22px 8px 0;border-right:1px solid var(--linha);min-width:0}
+.hora:last-child{border-right:0}
+.hora .h{font-family:var(--titulo);font-weight:600;font-size:clamp(2.2rem,4vw,3.6rem);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.hora .h small{font-size:.45em;color:var(--creme-2)}
+.hora .o{margin-top:.6rem;font-family:var(--rotulo);letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;color:var(--laranja)}
+.hora p{margin-top:.5rem;color:var(--creme-2);font-size:.95rem;max-width:24ch}
+.domingo{margin-top:clamp(32px,5vw,56px);display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,40px);align-items:center;padding:clamp(20px,3vw,32px);border-radius:20px;background:var(--mata-3)}
+.domingo .grande{font-family:var(--titulo);font-weight:600;font-size:clamp(2rem,4vw,3.2rem);line-height:1;color:var(--laranja)}
+.domingo blockquote{font-family:var(--titulo);font-size:clamp(1.15rem,1.7vw,1.45rem);line-height:1.35}
+.domingo cite{display:block;margin-top:.5rem;font-style:normal;font-size:.85rem;color:var(--creme-2)}
+
+/* a casa */
+.casa{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}
+.casa figure{position:relative;overflow:hidden;border-radius:18px;min-width:0;min-height:clamp(380px,46vw,640px)}
+.casa img{width:100%;height:100%;object-fit:cover}
+.casa figcaption{position:absolute;left:14px;bottom:12px;font-size:.72rem;opacity:.75;text-shadow:0 1px 3px #000}
+.casa .texto{display:grid;align-content:end;gap:1rem;padding:clamp(20px,3vw,40px);border-radius:18px;background:var(--mata-2)}
+.casa .texto p{color:var(--creme-2)}
+.casa .texto strong{color:var(--creme);font-weight:600}
+
+/* avaliações */
+.nota{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.nota .num{font-family:var(--titulo);font-weight:600;font-size:clamp(4rem,9vw,7.5rem);line-height:.9;letter-spacing:-.04em;color:var(--laranja)}
+.nota .de{color:var(--creme-2)}
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:clamp(28px,4vw,44px)}
+.rev{padding:26px;border-radius:18px;background:var(--mata-2);display:grid;gap:1rem;align-content:start;min-width:0}
+.rev .est{color:var(--laranja);letter-spacing:.15em}
+.rev q{font-family:var(--titulo);font-size:1.2rem;line-height:1.35;quotes:none}
+.rev p{font-size:.86rem;color:var(--creme-2)}
+
+/* reserva */
+.reserva{background:var(--mata-2)}
+.res{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,6vw,96px);align-items:start}
+.info{display:grid;gap:1.6rem;margin-top:2rem}
+.info h3{font-family:var(--rotulo);font-weight:500;letter-spacing:.16em;text-transform:uppercase;font-size:.78rem;color:var(--laranja);margin-bottom:.4rem}
+.info ul{list-style:none;margin:0;padding:0;display:grid;gap:.15rem;font-variant-numeric:tabular-nums}
 .info a{text-underline-offset:3px}
-@media(max-width:760px){.gal{grid-template-columns:1fr 1fr}.gal figure,.gal figure:nth-child(n){grid-column:span 1;aspect-ratio:4/5}.gal figure:nth-child(3n+1){grid-column:span 2;aspect-ratio:16/11}.res{grid-template-columns:1fr}.res form{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.copy{opacity:1;transform:none}}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:clamp(20px,3vw,34px);border-radius:22px;background:var(--mata);border:1px solid var(--linha)}
+label{display:grid;gap:.4rem;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--creme-2)}
+label.inteiro{grid-column:1/-1}
+input,select,textarea{font:inherit;font-size:1rem;text-transform:none;letter-spacing:0;color:var(--creme);background:var(--mata-2);border:1px solid var(--linha);border-radius:12px;padding:.8rem .9rem;width:100%;min-width:0}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--laranja);outline-offset:1px}
+form .botao{grid-column:1/-1;justify-self:start;margin-top:.3rem}
+.nota-form{grid-column:1/-1;font-size:.82rem;color:var(--creme-2)}
+.erro{grid-column:1/-1;color:var(--laranja-2);font-size:.9rem;min-height:1.2em}
+
+/* fim */
+footer{padding:48px var(--lado) calc(40px + env(safe-area-inset-bottom));display:grid;gap:.8rem;justify-items:start;border-top:1px solid var(--linha);color:var(--creme-2);font-size:.85rem}
+footer .marca{color:var(--creme)}
+
+.surge{opacity:1;transform:none;transition:opacity .9s var(--sai),transform .9s var(--sai)}
+.js .surge:not(.visto){opacity:0;transform:translateY(22px)}
+
+@media (max-width:900px){
+  .topo nav{display:none}
+  .vitrine{grid-template-columns:1fr 1fr}.p1,.p2,.p3,.p4{grid-column:span 2;aspect-ratio:4/3}.p3{grid-column:span 1;aspect-ratio:4/5}.p2{grid-column:span 1;aspect-ratio:4/5}
+  .linha-dia{grid-template-columns:1fr 1fr}.hora:nth-child(2){border-right:0}.hora:nth-child(-n+2){border-bottom:1px solid var(--linha)}
+  .casa{grid-template-columns:1fr}.casa figure{aspect-ratio:4/3}
+  .revs{grid-template-columns:1fr}
+  .res{grid-template-columns:1fr}form{grid-template-columns:1fr}
+  .domingo{grid-template-columns:1fr}
+}
+@media (max-width:600px){.vitrine{grid-template-columns:1fr}.p1,.p2,.p3,.p4{grid-column:auto;aspect-ratio:4/5}.p4{aspect-ratio:4/3}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.js .surge:not(.visto){opacity:1;transform:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<nav class="nav"><a class="brand" href="#"></a><a class="cta" href="#"></a></nav>
-<div class="stage" aria-hidden="true"><div class="obj"><div class="tilt"><img alt=""></div></div></div>
-<div class="hs-layer"></div>
-<main id="main"></main>
-<div id="extras"></div>
-<footer></footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>document.documentElement.classList.add('js')</script>
+
+<header class="topo" id="topo">
+  <a class="marca" href="#inicio" aria-label="Da Praça, início">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="#f5ecdb"/><path d="M16 26v-8m0 0-4-3m4 3 4-4" stroke="#4f7a3a" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="16" cy="12" r="7" fill="#86ad5d"/><circle cx="11" cy="14" r="4" fill="#6b9a49"/><circle cx="21" cy="14" r="4" fill="#6b9a49"/></svg>
+    Da Praça
+  </a>
+  <nav aria-label="Seções"><a href="#vitrine">Vitrine</a><a href="#dia">Horários</a><a href="#casa">A casa</a><a href="#avaliacoes">Avaliações</a></nav>
+  <a class="botao" href="#reserva">Reservar mesa</a>
+</header>
+
+<main id="inicio">
+  <section class="abre">
+    <img src="assets/fachada.webp" alt="O casarão vermelho do Da Praça na Felipe Schmidt, de frente para a Praça XV" fetchpriority="high">
+    <div class="wrap">
+      <p class="rot">Praça XV · Centro de Florianópolis · desde 2022</p>
+      <h1>Da <span>Praça</span></h1>
+      <p class="sub">Café, almoço e jantar no casarão vermelho da Felipe Schmidt, de frente pra praça.</p>
+      <div class="selos">
+        <span class="selo"><b>4,8 ★</b> no Google</span>
+        <span class="selo"><b>2.700+</b> avaliações</span>
+        <span class="selo">Aberto todos os dias</span>
+      </div>
+      <div class="acoes"><a class="botao" href="#reserva">Reservar mesa</a><a class="botao linha" href="#vitrine">Ver a vitrine</a></div>
+    </div>
+    <span class="credito">Foto: Google Maps · Ashfaq Zada</span>
+  </section>
+
+  <section class="sec wrap" id="vitrine">
+    <div class="cab surge">
+      <p class="rot">Na vitrine</p>
+      <h2>Doce, salgado e café quente.</h2>
+      <p>Bolo de brigadeiro, torta de frango, hambúrguer e a vitrine de bolos e tortas. Fotos do Instagram da casa.</p>
+    </div>
+    <div class="vitrine">
+      <figure class="prato p1 surge"><img src="assets/brigadeiro.webp" alt="Bolo de brigadeiro com granulado e um brigadeiro em cima" loading="lazy"><span class="fonte">@dapracafloripa</span><figcaption><strong>Bolo de brigadeiro</strong><em>"Dia difícil? Nada que um docinho não resolva."</em></figcaption></figure>
+      <figure class="prato p2 surge"><img src="assets/torta.webp" alt="Fatia de torta de frango com café ao lado" loading="lazy"><span class="fonte">@dapracafloripa</span><figcaption><strong>Torta de frango e café</strong><em>"Tem coisa que combina tão bem que nem precisa explicar."</em></figcaption></figure>
+      <figure class="prato p3 surge"><img src="assets/burger.webp" alt="Hambúrguer com queijo derretido, milho, tomate e alface" loading="lazy"><span class="fonte">@dapracafloripa</span><figcaption><strong>O hambúrguer da casa</strong><em>Queijo, milho, tomate e alface no pão brioche.</em></figcaption></figure>
+      <figure class="prato p4 surge"><img src="assets/vitrine.webp" alt="Vitrine com bolos e tortas da casa" loading="lazy"><span class="fonte">Google Maps · João Moutinho</span><figcaption><strong>A vitrine de bolos e tortas</strong><em>Fatias generosas, do jeito que as avaliações contam.</em></figcaption></figure>
+    </div>
+  </section>
+
+  <section class="sec dia" id="dia">
+    <div class="wrap">
+      <div class="cab surge"><p class="rot">O dia inteiro</p><h2>Do café da manhã ao jantar.</h2></div>
+      <div class="linha-dia surge">
+        <div class="hora"><div class="h">8h30</div><div class="o">Abre</div><p>Café, pão de queijo e o mocha da casa.</p></div>
+        <div class="hora"><div class="h">12h</div><div class="o">Almoço</div><p>Pratos do dia e opções vegetarianas.</p></div>
+        <div class="hora"><div class="h">16h</div><div class="o">Café da tarde</div><p>Bolos, tortas e salgados da vitrine.</p></div>
+        <div class="hora"><div class="h">21h</div><div class="o">Jantar até</div><p>De segunda a sexta. Sábado até 19h.</p></div>
+      </div>
+      <div class="domingo surge">
+        <div class="grande">Domingo,<br>9h às 17h</div>
+        <blockquote>"Abre nos domingos de manhã e é um dos únicos lugares abertos. A comida é boa. Preço justo. Suco natural."<cite>Denise D. · avaliação no Google</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap" id="casa">
+    <div class="cab surge"><p class="rot">A casa</p><h2>Um casarão de frente pra praça.</h2></div>
+    <div class="casa">
+      <figure class="surge"><img src="assets/salao.webp" alt="Salão do Da Praça com balcão, vitrine e mezanino" style="position:absolute;inset:0"><figcaption>Foto: Google Maps · Ashfaq Zada</figcaption></figure>
+      <div class="texto surge">
+        <p class="rot">Felipe Schmidt, 14</p>
+        <p><strong>Térreo com balcão e vitrine, mezanino em cima e mesas na calçada de pedra portuguesa</strong>, olhando a Praça XV e a figueira.</p>
+        <p>Do café com pressa antes do trabalho ao jantar sem hora pra acabar. Porções generosas e preço justo, como dizem as avaliações.</p>
+        <a class="botao linha" href="https://www.google.com/maps/search/?api=1&amp;query=Da+Pra%C3%A7a+R.+Felipe+Schmidt+14+Florian%C3%B3polis" target="_blank" rel="noopener">Abrir no Google Maps</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dia" id="avaliacoes">
+    <div class="wrap">
+      <div class="nota surge"><span class="num">4,8</span><span class="de">no Google, com mais de 2.700 avaliações</span></div>
+      <div class="revs">
+        <figure class="rev surge"><span class="est" aria-label="5 estrelas">★★★★★</span><q>Comida maravilhosa, funcionários amigáveis e serviço muito bom! Sem espera para mesas e a comida chegou rápido!</q><p>Beatriz P. · Google</p></figure>
+        <figure class="rev surge"><span class="est" aria-label="5 estrelas">★★★★★</span><q>Ótimo custo benefício. Porções generosas, preço bom. Opções de refeições e bebidas desde café da manhã, almoço, jantar.</q><p>Simoni P. · Google</p></figure>
+        <figure class="rev surge"><span class="est" aria-label="5 estrelas">★★★★★</span><q>Muito bom, me surpreendeu a qualidade, o atendimento impecável, o lanche estava ótimo, valor justo.</q><p>Gustavo P. · Google</p></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec reserva" id="reserva">
+    <div class="wrap res">
+      <div>
+        <div class="cab"><p class="rot">Reservas</p><h2>Guarde sua mesa na praça.</h2><p>Escolha o dia e o horário. A mensagem chega pronta no WhatsApp da casa, e a confirmação é feita por lá.</p></div>
+        <div class="info">
+          <div><h3>Endereço</h3><p>R. Felipe Schmidt, 14 · Centro, Florianópolis</p></div>
+          <div><h3>Horário</h3><ul><li>Seg a sex · 8h30 às 21h</li><li>Sábado · 8h30 às 19h</li><li>Domingo · 9h às 17h</li></ul></div>
+          <div><h3>WhatsApp</h3><p>(48) 99129-0222</p></div>
+          <div><h3>Instagram</h3><p><a href="https://www.instagram.com/dapracafloripa/" target="_blank" rel="noopener">@dapracafloripa</a></p></div>
+        </div>
+      </div>
+      <form id="rf" novalidate>
+        <label class="inteiro" for="rf-n">Nome<input id="rf-n" name="n" autocomplete="name" required></label>
+        <label for="rf-d">Data<input id="rf-d" name="d" type="date" required></label>
+        <label for="rf-h">Horário<select id="rf-h" name="h"></select></label>
+        <label for="rf-p">Pessoas<select id="rf-p" name="p"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9 ou mais</option></select></label>
+        <label for="rf-o">Ocasião<select id="rf-o" name="o"><option>Sem ocasião especial</option><option>Aniversário</option><option>Encontro</option><option>Família</option><option>Trabalho</option></select></label>
+        <label class="inteiro" for="rf-m">Observações<textarea id="rf-m" name="m" rows="2" placeholder="Ex.: mesa na calçada, cadeirinha de bebê"></textarea></label>
+        <p class="erro" id="rf-e" role="alert"></p>
+        <button class="botao" type="submit">Enviar pedido de reserva</button>
+        <p class="nota-form">Abre o WhatsApp com a mensagem pronta. A reserva é confirmada pela casa.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="marca">Da Praça</span>
+  <p>R. Felipe Schmidt, 14 · Centro · Florianópolis · (48) 99129-0222 · <a href="https://www.instagram.com/dapracafloripa/" target="_blank" rel="noopener">@dapracafloripa</a></p>
+  <p>Prévia de site para apresentação, feita por Thomas. Fotos da comida: Instagram @dapracafloripa. Fotos da casa: Google Maps, com os autores creditados.</p>
+</footer>
+
 <script>
 (function(){
-var S=SITE,main=document.getElementById('main'),M=matchMedia('(max-width:760px)');
-function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
-var b=document.querySelector('.brand'),nc=document.querySelector('.nav .cta');b.textContent=S.brand.name;nc.textContent=S.brand.cta.label;nc.href=S.brand.cta.href;
-function ow(){document.documentElement.style.setProperty('--ow',(M.matches?S.object.widthMobile||S.object.width*.6:S.object.width)+'px')}ow();M.addEventListener('change',ow);
-S.sections.forEach(function(s,i){var el=document.createElement('section'),H=i?'h2':'h1';el.className='sec';el.id=s.id;el.dataset.side=s.side||'left';el.dataset.i=i;
-el.innerHTML='<div class="copy">'+(s.kicker?'<p class="kicker">'+esc(s.kicker)+'</p>':'')+'<'+H+'>'+esc(s.title)+'</'+H+'>'+(s.text?'<p>'+esc(s.text)+'</p>':'')+(s.cta?'<a class="cta" href="'+esc(s.cta.href)+'">'+esc(s.cta.label)+'</a>':'')+'</div>';main.appendChild(el)});
-var X=document.getElementById('extras'),h='';
-if(S.gallery&&S.gallery.length){h+='<section class="x" id="fotos"><p class="kicker">'+esc(S.galleryKicker||'A casa')+'</p><h2>'+esc(S.galleryTitle||'Por dentro')+'</h2><div class="gal">'+S.gallery.map(function(g){return'<figure><img loading="lazy" src="'+esc(g.src)+'" alt="'+esc(g.alt)+'">'+(g.credit?'<figcaption>'+esc(g.credit)+'</figcaption>':'')+'</figure>'}).join('')+'</div></section>'}
-if(S.reviews&&S.reviews.length){h+='<section class="x alt" id="avaliacoes"><p class="kicker">'+esc(S.reviewsKicker||'Avaliações')+'</p><h2>'+esc(S.reviewsTitle||'Quem foi, conta')+'</h2><div class="revs">'+S.reviews.map(function(r){return'<figure class="rev"><span class="st" aria-label="'+r.stars+' estrelas">'+'★★★★★'.slice(0,r.stars||5)+'</span><q>'+esc(r.text)+'</q><p>'+esc(r.author)+' · Google</p></figure>'}).join('')+'</div></section>'}
-var R=S.reserve;if(R){var I=S.info||{};
-h+='<section class="x" id="reserva"><div class="res"><div><p class="kicker">'+esc(R.kicker||'Reservas')+'</p><h2>'+esc(R.title)+'</h2><p class="lead">'+esc(R.text||'')+'</p><div class="info">'+
-(I.address?'<div><h3>Endereço</h3><p>'+esc(I.address)+'</p>'+(I.maps?'<p><a href="'+esc(I.maps)+'" target="_blank" rel="noopener">Abrir no Google Maps</a></p>':'')+'</div>':'')+
-(I.hours?'<div><h3>Horário</h3><ul>'+I.hours.map(function(x){return'<li>'+esc(x)+'</li>'}).join('')+'</ul></div>':'')+
-(I.phone?'<div><h3>WhatsApp</h3><p>'+esc(I.phone)+'</p></div>':'')+(I.instagram?'<div><h3>Instagram</h3><p><a href="https://instagram.com/'+esc(I.instagram)+'" target="_blank" rel="noopener">@'+esc(I.instagram)+'</a></p></div>':'')+
-'</div></div><form id="rf" novalidate><label class="full" for="rf-n">Nome<input id="rf-n" name="n" required autocomplete="name"></label>'+
-'<label for="rf-d">Data<input id="rf-d" name="d" type="date" required></label><label for="rf-h">Horário<select id="rf-h" name="h" required>'+(R.times||[]).map(function(t){return'<option>'+esc(t)+'</option>'}).join('')+'</select></label>'+
-'<label for="rf-p">Pessoas<select id="rf-p" name="p">'+[1,2,3,4,5,6,7,8,'9 ou mais'].map(function(n){return'<option'+(n===2?' selected':'')+'>'+n+'</option>'}).join('')+'</select></label>'+
-'<label for="rf-o">Ocasião<select id="rf-o" name="o"><option>Sem ocasião especial</option><option>Aniversário</option><option>Encontro</option><option>Família</option><option>Trabalho</option></select></label>'+
-'<label class="full" for="rf-m">Observações<textarea id="rf-m" name="m" rows="2" placeholder="Ex.: mesa do lado de fora, cadeirinha de bebê"></textarea></label>'+
-'<button class="cta" type="submit">'+esc(R.button||'Enviar pedido de reserva')+'</button><p class="note">'+esc(R.note||'Abre o WhatsApp com a mensagem pronta. A reserva é confirmada pela casa.')+'</p></form></div></section>'}
-X.innerHTML=h;
-var rf=document.getElementById('rf');if(rf){var dd=rf.querySelector('#rf-d'),td=new Date();dd.min=td.toISOString().slice(0,10);
-var closed=(R.closedDays||[]);dd.addEventListener('change',function(){var d=new Date(dd.value+'T12:00');dd.setCustomValidity(closed.indexOf(d.getDay())>-1?'A casa não abre neste dia.':'')});
-rf.addEventListener('submit',function(e){e.preventDefault();if(!rf.reportValidity())return;var f=rf.elements,d=new Date(f.d.value+'T12:00');
-var msg='Olá! Gostaria de reservar uma mesa no '+S.brand.name+'.\n\nNome: '+f.n.value+'\nData: '+d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})+'\nHorário: '+f.h.value+'\nPessoas: '+f.p.value+(f.o.value!=='Sem ocasião especial'?'\nOcasião: '+f.o.value:'')+(f.m.value?'\nObs.: '+f.m.value:'');
-location.href='https://wa.me/'+R.phone+'?text='+encodeURIComponent(msg)})}
-document.querySelector('footer').textContent=S.footer||('© '+new Date().getFullYear()+' '+S.brand.name);
-var obj=document.querySelector('.obj'),tilt=obj.querySelector('.tilt'),img=tilt.querySelector('img');img.src=S.object.src;img.alt=S.object.alt||'';
-var layer=document.querySelector('.hs-layer'),hs=[];
-S.sections.forEach(function(s,i){(s.hotspots||[]).forEach(function(h){var a=document.createElement('i');a.className='anchor';a.style.left=h.x+'%';a.style.top=h.y+'%';tilt.appendChild(a);
-var w=document.createElement('div');w.className='hs';w.innerHTML='<button class="hs-dot" aria-label="'+esc(h.title)+'"></button><div class="hs-pop"><strong>'+esc(h.title)+'</strong>'+esc(h.text)+'</div>';layer.appendChild(w);hs.push({a:a,w:w,i:i});
-w.addEventListener('mouseenter',function(){w.classList.add('open')});w.addEventListener('mouseleave',function(){w.classList.remove('open')});
-w.firstChild.addEventListener('click',function(e){e.stopPropagation();w.classList.toggle('open')})})});
-function closeAll(){hs.forEach(function(h){h.w.classList.remove('open')})}
-document.addEventListener('click',closeAll);document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAll()});
-var secs=[].slice.call(main.children);secs[0].classList.add('in');
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;e.target.classList.add('in');var a=+e.target.dataset.i;hs.forEach(function(h){h.w.classList.toggle('on',h.i===a)})})},{threshold:.5});secs.forEach(function(s){io.observe(s)});
-var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,mx=0,my=0,cx=0,cy=0;
-addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
-addEventListener('deviceorientation',function(e){if(e.gamma==null)return;mx=Math.max(-.5,Math.min(.5,e.gamma/60));my=Math.max(-.5,Math.min(.5,(e.beta-45)/60))});
-function frame(t){cx+=(mx-cx)*.06;cy+=(my-cy)*.06;
-if(!reduce){var f=Math.sin(t/1400)*8;tilt.style.transform='translate3d('+(cx*24)+'px,'+(cy*18+f)+'px,0) rotateX('+(-cy*10)+'deg) rotateY('+(cx*14)+'deg)'}
-for(var k=0;k<hs.length;k++){var r=hs[k].a.getBoundingClientRect();hs[k].w.style.transform='translate('+r.left+'px,'+r.top+'px)'}
-requestAnimationFrame(frame)}requestAnimationFrame(frame);
-// ---- modelo 3D real (GLB) opcional: SITE.object.model ----
-var M3={on:false,prog:0};
-if(S.object.model){(function(){
-function ld(u){return new Promise(function(r,j){var e=document.createElement('script');e.src=u;e.onload=r;e.onerror=j;document.head.appendChild(e)})}
-ld('https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js').then(function(){return ld('https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js')}).then(function(){
-var T=THREE,R=new T.WebGLRenderer({alpha:true,antialias:true});R.setPixelRatio(Math.min(devicePixelRatio,2));R.outputEncoding=T.sRGBEncoding;R.toneMapping=T.ACESFilmicToneMapping;R.toneMappingExposure=1.15;R.physicallyCorrectLights=true;
-var sc=new T.Scene(),cam=new T.PerspectiveCamera(28,1,.01,100);cam.position.set(0,1.15,3.3);cam.lookAt(0,0,0);
-sc.add(new T.HemisphereLight(0xfff6ea,0x6b5a48,2.2));var k=new T.DirectionalLight(0xffffff,3.2);k.position.set(-2,3,2.5);sc.add(k);var f=new T.DirectionalLight(0xffe2c4,1.2);f.position.set(2.5,1,-2);sc.add(f);
-var piv=new T.Group();sc.add(piv);tilt.appendChild(R.domElement);
-function size(){var w=tilt.clientWidth*1.5;R.setSize(w,w,false);cam.aspect=1;cam.updateProjectionMatrix()}size();addEventListener('resize',size);
-new T.GLTFLoader().load(S.object.model,function(g){var m=g.scene,b=new T.Box3().setFromObject(m),c=b.getCenter(new T.Vector3()),z=b.getSize(new T.Vector3());
-m.position.sub(c);var s=1.6/Math.max(z.x,z.y,z.z);m.scale.setScalar(s);m.position.multiplyScalar(s);piv.add(m);M3.on=true;document.querySelector('.stage').classList.add('is3d');
-(function loop(t){var mx2=main.offsetHeight-innerHeight;M3.prog=mx2>0?Math.min(1,scrollY/mx2):0;
-piv.rotation.y=(reduce?0:t/5200)+M3.prog*Math.PI*2.2+cx*.6;piv.rotation.x=cy*.25;R.render(sc,cam);requestAnimationFrame(loop)})(0)})}).catch(function(){})})()}
-function V(s){var m=!!S.object.model;return{x:s[0]+'vw',y:s[1]+'vh',z:s[2],rotationY:m?0:s[3],rotationZ:m?s[4]*.4:s[4],scale:s[5],autoAlpha:s[6]==null?1:s[6]}}
-function key(){return M.matches?'m':'d'}
-if(!window.gsap||!window.ScrollTrigger){document.documentElement.classList.add('no-gsap');var s0=S.sections[0].state[key()];
-obj.style.transform='translate(-50%,-50%) translate('+s0[0]+'vw,'+s0[1]+'vh) scale('+s0[5]+')';return}
-gsap.registerPlugin(ScrollTrigger);gsap.set(obj,{xPercent:-50,yPercent:-50,transformPerspective:1200});
-var mm=gsap.matchMedia();
-[['(min-width:761px)','d'],['(max-width:760px)','m']].forEach(function(q){mm.add(q[0],function(){
-var L=S.sections;gsap.set(obj,V(L[0].state[q[1]]));
-var tl=gsap.timeline({defaults:{ease:'power2.inOut',duration:1},scrollTrigger:{trigger:main,start:'top top',end:'bottom bottom',scrub:1.2,invalidateOnRefresh:true}});
-tl.to({},{duration:.4});
-for(var i=1;i<L.length;i++){var st=L[i].state[q[1]];tl.addLabel(L[i].id);
-if(L[i].enter==='corner'){var side=st[0]>=0?-1:1;tl.set(obj,{x:side*70+'vw',y:'60vh',rotationZ:side*-70,autoAlpha:0})}
-tl.to(obj,V(st));tl.to({},{duration:.6})}})});
+  var topo=document.getElementById('topo');
+  function t(){topo.classList.toggle('solido',scrollY>40)}t();addEventListener('scroll',t,{passive:true});
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visto');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('.surge').forEach(function(el){io.observe(el)})}
+  else document.querySelectorAll('.surge').forEach(function(el){el.classList.add('visto')});
+  // reserva pelo WhatsApp, respeitando o horário de cada dia
+  var F=document.getElementById('rf'),D=F.elements.d,H=F.elements.h,E=document.getElementById('rf-e');
+  var horas={0:['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00'],6:['08:30','09:30','10:30','11:30','12:00','13:00','14:00','15:00','16:00','17:00','18:00']};
+  var util=['08:30','09:30','10:30','11:30','12:00','12:30','13:00','14:00','16:00','18:00','19:00','20:00'];
+  function dia(){return D.value?new Date(D.value+'T12:00').getDay():1}
+  function enche(){var l=horas[dia()]||util,v=H.value;H.innerHTML=l.map(function(h){return'<option>'+h+'</option>'}).join('');if(l.indexOf(v)>-1)H.value=v}
+  var hoje=new Date();hoje.setMinutes(hoje.getMinutes()-hoje.getTimezoneOffset());D.min=hoje.toISOString().slice(0,10);enche();D.addEventListener('change',enche);
+  F.addEventListener('submit',function(e){e.preventDefault();E.textContent='';
+    if(!F.elements.n.value.trim()){E.textContent='Coloque seu nome.';F.elements.n.focus();return}
+    if(!D.value){E.textContent='Escolha a data.';D.focus();return}
+    var d=new Date(D.value+'T12:00'),f=F.elements;
+    var msg='Olá! Gostaria de reservar uma mesa no Da Praça.\n\nNome: '+f.n.value.trim()+'\nData: '+d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})+'\nHorário: '+f.h.value+'\nPessoas: '+f.p.value+(f.o.value!=='Sem ocasião especial'?'\nOcasião: '+f.o.value:'')+(f.m.value.trim()?'\nObs.: '+f.m.value.trim():'');
+    location.href='https://wa.me/5548991290222?text='+encodeURIComponent(msg)});
 })();
 </script>
 </body>
