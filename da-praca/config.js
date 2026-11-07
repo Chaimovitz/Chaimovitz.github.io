@@ -8,12 +8,12 @@ window.SITE = {
   }
  },
  "theme": {
-  "bg": "#f6f1ea",
-  "ink": "#1d2a24",
-  "muted": "#5c655e",
-  "accent": "#a3322b",
-  "accent2": "#2f5a46",
-  "panel": "#ece3d6",
+  "bg": "#f7f1e6",
+  "ink": "#22301f",
+  "muted": "#5e6650",
+  "accent": "#d9772b",
+  "accent2": "#4f7a3a",
+  "panel": "#efe5d3",
   "onaccent": "#ffffff",
   "fontDisplay": "Playfair Display",
   "fontBody": "Work Sans",
@@ -25,7 +25,7 @@ window.SITE = {
    "side": "left",
    "kicker": "Praça XV · Centro de Florianópolis",
    "title": "Do café da manhã ao jantar, na Praça XV.",
-   "text": "No casarão vermelho da Felipe Schmidt. Nota 4,8 no Google com mais de 2.700 avaliações.",
+   "text": "No casarão vermelho da Felipe Schmidt, desde 2022. Nota 4,8 no Google com mais de 2.700 avaliações.",
    "state": {
     "d": [
      22,
@@ -55,8 +55,8 @@ window.SITE = {
    "id": "vitrine",
    "side": "right",
    "kicker": "A vitrine",
-   "title": "Bolos, tortas e o mocha da casa.",
-   "text": "Fatias generosas, café quente e suco natural. Tem opção vegetariana no cardápio.",
+   "title": "Doce, salgado e o mocha da casa.",
+   "text": "Bolo de brigadeiro, torta de frango, hambúrguer e café quente. Tem opção vegetariana no cardápio.",
    "state": {
     "d": [
      -22,
@@ -79,10 +79,10 @@ window.SITE = {
    },
    "hotspots": [
     {
-     "x": 30,
-     "y": 40,
-     "title": "Mocha",
-     "text": "O pedido mais citado por quem passa pela praça."
+     "x": 50,
+     "y": 30,
+     "title": "Bolo de brigadeiro",
+     "text": "Um dos doces que mais aparecem no Instagram da casa."
     }
    ]
   },
@@ -155,9 +155,9 @@ window.SITE = {
    "credit": "Foto: Google Maps · Ashfaq zada"
   },
   {
-   "src": "assets/fotos/2.webp",
-   "alt": "Salão com balcão e vitrine",
-   "credit": "Foto: Google Maps · Ashfaq zada"
+   "src": "assets/fotos/ig-brigadeiro.webp",
+   "alt": "Bolo de brigadeiro com granulado",
+   "credit": "Foto: @dapracafloripa"
   },
   {
    "src": "assets/fotos/3.webp",
@@ -165,19 +165,19 @@ window.SITE = {
    "credit": "Foto: Google Maps · João Moutinho"
   },
   {
-   "src": "assets/fotos/4.webp",
-   "alt": "Café servido na mesa da calçada",
-   "credit": "Foto: Google Maps · Alziria Alencar"
+   "src": "assets/fotos/ig-torta.webp",
+   "alt": "Torta de frango com café",
+   "credit": "Foto: @dapracafloripa"
   },
   {
-   "src": "assets/fotos/5.webp",
-   "alt": "Fatia de cheesecake de frutas vermelhas",
-   "credit": "Foto: Google Maps · Gustavo S Pires"
+   "src": "assets/fotos/ig-burger.webp",
+   "alt": "Hambúrguer da casa",
+   "credit": "Foto: @dapracafloripa"
   },
   {
-   "src": "assets/fotos/6.webp",
-   "alt": "Mesas na calçada de pedra portuguesa",
-   "credit": "Foto: Google Maps · Itinerário Urbano"
+   "src": "assets/fotos/2.webp",
+   "alt": "Salão com balcão e vitrine",
+   "credit": "Foto: Google Maps · Ashfaq zada"
   }
  ],
  "reviews": [
@@ -225,12 +225,13 @@ window.SITE = {
    "Sábado · 8h30 às 19h",
    "Domingo · 9h às 17h"
   ],
-  "phone": "(48) 99129-0222"
+  "phone": "(48) 99129-0222",
+  "instagram": "dapracafloripa"
  },
  "footer": "Prévia de site feita por Thomas · fotos da casa via Google Maps",
  "object": {
   "src": "assets/hero.webp",
-  "alt": "Mocha e fatia de bolo",
+  "alt": "Bolo de brigadeiro com granulado",
   "width": 460,
   "widthMobile": 270
  }
