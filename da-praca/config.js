@@ -29,11 +29,11 @@ window.SITE = {
    "text": "No casarão vermelho da Felipe Schmidt, desde 2022. Nota 4,8 no Google com mais de 2.700 avaliações.",
    "state": {
     "d": [
-     22,
+     23,
      2,
      0,
-     -12,
-     4,
+     -10,
+     3,
      1,
      1
     ],
@@ -231,9 +231,9 @@ window.SITE = {
  },
  "footer": "Prévia de site feita por Thomas · fotos da casa via Google Maps",
  "object": {
-  "src": "assets/bolo-real.webp",
+  "src": "assets/bolo-real-v2.webp",
   "alt": "Bolo de brigadeiro com granulado",
-  "width": 520,
-  "widthMobile": 300
+  "width": 460,
+  "widthMobile": 290
  }
 };
