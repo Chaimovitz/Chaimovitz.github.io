@@ -59,12 +59,12 @@ window.SITE = {
    "text": "Bolo de brigadeiro, torta de frango, hambúrguer e café quente. Tem opção vegetariana no cardápio.",
    "state": {
     "d": [
-     -22,
+     -20,
+     2,
      0,
-     120,
      24,
      -6,
-     1.12,
+     0.95,
      1
     ],
     "m": [
@@ -233,6 +233,7 @@ window.SITE = {
   "src": "assets/hero.webp",
   "alt": "Bolo de brigadeiro com granulado",
   "width": 460,
-  "widthMobile": 270
+  "widthMobile": 270,
+  "model": "assets/bolo.glb"
  }
 };
