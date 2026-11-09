@@ -12,7 +12,7 @@ export function initInfo() {
   if (CONFIG.mapQuery) {
     const q = encodeURIComponent(CONFIG.mapQuery);
     const link = $('#mapLink'); link.href = `https://www.google.com/maps/search/?api=1&query=${q}`; link.hidden = false;
-    $('#map').innerHTML = `<div class="map"><iframe title="Mapa: ${CONFIG.brand}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${q}&output=embed"></iframe></div>`;
+    if (CONFIG.mapEmbed) $('#map').innerHTML = `<div class="map"><iframe title="Mapa: ${CONFIG.brand}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${q}&output=embed"></iframe></div>`;
   }
   const ig = $('#insta');
   if (ig) {

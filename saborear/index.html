@@ -6,19 +6,19 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#121A30">
 <link rel="icon" href="data:,">
-<meta name="description" content="Prévia do site do Saborear, restaurante com vista para a praia.">
+<meta name="description" content="Prévia do site do Saborear, café na Praia da Armação, Florianópolis, desde 1999.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Saborear · Prévia do site">
-<meta property="og:description" content="Restaurante com vista para a praia. Role e o sol se põe.">
+<meta property="og:title" content="Saborear · Café na Praia da Armação · Prévia do site">
+<meta property="og:description" content="Café, salgados, doces, tortas, lanches, sucos e açaí. Role e o sol nasce.">
 <!-- capa do link no WhatsApp: o endereço tem que ser absoluto -->
 <meta property="og:image" content="https://chaimovitz.github.io/saborear/assets/img/capa.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<title>Saborear · Vista para a praia · Prévia</title>
+<title>Saborear · Café na Praia da Armação · Prévia</title>
 
 <link rel="preload" href="assets/fonts/cormorant-latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="assets/img/ia/mar-manha-2400.webp" imagesrcset="assets/img/ia/mar-manha-1280.webp 1280w, assets/img/ia/mar-manha-2400.webp 2400w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/ia/mar-noite-2400.webp" imagesrcset="assets/img/ia/mar-noite-1280.webp 1280w, assets/img/ia/mar-noite-2400.webp 2400w" imagesizes="100vw" fetchpriority="high">
 <script>document.documentElement.classList.add('js')</script>
 <style>html, body { background: #121A30; color: #FBF6EE; }</style>
 
@@ -31,6 +31,7 @@
   --color-sand: #F3E7D3;
   --color-gold: #E9A23B;
   --color-ember: #E2683C;
+  --color-brand: #9C3527;
   --color-sea: #0F2A3A;
   --color-night: #121A30;
   --color-ink: #1E1A17;
@@ -43,13 +44,13 @@
 <body class="night antialiased">
 <!-- classes ligadas pelo JS: o Tailwind do navegador já as vê no carregamento -->
 <div hidden class="is-scrolled is-hidden is-open is-on is-ready in"></div>
-<a href="#vista" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-5 focus:py-3 focus:text-ink">Pular para o conteúdo</a>
+<a href="#quintal" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-gold focus:px-5 focus:py-3 focus:text-ink">Pular para o conteúdo</a>
 
 <!-- ================= NAV ================= -->
 <header id="nav" class="nav">
   <a href="#inicio" class="brand" aria-label="Saborear, início">Saborear</a>
   <nav aria-label="Principal" class="hidden items-center gap-8 lg:flex">
-    <a class="nav-link" href="#pratos">Pratos</a>
+    <a class="nav-link" href="#vitrine">Vitrine</a>
     <a class="nav-link" href="#cardapio">Cardápio</a>
     <a class="nav-link" href="#horario">Horário</a>
     <a class="nav-link" href="#onde">Onde fica</a>
@@ -60,7 +61,7 @@
   </div>
 </header>
 <div id="menuPanel" class="menu-panel" aria-hidden="true">
-  <a class="big" href="#pratos">Pratos</a>
+  <a class="big" href="#vitrine">Vitrine</a>
   <a class="big" href="#cardapio">Cardápio</a>
   <a class="big" href="#horario">Horário</a>
   <a class="big" href="#onde">Onde fica</a>
@@ -68,13 +69,14 @@
 </div>
 
 <main>
-<!-- ================= HERO: da manhã ao pôr do sol; o sol se põe no nome ================= -->
-<section id="inicio" class="hero" aria-label="Saborear, vista para a praia">
+<!-- ================= HERO: da noite ao dia; o sol nasce no mar e o nome sobe com ele ================= -->
+<section id="inicio" class="hero" aria-label="Saborear, café na Praia da Armação">
   <div class="stage">
     <div class="sky" aria-hidden="true">
-      <img class="k-manha" src="assets/img/ia/mar-manha-2400.webp" srcset="assets/img/ia/mar-manha-1280.webp 1280w, assets/img/ia/mar-manha-2400.webp 2400w" sizes="100vw" alt="" fetchpriority="high">
+      <img class="k-noite" src="assets/img/ia/mar-noite-2400.webp" srcset="assets/img/ia/mar-noite-1280.webp 1280w, assets/img/ia/mar-noite-2400.webp 2400w" sizes="100vw" alt="" fetchpriority="high">
+      <img class="k-nascer" src="assets/img/ia/mar-tarde-2400.webp" srcset="assets/img/ia/mar-tarde-1280.webp 1280w, assets/img/ia/mar-tarde-2400.webp 2400w" sizes="100vw" alt="">
+      <img class="k-manha" src="assets/img/ia/mar-manha-2400.webp" srcset="assets/img/ia/mar-manha-1280.webp 1280w, assets/img/ia/mar-manha-2400.webp 2400w" sizes="100vw" alt="">
       <img class="k-dia" src="assets/img/ia/mar-dia-2400.webp" srcset="assets/img/ia/mar-dia-1280.webp 1280w, assets/img/ia/mar-dia-2400.webp 2400w" sizes="100vw" alt="">
-      <img class="k-tarde" src="assets/img/ia/mar-tarde-2400.webp" srcset="assets/img/ia/mar-tarde-1280.webp 1280w, assets/img/ia/mar-tarde-2400.webp 2400w" sizes="100vw" alt="">
     </div>
     <div class="sky-shade"></div>
 
@@ -83,12 +85,12 @@
     <div class="horizon-line" aria-hidden="true"></div>
     <span class="ai-tag">Imagem ilustrativa · IA</span>
 
-    <div class="hero-top rise"><p class="eyebrow">Armação · Florianópolis</p></div>
+    <div class="hero-top rise"><p class="eyebrow">Praia da Armação · Florianópolis · desde 1999</p></div>
 
     <div class="phases wrap">
       <div class="phase rise">
-        <h2>Mesa de frente para o mar.</h2>
-        <p class="scroll-hint-p">Role devagar: a manhã vira pôr do sol.</p>
+        <h2>Na Armação, o dia nasce no mar.</h2>
+        <p class="scroll-hint-p">Role devagar: o sol vai subir.</p>
         <div class="mt-6 flex flex-wrap items-center gap-3">
           <a class="btn btn-sun" data-wa="Oi, Saborear! Vim pelo site e queria falar com vocês." href="https://wa.me/?text=Oi%2C%20Saborear!" target="_blank" rel="noopener" data-magnetic><span class="wa-dot"></span>Chamar no WhatsApp</a>
           <a class="btn btn-glass" href="#cardapio">Ver o cardápio</a>
@@ -96,119 +98,129 @@
         </div>
       </div>
       <div class="phase" aria-hidden="true">
-        <h2>O dia passa devagar por aqui.</h2>
-        <p>Sol, mar e mesa posta.</p>
+        <h2>Desde 1999 na Praia da Armação.</h2>
+        <p>Café · salgados · doces · tortas · lanches · sucos · açaí</p>
       </div>
       <div class="phase" aria-hidden="true">
-        <h2>Tem hora que o prato espera o sol.</h2>
-        <p>O pôr do sol, visto da mesa.</p>
+        <h2>Uma escolha de sabor, saúde e amizade.</h2>
+        <p>Passe para um café, um açaí ou um docinho.</p>
         <div class="mt-6"><a class="btn btn-sun" data-wa="Oi, Saborear! Vocês estão abertos hoje?" href="https://wa.me/?text=Oi%2C%20Saborear!" target="_blank" rel="noopener" tabindex="-1"><span class="wa-dot"></span>Estão abertos hoje?</a></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= A VISTA ================= -->
-<section id="vista" class="night pb-24 pt-28 sm:pt-36">
-  <div class="wrap">
-    <div class="rule mb-14" style="--sun: 82%" aria-hidden="true"></div>
-    <p class="eyebrow mb-6 opacity-70" data-reveal>Saborear</p>
-    <p class="intro-big max-w-[18ch]" data-reveal>A vista é o primeiro prato. <em>O resto</em> chega à mesa.</p>
+<!-- ================= O QUINTAL (foto real) ================= -->
+<section id="quintal" class="night pb-24 pt-28 sm:pb-32 sm:pt-36">
+  <div class="wrap grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+    <div>
+      <div class="rule mb-12" style="--sun: 18%" aria-hidden="true"></div>
+      <p class="eyebrow mb-6 opacity-70" data-reveal>O nosso quintal</p>
+      <blockquote class="intro-big max-w-[16ch]" data-reveal>“Hoje o nosso quintal estava <em>assim</em>.”</blockquote>
+      <p class="mt-6 text-sm opacity-60" data-reveal>Legenda de um post do @saboreararmacao, outubro de 2025.</p>
+    </div>
+    <figure class="photo tall" data-reveal>
+      <img src="assets/img/ig/quintal.webp" alt="Mar azul visto do calçadão de pedras da Praia da Armação, com um banco de madeira" loading="lazy" width="1179" height="1449">
+      <figcaption class="credit">foto: @saboreararmacao</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- ================= PRATOS ================= -->
-<section id="pratos" class="night pb-28 sm:pb-40" aria-labelledby="pratosTitulo">
+<!-- ================= VITRINE (fotos reais) ================= -->
+<section id="vitrine" class="night pb-28 sm:pb-40" aria-labelledby="vitrineTitulo">
   <div class="wrap">
     <div class="mb-12 flex flex-wrap items-end justify-between gap-6 sm:mb-16">
-      <h2 id="pratosTitulo" class="serif text-[clamp(2.6rem,6vw,5rem)]" data-reveal>Da cozinha, <span class="serif-i text-gold">de frente pro mar</span></h2>
-      <p class="max-w-[36ch] text-[.95rem] opacity-70" data-reveal>Imagens ilustrativas, geradas por IA, para mostrar o clima. Na versão final entram as fotos dos pratos da casa, com crédito.</p>
+      <h2 id="vitrineTitulo" class="serif text-[clamp(2.6rem,6vw,5rem)]" data-reveal>Da vitrine <span class="serif-i text-gold">e do balcão</span></h2>
+      <p class="max-w-[34ch] text-[.95rem] opacity-70" data-reveal>Fotos do Instagram do Saborear e de clientes que marcaram a casa.</p>
     </div>
-    <div class="dishes">
-      <figure class="dish d1" data-reveal>
-        <div class="ph"><img src="assets/img/ia/peixe-720.webp" srcset="assets/img/ia/peixe-720.webp 720w, assets/img/ia/peixe-1200.webp 1200w" sizes="(max-width: 767px) 50vw, 40vw" alt="Peixe inteiro grelhado com limão e ervas numa mesa de madeira, mar ao fundo (imagem ilustrativa gerada por IA)" loading="lazy" width="720" height="900"><span class="ai-tag">Imagem ilustrativa · IA</span></div>
-        <figcaption><b>Peixe grelhado</b><span>exemplo</span></figcaption>
-      </figure>
-      <figure class="dish d2" data-reveal>
-        <div class="ph"><img src="assets/img/ia/camarao-720.webp" srcset="assets/img/ia/camarao-720.webp 720w, assets/img/ia/camarao-1200.webp 1200w" sizes="(max-width: 767px) 50vw, 40vw" alt="Camarão no alho numa panela de barro, com pão e limão (imagem ilustrativa gerada por IA)" loading="lazy" width="720" height="900"><span class="ai-tag">Imagem ilustrativa · IA</span></div>
-        <figcaption><b>Camarão no alho</b><span>exemplo</span></figcaption>
-      </figure>
-      <figure class="dish d3" data-reveal>
-        <div class="ph"><img src="assets/img/ia/moqueca-720.webp" srcset="assets/img/ia/moqueca-720.webp 720w, assets/img/ia/moqueca-1200.webp 1200w" sizes="(max-width: 767px) 50vw, 40vw" alt="Moqueca de peixe e camarão na panela de barro, com arroz e farofa (imagem ilustrativa gerada por IA)" loading="lazy" width="720" height="900"><span class="ai-tag">Imagem ilustrativa · IA</span></div>
-        <figcaption><b>Moqueca na panela de barro</b><span>exemplo</span></figcaption>
-      </figure>
-      <figure class="dish d4" data-reveal>
-        <div class="ph"><img src="assets/img/ia/caipirinha-720.webp" srcset="assets/img/ia/caipirinha-720.webp 720w, assets/img/ia/caipirinha-1200.webp 1200w" sizes="(max-width: 767px) 50vw, 40vw" alt="Caipirinha de limão contra o pôr do sol (imagem ilustrativa gerada por IA)" loading="lazy" width="720" height="900"><span class="ai-tag">Imagem ilustrativa · IA</span></div>
-        <figcaption><b>Caipirinha no pôr do sol</b><span>exemplo</span></figcaption>
-      </figure>
+    <div class="wall">
+      <figure class="tile" data-reveal><div class="ph"><img src="assets/img/ig/latte.webp" alt="Cappuccino com desenho no leite e um café espresso" loading="lazy" width="1179" height="1930"><span class="credit">foto: @saboreararmacao</span></div><figcaption><b>Cafés</b></figcaption></figure>
+      <figure class="tile" data-reveal><div class="ph"><img src="assets/img/ig/acai-bandeja.webp" alt="Três tigelas de açaí com banana, morango, manga e granola numa bandeja de madeira" loading="lazy" width="1179" height="1930"><span class="credit">foto: @saboreararmacao</span></div><figcaption><b>Açaí com frutas e granola</b></figcaption></figure>
+      <figure class="tile" data-reveal><div class="ph"><img src="assets/img/ig/torta-kitkat.webp" alt="Torta de chocolate com KitKat, cobertura branca e cereja" loading="lazy" width="1179" height="1037"><span class="credit">foto: @saboreararmacao</span></div><figcaption><b>Torta de KitKat</b></figcaption></figure>
+      <figure class="tile" data-reveal><div class="ph"><img src="assets/img/ig/ovo-croissant.webp" alt="Ovo na torrada com cebolinha, croissant de presunto e queijo e suco de laranja" loading="lazy" width="1179" height="1930"><span class="credit">foto: @anaosoriobb via @saboreararmacao</span></div><figcaption><b>Croissant, suco e ovo na torrada</b></figcaption></figure>
+      <figure class="tile" data-reveal><div class="ph"><img src="assets/img/ig/docinho-capuccino.webp" alt="Bebida de café em taça de vidro ao lado de uma bandeja de docinhos" loading="lazy" width="1179" height="1176"><span class="credit">foto: @saboreararmacao</span></div><figcaption><b>Que tal um docinho?</b></figcaption></figure>
+      <figure class="tile" data-reveal><div class="ph"><img src="assets/img/ig/misto.webp" alt="Misto quente tostado com queijo derretido" loading="lazy" width="1179" height="1930"><span class="credit">foto: @saboreararmacao</span></div><figcaption><b>Salgados</b></figcaption></figure>
+      <figure class="tile" data-reveal><div class="ph"><img src="assets/img/ig/vitaminas.webp" alt="Dois copos de vitamina, uma de frutas amarelas e outra de açaí" loading="lazy" width="1179" height="1176"><span class="credit">foto: @saboreararmacao</span></div><figcaption><b>Vitaminas</b></figcaption></figure>
+      <figure class="tile" data-reveal><div class="ph"><img src="assets/img/ig/lanches.webp" alt="Bandejas com sanduíche, croissant recheado, café gelado e sorvete com calda" loading="lazy" width="1179" height="1795"><span class="credit">foto: @saboreararmacao</span></div><figcaption><b>Lanches</b></figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- ================= CARDÁPIO (ilustrativo) ================= -->
+<!-- ================= CARDÁPIO ================= -->
 <section id="cardapio" class="sand py-24 sm:py-36" aria-labelledby="cardapioTitulo">
   <div class="wrap">
     <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
       <div>
-        <p class="eyebrow mb-5 text-ember">Cardápio</p>
-        <h2 id="cardapioTitulo" class="serif text-[clamp(3rem,8vw,6.5rem)]" data-reveal>O que tem <span class="serif-i">na mesa</span></h2>
+        <p class="eyebrow mb-5 text-brand">Cardápio</p>
+        <h2 id="cardapioTitulo" class="serif text-[clamp(3rem,8vw,6.5rem)]" data-reveal>O que tem <span class="serif-i">no balcão</span></h2>
       </div>
-      <p class="stamp text-ember" data-reveal>Cardápio ilustrativo · pratos e preços reais a confirmar</p>
+      <p class="stamp text-brand" data-reveal>Itens vistos no Instagram · lista completa e preços a confirmar</p>
     </div>
     <div class="menu-grid">
       <div class="menu-cat" data-reveal>
-        <h3>Para começar</h3>
-        <div class="item"><b>Camarão no alho e óleo</b><span class="price">a confirmar</span><small>Exemplo de entrada para dividir.</small></div>
-        <div class="item"><b>Isca de peixe</b><span class="price">a confirmar</span><small>Exemplo de petisco, com limão.</small></div>
-        <div class="item"><b>Pastel de camarão</b><span class="price">a confirmar</span><small>Exemplo de petisco.</small></div>
+        <h3>Cafés</h3>
+        <div class="item"><b>Espresso</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Cappuccino com arte no leite</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Café gelado</b><span class="price">a confirmar</span></div>
       </div>
       <div class="menu-cat" data-reveal>
-        <h3>Do mar</h3>
-        <div class="item"><b>Peixe grelhado</b><span class="price">a confirmar</span><small>Exemplo de prato principal, com acompanhamentos.</small></div>
-        <div class="item"><b>Moqueca para dois</b><span class="price">a confirmar</span><small>Exemplo de prato para dividir.</small></div>
-        <div class="item"><b>Arroz, pirão e farofa</b><span class="price">a confirmar</span><small>Exemplo de acompanhamentos.</small></div>
+        <h3>Açaí, sucos e vitaminas</h3>
+        <div class="item"><b>Açaí na tigela</b><span class="price">a confirmar</span><small>Com frutas (banana, morango, manga) e granola.</small></div>
+        <div class="item"><b>Vitaminas</b><span class="price">a confirmar</span><small>De 1 ou mais frutas, com opção de açaí.</small></div>
+        <div class="item"><b>Suco de laranja</b><span class="price">a confirmar</span></div>
       </div>
       <div class="menu-cat" data-reveal>
-        <h3>Para beber</h3>
-        <div class="item"><b>Caipirinha</b><span class="price">a confirmar</span><small>Exemplo de drink.</small></div>
-        <div class="item"><b>Chope e cerveja</b><span class="price">a confirmar</span><small>Exemplo.</small></div>
-        <div class="item"><b>Sucos e água de coco</b><span class="price">a confirmar</span><small>Exemplo.</small></div>
+        <h3>Lanches e salgados</h3>
+        <div class="item"><b>Croissant de presunto e queijo</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Misto quente</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Ovo na torrada</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Sanduíches</b><span class="price">a confirmar</span></div>
       </div>
-      <div class="menu-cat flex flex-col justify-between gap-8" data-reveal>
-        <div>
-          <h3>O cardápio de verdade</h3>
-          <p class="mt-5 max-w-[38ch] opacity-80">Esta parte é um exemplo de como o cardápio aparece no site. Com a lista e os preços da casa, ela vira o cardápio real, fácil de atualizar.</p>
-        </div>
-        <a class="btn btn-ink self-start" data-wa="Oi, Saborear! Vim pelo site. Pode me mandar o cardápio?" href="https://wa.me/?text=Oi%2C%20Saborear!" target="_blank" rel="noopener" data-magnetic><span class="wa-dot"></span>Pedir o cardápio no WhatsApp</a>
+      <div class="menu-cat" data-reveal>
+        <h3>Doces e tortas</h3>
+        <div class="item"><b>Torta de KitKat</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Docinhos</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Sorvete com calda</b><span class="price">a confirmar</span></div>
+      </div>
+    </div>
+    <div class="menu-real mt-16" data-reveal>
+      <figure class="photo">
+        <img src="assets/img/ig/cardapio-capa.webp" alt="Capa do cardápio do Saborear ao lado de um cappuccino" loading="lazy" width="1179" height="1930">
+        <figcaption class="credit">foto: @rafhastainb via @saboreararmacao</figcaption>
+      </figure>
+      <div>
+        <h3 class="serif-i text-[clamp(2rem,3.4vw,2.8rem)]">O cardápio de verdade</h3>
+        <p class="mt-5 max-w-[40ch] opacity-80">Estes são itens que aparecem nas fotos da casa. Com o cardápio completo e os preços, esta seção vira o cardápio do Saborear, fácil de atualizar.</p>
+        <a class="btn btn-ink mt-8" data-wa="Oi, Saborear! Vim pelo site. Pode me mandar o cardápio?" href="https://wa.me/?text=Oi%2C%20Saborear!" target="_blank" rel="noopener" data-magnetic><span class="wa-dot"></span>Pedir o cardápio no WhatsApp</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ================= HORÁRIO ================= -->
-<section id="horario" class="ember py-24 sm:py-36" aria-labelledby="horarioTitulo">
+<section id="horario" class="brand-bg py-24 sm:py-36" aria-labelledby="horarioTitulo">
   <div class="wrap hours">
     <div>
-      <p class="eyebrow mb-5">Horário</p>
-      <h2 id="horarioTitulo" class="hours-big" data-reveal>Chegue antes do <em>sol ir embora.</em></h2>
+      <p class="eyebrow mb-5 opacity-80">Horário</p>
+      <h2 id="horarioTitulo" class="hours-big" data-reveal>Passe para <em>um café.</em></h2>
       <p id="sunset" class="mt-8 text-lg font-semibold" hidden></p>
     </div>
     <div data-reveal>
       <div id="hoursRows"></div>
-      <a class="btn btn-ink mt-8" data-wa="Oi, Saborear! Vocês estão abertos hoje?" href="https://wa.me/?text=Oi%2C%20Saborear!" target="_blank" rel="noopener" data-magnetic><span class="wa-dot"></span>Perguntar se estão abertos hoje</a>
+      <a class="btn btn-sun mt-8" data-wa="Oi, Saborear! Vocês estão abertos hoje?" href="https://wa.me/?text=Oi%2C%20Saborear!" target="_blank" rel="noopener" data-magnetic><span class="wa-dot"></span>Perguntar se estão abertos hoje</a>
     </div>
   </div>
 </section>
 
 <!-- ================= ONDE FICA ================= -->
 <section id="onde" class="sea where py-24 sm:py-36" aria-labelledby="ondeTitulo">
-  <div class="where-bg" aria-hidden="true"><img src="assets/img/ia/mar-noite-1280.webp" srcset="assets/img/ia/mar-noite-1280.webp 1280w, assets/img/ia/mar-noite-2400.webp 2400w" sizes="100vw" alt="" loading="lazy"></div>
-  <span class="ai-tag">Imagem ilustrativa · IA</span>
+  <div class="where-bg" aria-hidden="true"><img src="assets/img/ia/mar-manha-1280.webp" srcset="assets/img/ia/mar-manha-1280.webp 1280w, assets/img/ia/mar-manha-2400.webp 2400w" sizes="100vw" alt="" loading="lazy"></div>
+  <span class="ai-tag">Fundo: imagem ilustrativa · IA</span>
   <div class="wrap relative grid items-center gap-10 lg:grid-cols-2">
     <div>
       <p class="eyebrow mb-5 text-gold">Onde fica</p>
-      <h2 id="ondeTitulo" class="serif text-[clamp(2.8rem,7vw,5.6rem)]" data-reveal>De frente <span class="serif-i">para a praia.</span></h2>
-      <p id="address" class="mt-6 max-w-[34ch] text-lg opacity-90" data-reveal>Endereço <span class="tbc" style="background: rgb(255 255 255 / .15)">a confirmar</span></p>
+      <h2 id="ondeTitulo" class="serif text-[clamp(2.8rem,7vw,5.6rem)]" data-reveal>Na Praia <span class="serif-i">da Armação.</span></h2>
+      <p id="address" class="mt-6 max-w-[34ch] text-lg opacity-90" data-reveal>Armação do Pântano do Sul, Florianópolis · endereço exato <span class="tbc" style="background: rgb(255 255 255 / .15)">a confirmar</span></p>
       <div class="mt-8 flex flex-wrap gap-3" data-reveal>
         <a id="mapLink" class="btn btn-sun" href="https://www.google.com/maps" target="_blank" rel="noopener" hidden>Abrir no mapa</a>
         <a class="btn btn-glass" data-wa="Oi, Saborear! Vim pelo site. Como chego aí?" href="https://wa.me/?text=Oi%2C%20Saborear!" target="_blank" rel="noopener"><span class="wa-dot"></span>Como chegar? Pergunte no WhatsApp</a>
@@ -216,9 +228,8 @@
     </div>
     <div id="map" data-reveal>
       <figure class="postcard">
-        <img src="assets/img/ia/mar-tarde-1280.webp" alt="Pôr do sol sobre o mar (imagem ilustrativa gerada por IA)" loading="lazy" width="1280" height="724">
-        <span class="ai-tag">Imagem ilustrativa · IA</span>
-        <p>O mapa do Google com o pino da casa entra aqui assim que o endereço for confirmado.</p>
+        <img src="assets/img/ig/fachada.webp" alt="Fachada do Saborear no fim da tarde, com letreiro e mesas na calçada" loading="lazy" width="1179" height="1320">
+        <figcaption class="credit">foto: @saboreararmacao</figcaption>
       </figure>
     </div>
   </div>
@@ -231,7 +242,7 @@
     <div class="grid gap-10 sm:grid-cols-3">
       <div>
         <p class="eyebrow mb-3 opacity-60">Instagram</p>
-        <a id="insta" class="text-xl font-semibold underline-offset-4 hover:underline" href="#" target="_blank" rel="noopener">@ a confirmar</a>
+        <a id="insta" class="text-xl font-semibold underline-offset-4 hover:underline" href="https://instagram.com/saboreararmacao" target="_blank" rel="noopener">@saboreararmacao</a>
       </div>
       <div>
         <p class="eyebrow mb-3 opacity-60">WhatsApp</p>
@@ -239,7 +250,7 @@
       </div>
       <div class="text-sm opacity-60">
         <p>Prévia de site, sem compromisso. Nada aqui foi confirmado pela casa ainda.</p>
-        <p class="mt-2">Imagens ilustrativas geradas por IA. As fotos reais entram com o crédito do perfil.</p>
+        <p class="mt-2">Fotos: @saboreararmacao e clientes que marcaram a casa. A vista do topo e o fundo de "Onde fica" são imagens ilustrativas geradas por IA.</p>
       </div>
     </div>
   </div>
