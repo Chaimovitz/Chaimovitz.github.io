@@ -170,6 +170,12 @@
   .foot-name { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: clamp(5rem, 22vw, 20rem); line-height: .8; letter-spacing: -.035em; color: transparent;
     background: linear-gradient(180deg, #F6C46B 0%, #E2683C 48%, rgb(226 104 60 / 0) 100%); -webkit-background-clip: text; background-clip: text; }
 
+  /* selo da prévia (guard.js) e imagens sem arrastar */
+  .seal { position: fixed; z-index: 60; left: 1rem; bottom: 1rem; pointer-events: none; font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: .45rem .8rem; border-radius: 999px; background: rgb(12 16 30 / .6); color: rgb(251 246 238 / .9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  img { -webkit-user-drag: none; user-select: none; -webkit-touch-callout: none; }
+  @media (max-width: 767px) { .seal { left: 50%; translate: -50% 0; bottom: auto; top: 4.1rem; font-size: .58rem; } }
+
   /* barra de WhatsApp fixa no celular */
   .dock { position: fixed; z-index: 40; left: .75rem; right: .75rem; bottom: calc(.75rem + env(safe-area-inset-bottom)); display: none; }
   .dock .btn { width: 100%; padding: 1.1rem; box-shadow: 0 1rem 2rem -.8rem rgb(0 0 0 / .55); }
