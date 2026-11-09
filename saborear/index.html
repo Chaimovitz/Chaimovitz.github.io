@@ -93,7 +93,7 @@
         <p class="scroll-hint-p">Role devagar: o sol vai subir.</p>
         <div class="mt-6 flex flex-wrap items-center gap-3">
           <a class="btn btn-sun" data-wa="Oi, Saborear! Vim pelo site e queria falar com vocês." href="https://wa.me/?text=Oi%2C%20Saborear!" target="_blank" rel="noopener" data-magnetic><span class="wa-dot"></span>Chamar no WhatsApp</a>
-          <a class="btn btn-glass" href="#cardapio">Ver o cardápio</a>
+          <a class="btn btn-glass" href="#cardapio">Montar meu pedido</a>
           <span class="scroll-hint ml-1 hidden sm:inline">role ↓</span>
         </div>
       </div>
@@ -154,33 +154,36 @@
         <p class="eyebrow mb-5 text-brand">Cardápio</p>
         <h2 id="cardapioTitulo" class="serif text-[clamp(3rem,8vw,6.5rem)]" data-reveal>O que tem <span class="serif-i">no balcão</span></h2>
       </div>
-      <p class="stamp text-brand" data-reveal>Itens vistos no Instagram · lista completa e preços a confirmar</p>
+      <div class="flex flex-col items-start gap-3" data-reveal>
+        <p class="stamp text-brand">Itens vistos no Instagram · lista completa e preços a confirmar</p>
+        <p class="order-tip">Toque no <span>+</span> para montar o pedido. Ele chega pronto no WhatsApp do Saborear.</p>
+      </div>
     </div>
     <div class="menu-grid">
       <div class="menu-cat" data-reveal>
         <h3>Cafés</h3>
-        <div class="item"><b>Espresso</b><span class="price">a confirmar</span></div>
-        <div class="item"><b>Cappuccino com arte no leite</b><span class="price">a confirmar</span></div>
-        <div class="item"><b>Café gelado</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Espresso</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Espresso" aria-label="Adicionar Espresso ao pedido">+</button></div>
+        <div class="item"><b>Cappuccino com arte no leite</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Cappuccino com arte no leite" aria-label="Adicionar Cappuccino com arte no leite ao pedido">+</button></div>
+        <div class="item"><b>Café gelado</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Café gelado" aria-label="Adicionar Café gelado ao pedido">+</button></div>
       </div>
       <div class="menu-cat" data-reveal>
         <h3>Açaí, sucos e vitaminas</h3>
-        <div class="item"><b>Açaí na tigela</b><span class="price">a confirmar</span><small>Com frutas (banana, morango, manga) e granola.</small></div>
-        <div class="item"><b>Vitaminas</b><span class="price">a confirmar</span><small>De 1 ou mais frutas, com opção de açaí.</small></div>
-        <div class="item"><b>Suco de laranja</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Açaí na tigela</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Açaí na tigela" aria-label="Adicionar Açaí na tigela ao pedido">+</button><small>Com frutas (banana, morango, manga) e granola.</small></div>
+        <div class="item"><b>Vitaminas</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Vitaminas" aria-label="Adicionar Vitaminas ao pedido">+</button><small>De 1 ou mais frutas, com opção de açaí.</small></div>
+        <div class="item"><b>Suco de laranja</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Suco de laranja" aria-label="Adicionar Suco de laranja ao pedido">+</button></div>
       </div>
       <div class="menu-cat" data-reveal>
         <h3>Lanches e salgados</h3>
-        <div class="item"><b>Croissant de presunto e queijo</b><span class="price">a confirmar</span></div>
-        <div class="item"><b>Misto quente</b><span class="price">a confirmar</span></div>
-        <div class="item"><b>Ovo na torrada</b><span class="price">a confirmar</span></div>
-        <div class="item"><b>Sanduíches</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Croissant de presunto e queijo</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Croissant de presunto e queijo" aria-label="Adicionar Croissant de presunto e queijo ao pedido">+</button></div>
+        <div class="item"><b>Misto quente</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Misto quente" aria-label="Adicionar Misto quente ao pedido">+</button></div>
+        <div class="item"><b>Ovo na torrada</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Ovo na torrada" aria-label="Adicionar Ovo na torrada ao pedido">+</button></div>
+        <div class="item"><b>Sanduíches</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Sanduíches" aria-label="Adicionar Sanduíches ao pedido">+</button></div>
       </div>
       <div class="menu-cat" data-reveal>
         <h3>Doces e tortas</h3>
-        <div class="item"><b>Torta de KitKat</b><span class="price">a confirmar</span></div>
-        <div class="item"><b>Docinhos</b><span class="price">a confirmar</span></div>
-        <div class="item"><b>Sorvete com calda</b><span class="price">a confirmar</span></div>
+        <div class="item"><b>Torta de KitKat</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Torta de KitKat" aria-label="Adicionar Torta de KitKat ao pedido">+</button></div>
+        <div class="item"><b>Docinhos</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Docinhos" aria-label="Adicionar Docinhos ao pedido">+</button></div>
+        <div class="item"><b>Sorvete com calda</b><span class="price">a confirmar</span><button class="add" type="button" data-add="Sorvete com calda" aria-label="Adicionar Sorvete com calda ao pedido">+</button></div>
       </div>
     </div>
     <div class="menu-real mt-16" data-reveal>
@@ -256,6 +259,28 @@
   </div>
   <p class="foot-name mt-16 text-center" aria-hidden="true">Saborear</p>
 </footer>
+
+<!-- pedido pelo WhatsApp (js/modules/order.js) -->
+<div id="cart" class="cart" hidden>
+  <button id="cartOpen" class="cart-bar" type="button"><span id="cartCount">0 itens</span><b>Revisar e enviar pelo WhatsApp</b></button>
+</div>
+<dialog id="orderSheet" class="sheet" aria-labelledby="sheetTitle">
+  <form method="dialog" class="sheet-in">
+    <div class="flex items-start justify-between gap-4">
+      <h2 id="sheetTitle" class="serif-i text-[2.2rem]">Seu pedido</h2>
+      <button class="sheet-x" value="close" aria-label="Fechar">Fechar</button>
+    </div>
+    <ul id="orderList" class="order-list"></ul>
+    <label class="field"><span>Seu nome</span><input id="orderName" type="text" autocomplete="given-name" placeholder="Como te chamamos?"></label>
+    <fieldset class="field"><legend>Como prefere</legend>
+      <label class="opt"><input type="radio" name="orderWay" value="comer aí" checked> Comer aí</label>
+      <label class="opt"><input type="radio" name="orderWay" value="retirar no balcão"> Retirar no balcão</label>
+    </fieldset>
+    <label class="field"><span>Observação (opcional)</span><textarea id="orderNote" rows="2" placeholder="Ex.: açaí sem granola"></textarea></label>
+    <a id="orderSend" class="btn btn-sun mt-2 w-full" href="#" target="_blank" rel="noopener"><span class="wa-dot"></span>Enviar pedido pelo WhatsApp</a>
+    <p class="mt-3 text-xs opacity-60">O pedido chega pronto no WhatsApp do Saborear. Preço e tempo de preparo são confirmados pela casa na conversa.</p>
+  </form>
+</dialog>
 
 <div id="dock" class="dock">
   <a class="btn btn-sun" data-wa="Oi, Saborear! Vim pelo site e queria falar com vocês." href="https://wa.me/?text=Oi%2C%20Saborear!" target="_blank" rel="noopener"><span class="wa-dot"></span>Chamar no WhatsApp</a>

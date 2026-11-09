@@ -7,7 +7,8 @@ import { initReveal } from './modules/reveal.js';
 import { initMagnetic } from './modules/magnetic.js';
 import { initDock } from './modules/dock.js';
 import { initGuard } from './modules/guard.js';
+import { initOrder } from './modules/order.js';
 
 // Cada módulo é independente: se um falhar, o resto do site continua.
 const boot = fn => { try { fn(); } catch (err) { console.error(`[${fn.name}]`, err); } };
-[initGuard, initWhats, initInfo, initNav, initHero, initReveal, initMagnetic, initDock, initReady].forEach(boot);
+[initGuard, initWhats, initInfo, initNav, initHero, initReveal, initMagnetic, initDock, initOrder, initReady].forEach(boot);
